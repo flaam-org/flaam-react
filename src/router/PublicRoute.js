@@ -1,20 +1,11 @@
 import React from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Redirect, Route } from 'react-router-dom'
+import { selectIsLoggedIn } from '../slices/authSlice'
 
 const PublicRoute = ({ component: Component, ...rest }) => {
 
-  const isLoggedIn = true
-
-  /**
-   *            NEEDED FUNCTIONALITY
-   *
-   * if the user is logged in redirect to the '/'
-   */
-
-  //
-
-
+  const isLoggedIn = useSelector(selectIsLoggedIn)
 
   return (
     <Route
