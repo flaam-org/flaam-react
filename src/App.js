@@ -1,11 +1,8 @@
 import React from 'react';
+import RoutingComp from './router';
 
 function App() {
-  return (
-    <div className="w-40 h-40 ml-20 mt-20 p-5 bg-red-500" >
-    something
-    </div>
-  );
+  return <RoutingComp />;
 }
 
 export default App;
