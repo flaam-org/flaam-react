@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ThemeChangeFAB from '../../components/ThemeChangeFAB'
 import { routes } from '../../utils/routeStrings'
 
 const classes = {
-  INPUT: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50',
-  BTN: 'mt-1 p-3 block w-full bg-blue-200 rounded hover:bg-blue-300 text-black font-semi-bold text-xl'
+  INPUT: 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-700 dark:focus:bg-gray-600',
+  BTN: 'mt-1 p-3 block w-full bg-blue-200 rounded hover:bg-blue-300 text-black font-semi-bold text-xl dark:bg-blue-900 dark:hover:bg-blue-800 dark:text-white '
 }
 
 function Signup() {
   return (
-    <div className="flex w-screen h-screen">
-      <div className="h-full w-full lg:w-1/2 flex items-center justify-center ">
+    <div className="flex w-screen h-screen dark:text-white">
+      <div className="h-full w-full lg:w-1/2 flex items-center justify-center dark:bg-gray-800">
 
         <div className="w-10/12 md:w-8/12" >
           <h2 className="text-4xl mb-10" >
@@ -32,7 +33,9 @@ function Signup() {
         </div>
 
       </div>
-      <div className="h-full hidden lg:block w-1/2 bg-blue-200" ></div>
+      <div className="h-full hidden lg:block w-1/2 bg-blue-200 dark:bg-blue-900" ></div>
+
+      <ThemeChangeFAB />
 
     </div>
   )
