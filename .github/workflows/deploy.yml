@@ -1,8 +1,8 @@
-name: CI-Staging
+name: CI
 
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -10,7 +10,6 @@ jobs:
     name: Deploy Staging (Master branch)
     env:
       API_ENDPONT: ""
-      PUSHER_KEY: ${{ secrets.STAGING_VUE_APP_PUSHER_KEY }}
     steps:
     - uses: actions/checkout@v2
 
