@@ -1,0 +1,33 @@
+name: CI-Staging
+
+on:
+  push:
+    branches: [ test ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Staging (Master branch)
+    env:
+      API_ENDPONT: ""
+      PUSHER_KEY: ${{ secrets.STAGING_VUE_APP_PUSHER_KEY }}
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: package-lock.json
+
+    - name: Install packages
+      run: 'npm install'
+
+    - name: Build APP
+      run: 'npm run build'
+
+
+    - name: Deploy to Cloudflare Workers with Wrangler
+      uses: cloudflare/wrangler-action@1.1.0
+      with:
+        apiToken: ${{ secrets.CF_API_TOKEN }}
