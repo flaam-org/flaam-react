@@ -72,7 +72,7 @@ export const loginAsync = (username, password) => async dispatch => {
     console.log(error)
   }
   finally {
-    setLoading(false)
+    dispatch(setLoading(false))
   }
 
 
