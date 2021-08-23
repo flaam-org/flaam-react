@@ -78,6 +78,57 @@ export const loginAsync = (username, password) => async dispatch => {
 
 }
 
+export const manageLoginAsync = () => async dispatch => {
+
+  const access_token = localStorage.getItem("access_token")
+  const refresh_token = localStorage.getItem("refresh_token")
+
+  if (!access_token || !refresh_token) {
+    dispatch(setIsLoggedIn(false))
+    return
+  }
+
+  try {
+
+    // verify access token
+    const accessRes = await fetchWrapper.post(endpoints.VERIFY_TOKEN, {
+      "token": access_token
+    })
+
+    if (accessRes.ok) {
+      dispatch(setIsLoggedIn(true))
+      return
+    }
+
+    // if access token is not valid then check refresh token and get new access token
+    const refreshRes = await fetchWrapper.post(endpoints.VERIFY_TOKEN, {
+      "token": refresh_token
+    })
+
+    if (refreshRes.ok) {
+      const newAccessRes = await fetchWrapper.post(endpoints.REFRESH_TOKEN, {
+        "refresh": refresh_token
+      })
+      const data = await newAccessRes.json()
+
+      if (newAccessRes.ok) {
+        localStorage.setItem('access_token', data?.access)
+        dispatch(setIsLoggedIn(true))
+        return
+      }
+    }
+
+    // if refresh token is also not valid return to login page
+    dispatch(setIsLoggedIn(false))
+    return
+
+
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
