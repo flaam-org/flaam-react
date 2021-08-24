@@ -5,6 +5,7 @@ import ThemeChangeFAB from '../../components/ThemeChangeFAB'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAsync, selectLoading, selectLoginError, setLoginError } from "../../slices/authSlice"
 import { XIcon } from "@heroicons/react/solid"
+import Input from '../../components/formComponents/Input'
 
 
 const classes = {
@@ -62,14 +63,10 @@ function Login() {
             Login
           </h2>
           <form onSubmit={submitHandler} >
-            <label className="block mb-5" >
-              <span>Username</span>
-              <input type="text" className={classes.INPUT} value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <label className="block mb-10" >
-              <span>Password</span>
-              <input type="password" className={classes.INPUT} value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
+
+            <Input type="text" label="Username" labelClassName="block mb-3" value={username} onChange={(e) => setUsername(e.target.value)} className="block mt-1 w-full" required />
+
+            <Input type="password" label="Password" labelClassName="block mb-6" value={password} onChange={(e) => setPassword(e.target.value)} className="block mt-1 w-full" required />
 
             <button type="submit" className={classes.BTN} disabled={loading}>
               {loading && (
