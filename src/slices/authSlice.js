@@ -133,6 +133,9 @@ export const logout = () => dispatch => {
 
 
   dispatch(setIsLoggedIn(false))
+  dispatch(setLoginError(""))
+  dispatch(setSignupError(""))
+  dispatch(setLoading(false))
 }
 
 
