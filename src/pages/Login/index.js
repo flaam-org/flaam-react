@@ -5,9 +5,9 @@ import ThemeChangeFAB from '../../components/ThemeChangeFAB'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAsync, selectLoading, selectLoginError, setLoginError } from "../../slices/authSlice"
 import { XIcon } from "@heroicons/react/solid"
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import * as Yup from "yup"
-import TextError from "../../components/formComponents/TextError"
+import { InputField } from '../../components/formComponents/Input'
 
 
 const classes = {
@@ -63,20 +63,11 @@ function Login() {
             onSubmit={(values) => dispatch(loginAsync(values))}
             validationSchema={validationSchema}
           >
-            {(formProps) => (
               <Form>
 
-                <label htmlFor="username" className="block mb-3" >
-                  Username
-                  <Field type="text" id="username" name="username" className={`${classes.INPUT(formProps.errors.username, formProps.touched.username)} w-full mt-1`} />
-                  <ErrorMessage name="username" component={TextError} />
-                </label>
+                <InputField label="username" name="username" type="text" labelClassName="block mb-3" className="w-full mt-1" />
 
-                <label htmlFor="password" className="block mb-6">
-                  Password
-                  <Field type="password" id="password" name="password" className={`${classes.INPUT(formProps.errors.password, formProps.touched.password)} w-full mt-1`} />
-                  <ErrorMessage name="password" component={TextError} />
-                </label>
+                <InputField label="password" name="password" type="password" labelClassName="block mb-6" className="w-full mt-1" />
 
                 <button type="submit" className={classes.BTN} disabled={loading}>
                   {loading && (
@@ -94,9 +85,6 @@ function Login() {
                 </button>
                 <p className="w-full mt-7 text-sm text-center" >Don't have an account ? <Link to={routes.SIGNUP} className="text-green-600 hover:text-green-500" >SignUp</Link> </p>
               </Form>
-            )}
-
-
 
           </Formik>
 

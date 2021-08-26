@@ -1,53 +1,35 @@
-import React, { useState } from 'react'
-import { InformationCircleIcon } from '@heroicons/react/outline'
+import { useField } from "formik"
+import React from "react"
+import TextError from "../TextError"
 
-function Input({ label, className, labelClassName, type, required, value, ...rest }) {
+const classes = {
+  INPUT: (error, touched) => {
+    const common = "block rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:focus:bg-gray-600"
 
-  const [error, setError] = useState("")
-
-  function handleBlur(e) {
-    e.preventDefault()
-
-    if (required)
-      if (!value) {
-        setError("This field is required")
-      }
+    if (error && touched) {
+      return `border-red-500/50 ${common} `
+    }
+    else {
+      return `${common} border-gray-300 dark:border-gray-700 `
+    }
   }
-
-  function handleFocus(e) {
-    e.preventDefault()
-
-    if (!!error) setError("")
-  }
-
-  return (
-    <label className={labelClassName}>
-      <span>{label}</span>
-      <input
-        {...rest}
-        type={type}
-        value={value}
-        className={`rounded-md border ${!!error ? "border-red-500/60 dark:border-red-400/60" : "border-gray-300 focus:border-indigo-300 dark:border-gray-700"} shadow-sm  focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700  dark:focus:bg-gray-600 ${className}`}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        required={!!required}
-      />
-
-      <span className="text-xs text-red-500 px-2 align-middle">
-        {!!error && (
-          <>
-            <span className="inline-block">
-              <InformationCircleIcon className="w-4 inline mr-2" />
-            </span>
-            <span className="inline-block">
-              {error}
-            </span>
-          </>
-        )}
-      </span>
-
-    </label>
-  )
 }
 
-export default Input
+
+export const InputField = ({ label, labelClassName, className, ...props }) => {
+
+  const [field, meta] = useField(props)
+
+  return (
+    <label htmlFor={label} className={labelClassName} >
+      <span className="capitalize">{label}</span>
+      <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} ${className}`} />
+      {meta.touched && meta.error && (
+        <TextError>
+          {meta.error}
+        </TextError>
+      )}
+    </label>
+  )
+
+}
