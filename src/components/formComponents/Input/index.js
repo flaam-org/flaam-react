@@ -60,7 +60,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
       setCurrentInputState(INPUT_STATES.WAITING)
 
-      if (!meta.error || meta.error === errMsg) {
+      if ((!meta.error || meta.error === errMsg) && currentValue) {
         setCurrentInputState(INPUT_STATES.CHECKING)
 
         try {
