@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 import ThemeChangeFAB from '../../components/ThemeChangeFAB'
 import { routes } from '../../utils/routeStrings'
 import * as Yup from "yup"
-import { InputField } from '../../components/formComponents/Input'
+import { AvailabilityCheckInput, InputField } from '../../components/formComponents/Input'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectLoading, signupAsync } from '../../slices/authSlice'
+import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
 
 const initialValues = {
   first_name: "",
@@ -18,8 +21,8 @@ const initialValues = {
 const validationSchema = Yup.object().shape({
   first_name: Yup.string().required("This field is required."),
   last_name: Yup.string(),
-  email: Yup.string().required("This field is required.").email("not a valid email format."),
-  username: Yup.string().required("This field is required."),
+  email: Yup.string().required("email field is required.").email("not a valid email format."),
+  username: Yup.string().required("username field is required."),
   password: Yup.string().required("This field is required."),
   confirm_password: Yup.string().required("This field is required.")
 })
@@ -30,6 +33,9 @@ const classes = {
 }
 
 function Signup() {
+
+  const loading = useSelector(selectLoading)
+  const dispatch = useDispatch()
 
 
   return (
@@ -45,8 +51,12 @@ function Signup() {
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              console.log(values)
+              if (values.password === values.confirm_password) {
+                const { confirm_password, ...toSend } = values
+                dispatch(signupAsync(toSend))
+              }
             }}
+            validateOnChange={true}
           >
             <Form>
               <div className="flex justify-between flex-wrap" >
@@ -57,15 +67,20 @@ function Signup() {
 
               </div>
 
-              <InputField label="email" name="email" type="email" labelClassName="block mb-2 w-full" className="block mt-1 w-full" />
+              <AvailabilityCheckInput label="email" name="email" type="email" labelClassName="block mb-2 w-full" className="block" />
 
-              <InputField label="username" name="username" type="text" labelClassName="block mb-2 w-full" className="block mt-1 w-full" />
+              <AvailabilityCheckInput label="username" name="username" type="text" labelClassName="block mb-2 w-full" className="block" />
 
               <InputField label="password" name="password" type="password" labelClassName="block mb-2  w-full" className="block mt-1 w-full" />
 
               <InputField label="Confirm password" name="confirm_password" type="password" labelClassName="block mb-6 w-full" className="block mt-1 w-full" />
 
-              <button type="submit" className={classes.BTN} >SignUp</button>
+              <button type="submit" className={classes.BTN} disabled={loading}>
+                {loading && <LoadingSpinner />}
+                <span className="inline-block align-middle">
+                  SignUp
+                </span>
+              </button>
 
             </Form>
           </Formik>

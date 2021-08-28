@@ -126,6 +126,37 @@ export const manageLoginAsync = () => async dispatch => {
   }
 }
 
+export const signupAsync = (data) => async dispatch => {
+  dispatch(setLoading(true))
+
+  try {
+
+    const res = await fetchWrapper.post(endpoints.SIGNUP_USER,data)
+
+    const resData = await res.json()
+
+    if(res.ok) {
+
+      localStorage.setItem('refresh_token', resData?.access)
+      localStorage.setItem('access_token', resData?.refresh)
+
+      dispatch(setIsLoggedIn(true))
+
+    }
+
+    if(res.status === 400) {
+      dispatch(setSignupError("some invalid values in the form"))
+    }
+
+
+  } catch (error) {
+    console.log(error);
+
+  } finally {
+    dispatch(setLoading(false))
+  }
+
+}
 
 export const logout = () => dispatch => {
   localStorage.removeItem("access_token")
