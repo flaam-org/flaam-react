@@ -53,15 +53,12 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
     const currentValue = e.target.value
     helpers.setValue(currentValue)
-    console.log(currentValue);
-
 
     if (checkTimer) clearTimeout(checkTimer)
 
     const timer = setTimeout(async () => {
 
       setCurrentInputState(INPUT_STATES.WAITING)
-
 
       if (!meta.error || meta.error === errMsg) {
         setCurrentInputState(INPUT_STATES.CHECKING)
@@ -90,15 +87,13 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
         } catch (err) {
           console.log(err);
         }
-
+        finally {
+          setCheckTimer(undefined)
+        }
       }
-
-
-
     }, 1000)
 
     setCheckTimer(timer)
-
   }
 
   useEffect(() => {
