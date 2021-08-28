@@ -1,4 +1,4 @@
-export const host = "http://127.0.0.1:8000/"
+export const host = "https://flaam-api.herokuapp.com/"
 
 export const endpoints = {
   LOGIN_USER: `${host}api/v1/accounts/login`,
