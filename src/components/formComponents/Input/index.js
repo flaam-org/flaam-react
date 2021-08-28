@@ -1,5 +1,5 @@
 import { useField } from "formik"
-import React, { useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import TextError from "../TextError"
 import { CheckIcon, XIcon } from "@heroicons/react/solid"
 import LoadingSpinner from "../../utilComponents/LoadingSpinner"
@@ -27,39 +27,33 @@ export const InputField = ({ label, labelClassName, className, ...props }) => {
     <label htmlFor={label} className={labelClassName} >
       <span className="capitalize">{label}</span>
       <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
-      {meta.touched && meta.error && (
-        <TextError>
-          {meta.error}
-        </TextError>
-      )}
+      <TextError touched={meta.touched} error={meta.error} />
     </label>
   )
 }
 
 
-
+const INPUT_STATES = {
+  CHECKING: 'checking',
+  AVAILABLE: 'available',
+  UNAVAILABLE: 'unavailable',
+  WAITING: 'waiting'
+}
 
 
 export const AvailabilityCheckInput = ({ label, labelClassName, className, dataType, ...props }) => {
 
-  const INPUT_STATES = {
-    CHECKING: 'checking',
-    AVAILABLE: 'available',
-    UNAVAILABLE: 'unavailable',
-    WAITING: 'waiting'
-  }
-
   const [field, meta, helpers] = useField(props)
   const [currentInputState, setCurrentInputState] = useState(INPUT_STATES.WAITING)
   const [checkTimer, setCheckTimer] = useState(undefined)
+
+  const errMsg = useMemo(() => `This ${props.name} is already taken.`, [props.name])
 
   function changeHandler(e) {
 
     const currentValue = e.target.value
     helpers.setValue(currentValue)
     console.log(currentValue);
-
-
 
 
     if (checkTimer) clearTimeout(checkTimer)
@@ -69,7 +63,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
       setCurrentInputState(INPUT_STATES.WAITING)
 
 
-      if (!meta.error) {
+      if (!meta.error || meta.error === errMsg) {
         setCurrentInputState(INPUT_STATES.CHECKING)
 
         try {
@@ -78,13 +72,15 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
           switch (res.status) {
             case 204: setCurrentInputState(INPUT_STATES.UNAVAILABLE);
-              helpers.setError(`This ${props.name} is already taken`)
+              helpers.setError(errMsg)
+              helpers.setTouched(true)
               break;
 
             case 400: setCurrentInputState(INPUT_STATES.WAITING)
               break;
 
             case 404: setCurrentInputState(INPUT_STATES.AVAILABLE)
+              helpers.setError(undefined)
               break;
 
             default: setCurrentInputState(INPUT_STATES.WAITING)
@@ -105,6 +101,15 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
   }
 
+  useEffect(() => {
+
+    if (!meta.error) {
+      if (currentInputState === INPUT_STATES.UNAVAILABLE)
+        helpers.setError(errMsg)
+    }
+
+  }, [currentInputState, helpers, meta.error, errMsg])
+
 
   return (
     <label htmlFor={label} className={labelClassName} >
@@ -121,11 +126,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
         </span>
       </div>
-      {meta.touched && meta.error && (
-        <TextError>
-          {meta.error}
-        </TextError>
-      )}
+      <TextError touched={meta.touched} error={meta.error} />
     </label>
   )
 
