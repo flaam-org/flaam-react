@@ -38,11 +38,11 @@ function Login() {
   const loading = useSelector(selectLoading)
   const dispatch = useDispatch()
 
-
   return (
-    <div className="flex w-screen h-screen dark:text-white ">
-      <div className="h-full hidden lg:block w-1/2 bg-green-300 dark:bg-green-600" ></div>
-      <div className="h-full w-full lg:w-1/2 flex items-center justify-center dark:bg-gray-800 ">
+    <div className="w-full min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 grid-rows-1 dark:text-white">
+
+      <div className="min-h-[100vh] flex-grow hidden lg:block bg-green-300 dark:bg-green-600" />
+      <div className="min-h-[100vh] flex-grow flex items-center justify-center dark:bg-gray-800 py-10" >
 
         <div className="w-10/12 md:w-8/12" >
           {!!loginError && (
@@ -64,21 +64,21 @@ function Login() {
             onSubmit={(values) => dispatch(loginAsync(values))}
             validationSchema={validationSchema}
           >
-              <Form>
+            <Form>
 
-                <InputField label="username" name="username" type="text" labelClassName="block mb-3" className="w-full mt-1" />
+              <InputField label="username" name="username" type="text" labelClassName="block mb-3" className="w-full mt-1" />
 
-                <InputField label="password" name="password" type="password" labelClassName="block mb-6" className="w-full mt-1" />
+              <InputField label="password" name="password" type="password" labelClassName="block mb-6" className="w-full mt-1" />
 
-                <button type="submit" className={classes.BTN} disabled={loading}>
-                  {loading && <LoadingSpinner />}
+              <button type="submit" className={classes.BTN} disabled={loading}>
+                {loading && <LoadingSpinner />}
 
-                  <span className="inline-block align-middle">
-                    Login
-                  </span>
-                </button>
-                <p className="w-full mt-7 text-sm text-center" >Don't have an account ? <Link to={routes.SIGNUP} className="text-green-600 hover:text-green-500" >SignUp</Link> </p>
-              </Form>
+                <span className="inline-block align-middle">
+                  Login
+                </span>
+              </button>
+              <p className="w-full mt-7 text-sm text-center" >Don't have an account ? <Link to={routes.SIGNUP} className="text-green-600 hover:text-green-500" >SignUp</Link> </p>
+            </Form>
 
           </Formik>
 

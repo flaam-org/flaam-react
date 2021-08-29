@@ -39,8 +39,9 @@ function Signup() {
 
 
   return (
-    <div className="flex w-screen h-screen dark:text-white">
-      <div className="h-full w-full lg:w-1/2 flex items-center justify-center dark:bg-gray-800">
+    <div className="w-full min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 grid-rows-1 dark:text-white">
+
+      <div className="min-h-[100vh] flex-grow flex items-center justify-center dark:bg-gray-800 py-10">
 
         <div className="w-10/12 md:w-8/12" >
           <h2 className="text-4xl mb-7" >
@@ -90,7 +91,7 @@ function Signup() {
         </div>
 
       </div>
-      <div className="h-full hidden lg:block w-1/2 bg-blue-200 dark:bg-blue-900" ></div>
+      <div className="min-h-[100vh] flex-grow hidden lg:block bg-blue-200 dark:bg-blue-900" ></div>
 
       <ThemeChangeFAB />
 
