@@ -4,11 +4,11 @@ import { routes } from '../../utils/routeStrings'
 import ThemeChangeFAB from '../../components/ThemeChangeFAB'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAsync, selectLoading, selectLoginError, setLoginError } from "../../slices/authSlice"
-import { XIcon } from "@heroicons/react/solid"
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { InputField } from '../../components/formComponents/Input'
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
+import Alert from '../../components/utilComponents/Alert'
 
 
 const classes = {
@@ -45,15 +45,8 @@ function Login() {
       <div className="min-h-[100vh] flex-grow flex items-center justify-center dark:bg-gray-800 py-10" >
 
         <div className="w-10/12 md:w-8/12" >
-          {!!loginError && (
-            <div className="flex mb-10 text-center bg-red-500/30 px-3 py-2 rounded-md border border-red-500 text-red-600 text-lg " >
-              <p className="w-11/12" >{loginError}</p>
-              <div className="w-1/12 flex items-center justify-center" >
-                <XIcon className="w-4/6 cursor-pointer" onClick={() => dispatch(setLoginError(null))} />
-              </div>
-            </div>
-          )}
 
+        <Alert message={loginError} onClose={() => dispatch(setLoginError(""))} />
 
           <h2 className="text-4xl mb-10" >
             Login
