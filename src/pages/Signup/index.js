@@ -6,8 +6,9 @@ import { routes } from '../../utils/routeStrings'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField } from '../../components/formComponents/Input'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectLoading, signupAsync } from '../../slices/authSlice'
+import { selectLoading, selectSignupError, setSignupError, signupAsync } from '../../slices/authSlice'
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
+import Alert from '../../components/utilComponents/Alert'
 
 const initialValues = {
   first_name: "",
@@ -34,6 +35,7 @@ const classes = {
 
 function Signup() {
 
+  const SignupError = useSelector(selectSignupError)
   const loading = useSelector(selectLoading)
   const dispatch = useDispatch()
 
@@ -42,6 +44,8 @@ function Signup() {
     <div className="w-full min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 grid-rows-1 dark:text-white">
 
       <div className="min-h-[100vh] flex-grow flex items-center justify-center dark:bg-gray-800 py-10">
+
+      <Alert message={SignupError} onClose={() => dispatch(setSignupError(""))} />
 
         <div className="w-10/12 md:w-8/12" >
           <h2 className="text-4xl mb-7" >
