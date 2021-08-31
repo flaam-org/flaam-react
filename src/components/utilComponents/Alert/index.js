@@ -2,7 +2,70 @@ import { Transition } from '@headlessui/react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { XIcon } from "@heroicons/react/solid"
 
-function Alert({ message, onClose, autoClose, duration }) {
+const VARIANTS = {
+  "error": "bg-red-500/90",
+  "success": "bg-success-green-500/90",
+  "warning": "bg-yellow-400/90"
+}
+
+const CORNER_SHAPE = {
+  "sharp": "rounded-none",
+  "very-light-curve": "rounded-sm",
+  "light-curve": "rounded-md",
+  "heavy-curve": "rounded-lg",
+  "very-heavy-curve": "rounded-xl",
+  "almost-circular": "rounded-2xl"
+}
+
+const PLACEMENT = {
+  "top-middle": {
+    default: "top-1 left-1/2 -translate-x-1/2 ",
+    from: "-translate-y-full",
+    to: "translate-y-1"
+  },
+  "top-start": {
+    default: "top-1 left-1",
+    from: "-translate-y-full",
+    to: "translate-y-1"
+  },
+  "top-end": {
+    default: "top-1 right-1",
+    from: "-translate-y-full",
+    to: "translate-y-1"
+  },
+  "left-start":{
+    default:"top-2 left-1",
+    from:"-translate-x-full",
+    to:"translate-x-0"
+  },
+  "left-middle":{
+    default:"top-1/2 left-1 -translate-y-1/2",
+    from:"-translate-x-full",
+    to:"translate-x-0"
+  },
+  "left-end":{
+    default:"bottom-20 left-1",
+    from:"-translate-x-full",
+    to:"translate-x-0"
+  },
+  "right-start":{
+    default:"top-1 right-1",
+    from:"translate-x-full",
+    to:"translate-x-0"
+  },
+  "right-middle":{
+    default:"top-1/2 right-1 -translate-y-1/2",
+    from:"translate-x-full",
+    to:"translate-x-0"
+  },
+  "right-end":{
+    default:"bottom-10 right-1",
+    from:"translate-x-full",
+    to:"translate-x-0"
+  }
+}
+
+function Alert({ message, onClose, autoClose, duration, variant = "error", corners = "light-curve", placement = "right-end" }) {
 
   const [show, setShow] = useState(false)
   const timerRef = useRef(undefined)
@@ -39,19 +102,19 @@ function Alert({ message, onClose, autoClose, duration }) {
           }, duration)
 
         }
-      }else {
+      } else {
         clearTimeout(timerRef.current)
         timerRef.current = undefined
 
-        if(autoClose) {
+        if (autoClose) {
 
-          if(autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current)
+          if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current)
 
-          autoCloseTimerRef.current = setTimeout(()=> {
+          autoCloseTimerRef.current = setTimeout(() => {
 
             handleOnClose()
 
-          },duration)
+          }, duration)
 
         }
 
@@ -79,13 +142,13 @@ function Alert({ message, onClose, autoClose, duration }) {
       <Transition
         show={show}
         enter="transition transform ease-in duration-200"
-        enterFrom="-translate-y-full"
-        enterTo="translate-y-1"
+        enterFrom={PLACEMENT[placement].from}
+        enterTo={PLACEMENT[placement].to}
         leave="transition transform ease-out duration-500"
-        leaveFrom="translate-y-1"
-        leaveTo="-translate-y-full"
+        leaveFrom={PLACEMENT[placement].to}
+        leaveTo={PLACEMENT[placement].from}
 
-        className="fixed top-1 left-1/2 -translate-x-1/2 px-4 py-3 rounded-md border text-white bg-red-500/80 border-red-500 flex items-center text-center"
+        className={`fixed ${PLACEMENT[placement].default} px-4 py-3 border text-white z-30 flex items-center text-center ${VARIANTS[variant]} ${CORNER_SHAPE[corners]}`}
 
       >
         <span className=" text-xs w-10/12 sm:text-sm md:text-base md:w-11/12 inline-block align-top">
@@ -105,30 +168,3 @@ function Alert({ message, onClose, autoClose, duration }) {
 }
 
 export default Alert
-// useEffect(() => {
-
-//   if (message) {
-//     setShow(true)
-//     setMsg(message)
-//   }
-//   else {
-//     setShow(false)
-//   }
-
-// }, [message])
-
-// useEffect(() => {
-
-//   let t;
-
-//   if (!show) {
-//     t = setTimeout(() => {
-//       onClose()
-//     }, 300)
-//   }
-
-//   return () => {
-//     if (t) clearTimeout(t)
-//   }
-
-// }, [show, onClose])

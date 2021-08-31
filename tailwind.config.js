@@ -1,11 +1,28 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode:'jit',
+  mode: 'jit',
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   presets: [],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
+    extend: {
+      colors: {
+        "success-green": {
+          50: "#f1f8e9",
+          100: "#dcedc8",
+          200: "#c5e1a5",
+          300: "#aed581",
+          400: "#9ccc65",
+          500: "#8bc34a",
+          600: "#7cb342",
+          700: "#689f38",
+          800: "#558b2f",
+          900: "#33691e"
+        }
+
+      }
+    },
     screens: {
       sm: '640px',
       md: '768px',
