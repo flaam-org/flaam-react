@@ -1,5 +1,5 @@
 import { useField } from "formik"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import TextError from "../TextError"
 import { CheckIcon, XIcon } from "@heroicons/react/solid"
 import LoadingSpinner from "../../utilComponents/LoadingSpinner"
@@ -45,7 +45,8 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
   const [field, meta, helpers] = useField(props)
   const [currentInputState, setCurrentInputState] = useState(INPUT_STATES.WAITING)
-  const [checkTimer, setCheckTimer] = useState(undefined)
+  const checkTimerRef = useRef(undefined)
+  const controllerRef = useRef(undefined)
 
   const errMsg = useMemo(() => `This ${props.name} is already taken.`, [props.name])
 
@@ -54,9 +55,9 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
     const currentValue = e.target.value
     helpers.setValue(currentValue)
 
-    if (checkTimer) clearTimeout(checkTimer)
+    if (checkTimerRef.current) clearTimeout(checkTimerRef.current)
 
-    const timer = setTimeout(async () => {
+    checkTimerRef.current = setTimeout(async () => {
 
       setCurrentInputState(INPUT_STATES.WAITING)
 
@@ -65,7 +66,14 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
         try {
 
-          const res = await fetch(`${endpoints.CHECK_EXISTS}?${props.name}=${currentValue}`)
+          if (controllerRef.current) controllerRef.current.abort()
+
+          let controller = new AbortController()
+          controllerRef.current = controller
+
+          const res = await fetch(`${endpoints.CHECK_EXISTS}?${props.name}=${currentValue}`, {
+            signal: controller.signal
+            })
 
           switch (res.status) {
             case 204: setCurrentInputState(INPUT_STATES.UNAVAILABLE);
@@ -83,17 +91,16 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
             default: setCurrentInputState(INPUT_STATES.WAITING)
           }
 
+          controllerRef.current = undefined
 
         } catch (err) {
           console.log(err);
         }
         finally {
-          setCheckTimer(undefined)
+          checkTimerRef.current = undefined
         }
       }
     }, 1000)
-
-    setCheckTimer(timer)
   }
 
   useEffect(() => {
