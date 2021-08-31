@@ -65,7 +65,7 @@ const PLACEMENT = {
   }
 }
 
-function Alert({ message, onClose, autoClose, duration, variant = "error", corners = "light-curve", placement = "right-end" }) {
+function Alert({ message, onClose, autoClose, duration, variant = "error", corners = "light-curve", placement = "top-middle" }) {
 
   const [show, setShow] = useState(false)
   const timerRef = useRef(undefined)
