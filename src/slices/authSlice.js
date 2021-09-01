@@ -53,8 +53,8 @@ export const loginAsync = (data) => async dispatch => {
 
     if (res.ok) {
 
-      localStorage.setItem('refresh_token', resData?.access)
-      localStorage.setItem('access_token', resData?.refresh)
+      localStorage.setItem('refresh_token', resData?.refresh)
+      localStorage.setItem('access_token', resData?.access)
 
       dispatch(setIsLoggedIn(true))
 
@@ -131,20 +131,20 @@ export const signupAsync = (data) => async dispatch => {
 
   try {
 
-    const res = await fetchWrapper.post(endpoints.SIGNUP_USER,data)
+    const res = await fetchWrapper.post(endpoints.SIGNUP_USER, data)
 
     const resData = await res.json()
 
-    if(res.ok) {
+    if (res.ok) {
 
-      localStorage.setItem('refresh_token', resData?.access)
-      localStorage.setItem('access_token', resData?.refresh)
+      localStorage.setItem('refresh_token', resData?.refresh)
+      localStorage.setItem('access_token', resData?.access)
 
       dispatch(setIsLoggedIn(true))
 
     }
 
-    if(res.status === 400) {
+    if (res.status === 400) {
       dispatch(setSignupError("some invalid values in the form"))
     }
 
