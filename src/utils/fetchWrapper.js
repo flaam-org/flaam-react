@@ -1,4 +1,9 @@
-function get(url, isPrivate) {
+/**
+ *
+ * @param {string} url endpoint
+ * @param {boolean} isPrivate true if api requires token default is false
+ */
+function get(url, isPrivate = false) {
   const requestOptions = {
     method: 'GET',
     headers: setHeaders(isPrivate),
@@ -10,8 +15,13 @@ function get(url, isPrivate) {
 
 
 
-
-function post(url, body, isPrivate) {
+/**
+ *
+ * @param {string} url endpoint
+ * @param {Object} body data to be sent
+ * @param {boolean} isPrivate
+ */
+function post(url, body, isPrivate = false) {
   const requestOptions = {
     method: 'POST',
     headers: setHeaders(isPrivate),
@@ -24,8 +34,13 @@ function post(url, body, isPrivate) {
 
 
 
-
-function put(url, body, isPrivate) {
+/**
+ *
+ * @param {string} url endpoint
+ * @param {Object} body data to be sent
+ * @param {boolean} isPrivate
+ */
+function put(url, body, isPrivate = false) {
 
   const requestOptions = {
     method: 'PUT',
@@ -38,8 +53,13 @@ function put(url, body, isPrivate) {
 
 
 
-
-function _delete(url, isPrivate) {
+/**
+ *
+ * @param {string} url endpoint
+ * @param {boolean} isPrivate
+ * @returns
+ */
+function _delete(url, isPrivate = false) {
 
   const requestOptions = {
     method: 'DELETE',
