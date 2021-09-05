@@ -3,5 +3,6 @@ export const routes = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   FEED:'/',
-  POST_IDEA:'/post/idea'
+  POST_IDEA:'/post/idea',
+  PROFILE:'/profile'
 }

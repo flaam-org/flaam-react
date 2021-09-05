@@ -13,21 +13,19 @@ function Sidebar() {
 
   const location = useLocation()
 
-  // console.log(location)
-
-
   const navigation = useMemo(() => {
 
     return [
       { name: "Feed", href: routes.FEED, icon: "", current: location && location.pathname === routes.FEED },
-      { name: "Post ", href: routes.POST_IDEA, icon: "", current: location && location.pathname === routes.POST_IDEA }
+      { name: "Post ", href: routes.POST_IDEA, icon: "", current: location && location.pathname === routes.POST_IDEA },
+      { name: "Profile", href:routes.PROFILE,icon:"",current:location && location.pathname === routes.PROFILE }
     ]
 
   }, [location])
 
 
   return (
-    <div className="hidden h-screen md:w-16 lg:w-[400px] bg-white md:flex md:flex-shrink-0 shadow-xl dark:text-white">
+    <div className="hidden h-screen md:w-16 lg:w-[400px] bg-white md:flex md:flex-shrink-0 shadow-xl dark:text-white z-10">
       <div className="flex flex-col flex-grow" >
 
         {/* the logo and brand name */}
@@ -43,7 +41,7 @@ function Sidebar() {
                 key={item.name}
                 to={item.href}
                 className={joinClassNames(
-                  item.current ? " bg-blue-200/30 " : "hover:bg-blue-200/20 bg-blue-200/10",
+                  item.current ? " bg-blue-200/30 " : "hover:bg-blue-200/20 bg-blue-200/5 ",
                   "flex items-center px-5 py-2 text-md lg:text-lg font-medium rounded-sm uppercase relative"
                 )}
               >

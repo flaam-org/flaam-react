@@ -1,18 +1,26 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import {logout} from '../../slices/authSlice'
+// import { useDispatch } from 'react-redux'
+import Sidebar from '../../components/Sidebar'
+// import {logout} from '../../slices/authSlice'
+// import ThemeChangeFAB from "../../components/ThemeChangeFAB"
 
 function Feed() {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   return (
-    <div className="bg-green-300 w-40 h-40 p-5" >
-      FEED PAGE
+    <div className="flex bg-gray-100 dark:bg-gray-800 transition duration-500" >
+      <Sidebar />
 
-      <button type="button" onClick={() => dispatch(logout())}  className="border border-black p-3 bg-gray-200 rounded-md shadow-md"   >
+      <div className="h-screen flex flex-1 flex-col" >
+        <div className="px-5 py-2 h-14 w-full bg-white shadow-sm" >
+        </div>
+      </div>
+
+      {/* <button type="button" onClick={() => dispatch(logout())}  className="border border-black p-3 bg-gray-200 rounded-md shadow-md"   >
         Logout
-      </button>
+      </button> */}
+      {/* <ThemeChangeFAB /> */}
     </div>
   )
 }
