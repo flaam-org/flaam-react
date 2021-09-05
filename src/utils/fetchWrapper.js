@@ -92,7 +92,7 @@ function setHeaders(isPrivate) {
     if (typeof accessToken !== "undefined" && accessToken !== null)
       return {
         ...HEADERS,
-        "Authorization": accessToken
+        "Authorization": `Bearer ${accessToken}`
       }
   }
 
