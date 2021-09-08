@@ -8,3 +8,12 @@ export const endpoints = {
   CHECK_EXISTS: `${host}api/v1/accounts/user/exists`,
   USER_PROFILE: `${host}api/v1/accounts/user/profile`
 }
+
+
+export const breakpoints = {
+  sm: '(min-width: 640px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 1024px)',
+  xl: '(min-width: 1280px)',
+  '2xl': '(min-width: 1536px)'
+}
