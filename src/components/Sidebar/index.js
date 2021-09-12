@@ -62,12 +62,14 @@ function Sidebar() {
           </div>
 
           {/* profile */}
-          <div className="flex pt-5 pb-8 px-5 justify-self-end items-center shadow-2xl cursor-pointer" >
-            <img className=" h-14 w-14 block mr-2 shadow-md bg-gray-200 rounded-full" src="https://picsum.photos/100" alt="Profile pic" />
-            <p className="uppercase lg:text-lg px-5">
-              Mohit kumar
-            </p>
-          </div>
+          <NavLink to={routes.PROFILE}>
+            <div className="flex pt-5 pb-8 px-5 justify-self-end items-center shadow-2xl cursor-pointer" >
+              <img className=" h-14 w-14 block mr-2 shadow-md bg-gray-200 rounded-full" src="https://picsum.photos/100" alt="Profile pic" />
+              <p className="uppercase lg:text-lg px-5">
+                Mohit kumar
+              </p>
+            </div>
+          </NavLink>
         </div>
       </div>
     )
