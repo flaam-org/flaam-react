@@ -106,9 +106,12 @@ function Sidebar() {
         </div>
 
         {/* profile */}
-        <div className="flex pt-5 pb-8 px-1 justify-self-end items-center content-center cursor-pointer" >
-          <img className="h-14 w-14 block shadow-md bg-gray-200 rounded-full" src="https://picsum.photos/100" alt="Profile pic" />
-        </div>
+        <NavLink to={routes.PROFILE}>
+          <div className="flex pt-5 pb-8 justify-self-end items-center content-center cursor-pointer" >
+            <img className="h-14 w-14 block shadow-md bg-gray-200 rounded-full" src="https://picsum.photos/100" alt="Profile pic" />
+          </div>
+        </NavLink>
+
       </div>
     </div>
   )
