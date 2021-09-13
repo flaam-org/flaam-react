@@ -7,6 +7,8 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { LightBulbIcon, UserIcon, NewspaperIcon } from "@heroicons/react/outline"
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../utils/constants'
+import { useSelector } from 'react-redux'
+import { selectAvatar, selectFullName } from '../../slices/userSlice'
 
 function joinClassNames(...classes) {
   return classes.join(" ")
@@ -15,6 +17,8 @@ function joinClassNames(...classes) {
 function Sidebar() {
 
   const location = useLocation()
+  const fullName = useSelector(selectFullName)
+  const avatar = useSelector(selectAvatar)
 
   const navigation = useMemo(() => {
 
@@ -64,9 +68,9 @@ function Sidebar() {
           {/* profile */}
           <NavLink to={routes.PROFILE}>
             <div className="flex pt-5 pb-8 px-5 justify-self-end items-center shadow-2xl cursor-pointer" >
-              <img className=" h-14 w-14 block mr-2 shadow-md bg-gray-200 rounded-full" src="https://picsum.photos/100" alt="Profile pic" />
+              <img className=" h-14 w-14 block mr-2 shadow-md bg-gray-200 rounded-full" src={avatar} alt="Profile pic" />
               <p className="uppercase lg:text-lg px-5">
-                Mohit kumar
+                {fullName && fullName}
               </p>
             </div>
           </NavLink>
@@ -107,8 +111,8 @@ function Sidebar() {
 
         {/* profile */}
         <NavLink to={routes.PROFILE}>
-          <div className="flex pt-5 pb-8 justify-self-end items-center content-center cursor-pointer" >
-            <img className="h-14 w-14 block shadow-md bg-gray-200 rounded-full" src="https://picsum.photos/100" alt="Profile pic" />
+          <div className="flex pt-5 pb-8 justify-self-end items-center justify-center cursor-pointer" >
+            <img className="h-14 w-14 block shadow-md bg-gray-200 rounded-full" src={avatar} alt="Profile pic" />
           </div>
         </NavLink>
 

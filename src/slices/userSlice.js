@@ -54,7 +54,7 @@ export const getUserAsync = () => async dispatch => {
 
   try {
 
-    const res = await fetchWrapper.get(endpoints.USER_PROFILE,true)
+    const res = await fetchWrapper.get(endpoints.USER_PROFILE, true)
 
     const resData = await res.json()
 
@@ -75,5 +75,21 @@ export const getUserAsync = () => async dispatch => {
 
 
 export const selectLoading = state => state.user.loading
+export const selectUserId = state => state.user.id
+export const selectUserName = state => state.user.username
+export const selectFirstName = state => state.user.firstName
+export const selectLastName = state => state.user.lastName
+export const selectFullName = state => `${state.user.firstName} ${state.user.lastName}`
+export const selectEmail = state => state.user.email
+export const selectStatus = state => state.user.status
+export const selectDescription = state => state.user.description
+export const selectAvatar = state => state.user.avatar
+export const selectFavouriteTags = state => state.user.favouriteTags
+export const selectUser = state => {
+  const { loading, ...u } = state.user
+
+  return u
+}
+
 
 export default userSlice.reducer
