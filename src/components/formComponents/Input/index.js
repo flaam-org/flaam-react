@@ -24,7 +24,7 @@ export const InputField = ({ label, labelClassName, className, ...props }) => {
   const [field, meta] = useField(props)
 
   return (
-    <label htmlFor={label} className={labelClassName} >
+    <label htmlFor={props.name} className={labelClassName} >
       <span className="capitalize">{label}</span>
       <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
       <TextError touched={meta.touched} error={meta.error} />
@@ -114,7 +114,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
 
   return (
-    <label htmlFor={label} className={labelClassName} >
+    <label htmlFor={props.name} className={labelClassName} >
       <span className="capitalize">{label}</span>
       <div className="flex mt-1">
         <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} ${className} w-full rounded-l`} onChange={changeHandler} />
@@ -139,7 +139,7 @@ export const TextAreaField = ({ label, labelClassName, className, ...props }) =>
   const [field, meta] = useField(props)
 
   return (
-    <label htmlFor={label} className={labelClassName} >
+    <label htmlFor={props.name} className={labelClassName} >
       <span className="capitalize" > {label} </span>
       <textarea {...field} {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
       <TextError touched={meta.touched} error={meta.error} />
