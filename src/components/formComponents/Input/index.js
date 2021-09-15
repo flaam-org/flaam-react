@@ -73,7 +73,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
           const res = await fetch(`${endpoints.CHECK_EXISTS}?${props.name}=${currentValue}`, {
             signal: controller.signal
-            })
+          })
 
           switch (res.status) {
             case 204: setCurrentInputState(INPUT_STATES.UNAVAILABLE);
@@ -132,4 +132,17 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
     </label>
   )
 
+}
+
+export const TextAreaField = ({ label, labelClassName, className, ...props }) => {
+
+  const [field, meta] = useField(props)
+
+  return (
+    <label htmlFor={label} className={labelClassName} >
+      <span className="capitalize" > {label} </span>
+      <textarea {...field} {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
+      <TextError touched={meta.touched} error={meta.error} />
+    </label>
+  )
 }
