@@ -19,13 +19,13 @@ const classes = {
 }
 
 
-export const InputField = ({ label, labelClassName, className, ...props }) => {
+export const InputField = ({ label, labelClassName,labelSpanClassName, className, ...props }) => {
 
   const [field, meta] = useField(props)
 
   return (
     <label htmlFor={props.name} className={labelClassName} >
-      <span className="capitalize">{label}</span>
+      <span className={`capitalize ${labelSpanClassName}`}>{label}</span>
       <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
       <TextError touched={meta.touched} error={meta.error} />
     </label>
@@ -41,7 +41,7 @@ const INPUT_STATES = {
 }
 
 
-export const AvailabilityCheckInput = ({ label, labelClassName, className, dataType, ...props }) => {
+export const AvailabilityCheckInput = ({ label, labelClassName,labelSpanClassName, className, ...props }) => {
 
   const [field, meta, helpers] = useField(props)
   const [currentInputState, setCurrentInputState] = useState(INPUT_STATES.WAITING)
@@ -115,7 +115,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
   return (
     <label htmlFor={props.name} className={labelClassName} >
-      <span className="capitalize">{label}</span>
+      <span className={`capitalize ${labelSpanClassName}`} >{label}</span>
       <div className="flex mt-1">
         <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} ${className} w-full rounded-l`} onChange={changeHandler} />
         <span className="block p-1 w-12 shadow-sm dark:bg-gray-700 dark:focus:bg-gray-600 rounded-r flex items-center justify-center border-2 dark:border-gray-600/80" >
@@ -134,13 +134,13 @@ export const AvailabilityCheckInput = ({ label, labelClassName, className, dataT
 
 }
 
-export const TextAreaField = ({ label, labelClassName, className, ...props }) => {
+export const TextAreaField = ({ label, labelClassName, labelSpanClassName, className, ...props }) => {
 
   const [field, meta] = useField(props)
 
   return (
     <label htmlFor={props.name} className={labelClassName} >
-      <span className="capitalize" > {label} </span>
+      <span className={`capitalize ${labelSpanClassName}`} > {label} </span>
       <textarea {...field} {...props} className={`${classes.INPUT(meta.error, meta.touched)} rounded-md ${className}`} />
       <TextError touched={meta.touched} error={meta.error} />
     </label>
