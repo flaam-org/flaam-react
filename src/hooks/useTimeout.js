@@ -16,7 +16,7 @@ const useTimeout = (callback, delay) => {
   }, [delay])
 
   const clear = useCallback(() => {
-    clearTimeout(timeoutRef.current)
+    timeoutRef.current && clearTimeout(timeoutRef.current)
   }, [])
 
   useEffect(() => {
