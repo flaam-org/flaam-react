@@ -3,6 +3,7 @@ import { endpoints } from "../utils/constants";
 import { fetchWrapper } from "../utils/fetchWrapper";
 
 const initialState = {
+  isEditMode: false,
   loading: false,
   id: null,
   username: "",
@@ -40,6 +41,10 @@ export const userSlice = createSlice({
       state.favouriteTags = action.payload
     },
 
+    setIsEditMode: (state, action) => {
+      state.isEditMode = action.payload;
+    },
+
     setLoading: (state, action) => {
       state.loading = action.payload
     }
@@ -48,7 +53,7 @@ export const userSlice = createSlice({
 
 
 
-export const { setUserState, setLoading, setFavouriteTags } = userSlice.actions
+export const { setUserState, setLoading, setFavouriteTags,setIsEditMode } = userSlice.actions
 
 
 
@@ -88,6 +93,7 @@ export const getExpandedFavouriteTags = (tagIds) => async dispatch => {
 
     if (res.ok) {
       dispatch(setFavouriteTags(resData.results))
+      dispatch(setIsEditMode(false))
     }
 
   } catch (error) {
@@ -119,6 +125,7 @@ export const updateUserAsync = (profile) => async dispatch => {
 }
 
 
+export const selectIsEditMode = state => state.user.isEditMode
 export const selectLoading = state => state.user.loading
 export const selectUserId = state => state.user.id
 export const selectUserName = state => state.user.username
