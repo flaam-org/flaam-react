@@ -22,7 +22,7 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUserState: (state, action) => {
-      const { id, username, email, first_name, last_name, status, description, avatar, favourite_tags } = action.payload;
+      const { id, username, email, first_name, last_name, status, description, avatar } = action.payload;
 
       state.id = id
       state.username = username
@@ -32,7 +32,11 @@ export const userSlice = createSlice({
       state.status = status
       state.description = description
       state.avatar = avatar
-      state.favouriteTags = favourite_tags
+      // state.favouriteTags = favourite_tags
+    },
+
+    setFavouriteTags: (state, action) => {
+      state.favouriteTags = action.payload
     },
 
     setLoading: (state, action) => {
@@ -43,7 +47,7 @@ export const userSlice = createSlice({
 
 
 
-export const { setUserState, setLoading } = userSlice.actions
+export const { setUserState, setLoading, setFavouriteTags } = userSlice.actions
 
 
 
@@ -60,6 +64,7 @@ export const getUserAsync = () => async dispatch => {
 
     if (res.ok) {
       dispatch(setUserState(resData))
+      dispatch(getExpandedFavouriteTags(resData.favourite_tags))
     }
 
   }
@@ -71,6 +76,28 @@ export const getUserAsync = () => async dispatch => {
   }
 }
 
+
+export const getExpandedFavouriteTags = (tagIds) => async dispatch => {
+  dispatch(setLoading(true))
+
+  try {
+    const ids = tagIds.join(',')
+    const url = `${endpoints.FAVOURITE_TAGS}?ids=${ids}&limit=${tagIds.length}`
+
+    const res = await fetchWrapper.get(url, true)
+    const resData = await res.json()
+
+    if (res.ok) {
+      dispatch(setFavouriteTags(resData.results))
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+  finally {
+    dispatch(setLoading(false))
+  }
+}
 
 
 
