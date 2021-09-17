@@ -1,36 +1,46 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { PencilIcon } from "@heroicons/react/solid"
 import { useSelector } from 'react-redux'
-import { selectDescription, selectEmail, selectFirstName, selectLastName, selectStatus, selectUser } from '../../../slices/userSlice'
+import {  selectFavouriteTags, selectUser } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField, TextAreaField } from '../../formComponents/Input'
 import { joinClassNames } from "../../../utils/functions"
+import FavouriteTags from '../FavouriteTags'
+import useUpdateEffect from '../../../hooks/useUpdateEffect'
+
+
+
+const validationSchema = Yup.object().shape({
+  first_name: Yup.string().required("This field is required"),
+  last_name: Yup.string(),
+  email: Yup.string().required("This field is required.").email("not a valid email format."),
+  description: Yup.string(),
+  status: Yup.string()
+})
+
+
 
 function Profile() {
 
   const [isEditMode, setIsEditMode] = useState(false)
-
-
+  const favouriteTags = useSelector(selectFavouriteTags)
   const user = useSelector(selectUser)
 
+  const [activeTags, setActiveTags] = useState(favouriteTags.map(t => ({ ...t, "active": true })))
+
+  useUpdateEffect(() => {
+    setActiveTags(favouriteTags.map(t => ({ ...t, "active": true })))
+  }, [favouriteTags])
+
+
   const initialValues = {
-    first_name: useSelector(selectFirstName),
-    last_name: useSelector(selectLastName),
-    email: useSelector(selectEmail),
-    description: useSelector(selectDescription),
-    status: useSelector(selectStatus)
+    first_name: user.firstName,
+    last_name: user.lastName,
+    email: user.email,
+    description: user.description,
+    status: user.status,
   }
-
-  const validationSchema = Yup.object().shape({
-    first_name: Yup.string().required("This field is required"),
-    last_name: Yup.string(),
-    email: Yup.string().required("This field is required.").email("not a valid email format."),
-    description: Yup.string(),
-    status: Yup.string()
-  })
-
-
 
 
   return (
@@ -51,6 +61,9 @@ function Profile() {
         validateOnChange={true}
         onReset={(values) => {
           setIsEditMode(false)
+          setActiveTags(prev => {
+            return [...prev].map(t => ({ ...t, "active": true }))
+          })
         }}
 
       >
@@ -106,19 +119,6 @@ function Profile() {
 
               </div>
 
-
-              {/*
-              <InputField
-                label="email"
-                name="email"
-                type="email"
-                labelClassName=""
-                labelSpanClassName=""
-                className="p-1 w-full"
-                disabled={!isEditMode}
-
-              /> */}
-
               <AvailabilityCheckInput
                 label="email"
                 name="email"
@@ -144,9 +144,9 @@ function Profile() {
 
           </div>
 
-          {/* <div className="" >
-            favourite tags
-          </div> */}
+          <FavouriteTags activeTags={activeTags} setActiveTags={setActiveTags} isEditMode={isEditMode} />
+
+
           <div className={joinClassNames(isEditMode ? "" : "hidden", "flex justify-end px-3")} >
             <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="reset" >cancel</button>
             <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="submit">Save</button>
