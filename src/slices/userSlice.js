@@ -12,6 +12,7 @@ const initialState = {
   status: "",
   description: "",
   avatar: "",
+  favouriteTagIds: [],
   favouriteTags: []
 }
 
@@ -22,7 +23,7 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUserState: (state, action) => {
-      const { id, username, email, first_name, last_name, status, description, avatar } = action.payload;
+      const { id, username, email, first_name, last_name, status, description, avatar, favourite_tags } = action.payload;
 
       state.id = id
       state.username = username
@@ -32,7 +33,7 @@ export const userSlice = createSlice({
       state.status = status
       state.description = description
       state.avatar = avatar
-      // state.favouriteTags = favourite_tags
+      state.favouriteTagIds = favourite_tags
     },
 
     setFavouriteTags: (state, action) => {
@@ -70,8 +71,6 @@ export const getUserAsync = () => async dispatch => {
   }
   catch (err) {
     console.log(err)
-  }
-  finally {
     dispatch(setLoading(false))
   }
 }
@@ -100,6 +99,25 @@ export const getExpandedFavouriteTags = (tagIds) => async dispatch => {
 }
 
 
+export const updateUserAsync = (profile) => async dispatch => {
+
+  dispatch(setLoading(true))
+  try {
+
+    const res = await fetchWrapper.put(endpoints.USER_PROFILE, profile, true)
+    const resData = await res.json()
+
+    if (res.ok) {
+      dispatch(setUserState(resData))
+      dispatch(getExpandedFavouriteTags(resData.favourite_tags))
+    }
+
+  } catch (error) {
+    console.log(error)
+    dispatch(setLoading(false))
+  }
+}
+
 
 export const selectLoading = state => state.user.loading
 export const selectUserId = state => state.user.id
@@ -112,6 +130,7 @@ export const selectStatus = state => state.user.status
 export const selectDescription = state => state.user.description
 export const selectAvatar = state => state.user.avatar
 export const selectFavouriteTags = state => state.user.favouriteTags
+export const selectFavouriteTagIds = state => state.user.favouriteTagIds
 export const selectUser = state => {
   const { loading, ...u } = state.user
 
