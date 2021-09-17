@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { PencilIcon } from "@heroicons/react/solid"
-import { useSelector } from 'react-redux'
-import {  selectFavouriteTags, selectUser } from '../../../slices/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {selectFavouriteTags, selectIsEditMode,setIsEditMode, selectUser, updateUserAsync } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField, TextAreaField } from '../../formComponents/Input'
@@ -23,9 +23,10 @@ const validationSchema = Yup.object().shape({
 
 function Profile() {
 
-  const [isEditMode, setIsEditMode] = useState(false)
+  const isEditMode = useSelector(selectIsEditMode)
   const favouriteTags = useSelector(selectFavouriteTags)
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
 
   const [activeTags, setActiveTags] = useState(favouriteTags.map(t => ({ ...t, "active": true })))
 
@@ -40,7 +41,9 @@ function Profile() {
     email: user.email,
     description: user.description,
     status: user.status,
+    favouriteTagsIds: user.favouriteTagsIds
   }
+
 
 
   return (
@@ -48,7 +51,7 @@ function Profile() {
       <div className={joinClassNames(
         isEditMode ? "hidden" : "",
         "w-full py-2 px-10 flex flex-row-reverse cursor-pointer"
-      )} onClick={() => setIsEditMode(true)} >
+      )} onClick={() => dispatch(setIsEditMode(true))} >
         <PencilIcon className="w-6 h-6 text-blue-600  " />
       </div>
 
@@ -56,15 +59,17 @@ function Profile() {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(values)
+          const favourite_tags = activeTags.filter(t => t.active === true).map(t => t.id)
+          dispatch(updateUserAsync({ ...values, favourite_tags }))
         }}
         validateOnChange={true}
         onReset={(values) => {
-          setIsEditMode(false)
+          dispatch(setIsEditMode(false))
           setActiveTags(prev => {
             return [...prev].map(t => ({ ...t, "active": true }))
           })
         }}
+        enableReinitialize
 
       >
         <Form>
@@ -76,7 +81,6 @@ function Profile() {
 
               <p className="text-xl font-bold mt-3" >{user.username}</p>
 
-              {/* <p className="text-black/50 text-sm font-bold" >{user.status}</p> */}
               <InputField
                 label=""
                 name="status"
@@ -144,11 +148,11 @@ function Profile() {
 
           </div>
 
-          <FavouriteTags activeTags={activeTags} setActiveTags={setActiveTags} isEditMode={isEditMode} />
+          <FavouriteTags activeTags={activeTags} setActiveTags={setActiveTags}/>
 
 
           <div className={joinClassNames(isEditMode ? "" : "hidden", "flex justify-end px-3")} >
-            <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="reset" >cancel</button>
+            <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="button" >cancel</button>
             <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="submit">Save</button>
           </div>
 

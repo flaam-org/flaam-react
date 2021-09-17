@@ -1,7 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { selectIsEditMode } from '../../../slices/userSlice'
 import Tag from "../../utilComponents/Tag"
 
-function FavouriteTags({ activeTags, setActiveTags, isEditMode }) {
+function FavouriteTags({ activeTags, setActiveTags}) {
+
+  const isEditMode = useSelector(selectIsEditMode)
 
   return (
     <div>
