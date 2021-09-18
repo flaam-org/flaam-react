@@ -1,11 +1,29 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectIsEditMode } from '../../../slices/userSlice'
+import { selectFavouriteTagIds, selectIsEditMode } from '../../../slices/userSlice'
 import Tag from "../../utilComponents/Tag"
+import AsyncSelect from '../../formComponents/AsyncSelect'
 
-function FavouriteTags({ activeTags, setActiveTags}) {
+function FavouriteTags({ activeTags, setActiveTags }) {
 
   const isEditMode = useSelector(selectIsEditMode)
+
+
+  function handleSubmit(tag) {
+
+    console.table(tag)
+
+    setActiveTags(prev => ([...prev, { ...tag, active: true }]))
+
+  }
+
+  function handleFilter(results) {
+
+    const activeTagsSet = new Set(activeTags.map(t => t.id))
+
+    return results.filter(result => !activeTagsSet.has(result.id))
+
+  }
 
   return (
     <div>
@@ -34,6 +52,8 @@ function FavouriteTags({ activeTags, setActiveTags}) {
 
           return <Tag key={tag.id} tag={tag} faded={!tag.active} onClick={onTagClick} />
         })}
+
+        {isEditMode && <AsyncSelect onSubmit={handleSubmit} resultFilter={handleFilter} disabled={!isEditMode} />}
 
       </div>
     </div>

@@ -152,7 +152,7 @@ function Profile() {
 
 
           <div className={joinClassNames(isEditMode ? "" : "hidden", "flex justify-end px-3")} >
-            <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="button" >cancel</button>
+            <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="reset" >cancel</button>
             <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="submit">Save</button>
           </div>
 
