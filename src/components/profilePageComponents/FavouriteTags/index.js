@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectFavouriteTagIds, selectIsEditMode } from '../../../slices/userSlice'
+import { selectIsEditMode } from '../../../slices/userSlice'
 import Tag from "../../utilComponents/Tag"
 import AsyncSelect from '../../formComponents/AsyncSelect'
 

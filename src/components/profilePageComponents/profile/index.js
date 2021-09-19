@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { PencilIcon } from "@heroicons/react/solid"
 import { useDispatch, useSelector } from 'react-redux'
-import {selectFavouriteTags, selectIsEditMode,setIsEditMode, selectUser, updateUserAsync } from '../../../slices/userSlice'
+import { selectFavouriteTags, selectIsEditMode, setIsEditMode, selectUser, updateUserAsync, selectAvatar } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField, TextAreaField } from '../../formComponents/Input'
 import { joinClassNames } from "../../../utils/functions"
 import FavouriteTags from '../FavouriteTags'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
+import ProfilePicture from '../ProfilePicture'
 
 
 
@@ -29,6 +30,7 @@ function Profile() {
   const dispatch = useDispatch()
 
   const [activeTags, setActiveTags] = useState(favouriteTags.map(t => ({ ...t, "active": true })))
+  const [avatar, setAvatar] = useState(user.avatar)
 
   useUpdateEffect(() => {
     setActiveTags(favouriteTags.map(t => ({ ...t, "active": true })))
@@ -60,7 +62,7 @@ function Profile() {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           const favourite_tags = activeTags.filter(t => t.active === true).map(t => t.id)
-          dispatch(updateUserAsync({ ...values, favourite_tags }))
+          dispatch(updateUserAsync({ ...values, favourite_tags, avatar}))
         }}
         validateOnChange={true}
         onReset={(values) => {
@@ -77,7 +79,9 @@ function Profile() {
 
           <div className="flex" >
             <div className="flex flex-col items-center flex-1 p-2 " >
-              <div className="w-40 h-40 mb-3 rounded-full bg-gray-400 bg-cover  " style={{ background: `url("${user.avatar || "https://picsum.photos/400"}")` }} ></div>
+              {/* <div className="w-40 h-40 mb-3 rounded-full bg-gray-400 bg-cover  " style={{ background: `url("${user.avatar || "https://picsum.photos/400"}")` }} ></div> */}
+
+              <ProfilePicture avatar={avatar} setAvatar={setAvatar} />
 
               <p className="text-xl font-bold mt-3" >{user.username}</p>
 
@@ -148,7 +152,7 @@ function Profile() {
 
           </div>
 
-          <FavouriteTags activeTags={activeTags} setActiveTags={setActiveTags}/>
+          <FavouriteTags activeTags={activeTags} setActiveTags={setActiveTags} />
 
 
           <div className={joinClassNames(isEditMode ? "" : "hidden", "flex justify-end px-3")} >
@@ -159,10 +163,6 @@ function Profile() {
 
         </Form>
       </Formik>
-
-
-
-
     </div>
   )
 }
