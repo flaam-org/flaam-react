@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { PencilIcon } from "@heroicons/react/solid"
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFavouriteTags, selectIsEditMode, setIsEditMode, selectUser, updateUserAsync, selectAvatar } from '../../../slices/userSlice'
+import { selectFavouriteTags, selectIsEditMode, setIsEditMode, selectUser, updateUserAsync } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField, TextAreaField } from '../../formComponents/Input'
