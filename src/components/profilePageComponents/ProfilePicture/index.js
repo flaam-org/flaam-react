@@ -34,7 +34,7 @@ function ProfilePicture({ avatar, setAvatar }) {
   const [isOpen, setIsOpen] = useState(false)
   const [dicebearSeed, setDicebearSeed] = useState(getSeed(avatar) || "")
   const [dicebearSprite, setDicebearSprite] = useState(sprites[0])
-  const [previewOpen, setPreviewOpen] = useState(true)
+  const [previewOpen, setPreviewOpen] = useState(false)
 
   const generatedAvatar = `https://avatars.dicebear.com/api/${dicebearSprite}/${dicebearSeed}.svg`;
 

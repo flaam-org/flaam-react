@@ -68,7 +68,7 @@ function Sidebar() {
           {/* profile */}
           <NavLink to={routes.PROFILE}>
             <div className="flex pt-5 pb-8 px-5 justify-self-end items-center shadow-2xl cursor-pointer" >
-              <img className=" h-14 w-14 block mr-2 shadow-md bg-gray-200 rounded-full" src={avatar} alt="Profile pic" />
+              <img className=" h-14 w-14 block mr-2 shadow-lg bg-gray-100/40 hover:shadow-xl hover:scale-105 transition-transform duration-100 ease-in-out rounded-full" src={avatar} alt="Profile pic" />
               <p className="uppercase lg:text-lg px-5">
                 {fullName && fullName}
               </p>
@@ -112,7 +112,7 @@ function Sidebar() {
         {/* profile */}
         <NavLink to={routes.PROFILE}>
           <div className="flex pt-5 pb-8 justify-self-end items-center justify-center cursor-pointer" >
-            <img className="h-14 w-14 block shadow-md bg-gray-200 rounded-full" src={avatar} alt="Profile pic" />
+            <img className="h-14 w-14 block shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-100 ease-in-out rounded-full" src={avatar} alt="Profile pic" />
           </div>
         </NavLink>
 
