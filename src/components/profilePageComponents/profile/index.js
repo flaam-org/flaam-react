@@ -9,6 +9,7 @@ import { joinClassNames } from "../../../utils/functions"
 import FavouriteTags from '../FavouriteTags'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
 import ProfilePicture from '../ProfilePicture'
+import Button from '../../utilComponents/Button'
 
 
 
@@ -156,8 +157,8 @@ function Profile() {
 
 
           <div className={joinClassNames(isEditMode ? "" : "hidden", "flex justify-end px-3")} >
-            <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="reset" >cancel</button>
-            <button className="py-2 px-3 border m-1 rounded-md shadow-md" type="submit">Save</button>
+            <Button variant="outline-danger" type="reset" className="my-1" >Cancel</Button>
+            <Button variant="primary" type="submit" className="my-1 ml-3" >Save</Button>
           </div>
 
 
