@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectIsEditMode } from '../../../slices/userSlice'
 import Tag from "../../utilComponents/Tag"
 import AsyncSelect from '../../formComponents/AsyncSelect'
+import Button from '../../utilComponents/Button'
 
 function FavouriteTags({ activeTags, setActiveTags }) {
 
@@ -29,7 +30,7 @@ function FavouriteTags({ activeTags, setActiveTags }) {
     <div>
       <div className="flex justify-between px-3">
         <h2>Favourite Tags</h2>
-        <button type="button" >Create new</button>
+        <Button variant="outline-primary" type="button" className="text-sm" > Create new </Button>
       </div>
       <div className="flex flex-wrap">
 

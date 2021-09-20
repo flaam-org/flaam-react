@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from "prop-types"
 import { joinClassNames } from '../../../utils/functions'
 
-const PRIMARY_COMMON = "focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-0 text-white transition duration-200 ease-in-out"
-const OUTLINE_COMMON = "focus:ring-1 focus:ring-indigo-200 focus:ring-opacity-50 border-2 transition duration-200 ease-in-out"
+const PRIMARY_COMMON = "focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-0 text-white transition duration-200 ease-in-out shadow-md"
+const OUTLINE_COMMON = "focus:ring-1 focus:ring-indigo-200 focus:ring-opacity-50 border-1 transition duration-200 ease-in-out"
 
 const variants = Object.freeze({
   "primary": joinClassNames("bg-green-400 hover:bg-green-500 dark:bg-green-600 dark:hover:bg-green-500 dark:text-white",PRIMARY_COMMON),
@@ -41,7 +41,7 @@ const variants = Object.freeze({
 
 function Button({ variant = "primary", className, children, ...props }) {
   return (
-    <button className={joinClassNames("py-1 px-2 border rounded-md cursor-pointer outline-none shadow-md disabled:opacity-50 disabled:cursor-not-allowed","" ,variants[variant], className)} {...props} > {children}</button>
+    <button className={joinClassNames("py-1 px-2 border rounded-md cursor-pointer outline-none disabled:opacity-50 disabled:cursor-not-allowed","" ,variants[variant], className)} {...props} > {children}</button>
   )
 }
 

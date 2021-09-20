@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
+import Button from '../Button'
 
 function Modal({ show, onCancel, children, headline,btnName,onSubmit,cancelBtnName,className }) {
   return (
@@ -49,9 +50,10 @@ function Modal({ show, onCancel, children, headline,btnName,onSubmit,cancelBtnNa
               </div>
 
               <div className="flex py-2 items-center justify-end">
-                <button className="py-1 px-2 border-2 border-red-400 hover:shadow-md focus:ring-2 text-red-500 focus:ring-indigo-500/50 rounded-md ml-2 focus:outline-none" onClick={onCancel} type="button" >{cancelBtnName}</button>
 
-                <button className="py-1 px-2 border-2 border-success-400 focus:ring-2 focus:ring-success-green-500/70 hover:bg-success-green-500 hover:text-white transition duration-200 ease-in-out   rounded-md ml-2 focus:outline-none" onClick={onSubmit} type="button" >{btnName}</button>
+                <Button className="my-1 " variant="outline-danger" type="button" onClick={onCancel} >{cancelBtnName}</Button>
+                <Button className="my-1 ml-3 mr-1" variant="success" type="button" onClick={onSubmit}  >{btnName}</Button>
+
               </div>
 
             </div>
