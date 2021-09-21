@@ -1,8 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment } from 'react'
 import Button from '../Button'
+import PropTypes from "prop-types"
 
-function Modal({ show, onCancel, children, headline,btnName,onSubmit,cancelBtnName,className }) {
+function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, className }) {
   return (
     <Transition show={show} as={Fragment} >
       <Dialog
@@ -49,16 +50,25 @@ function Modal({ show, onCancel, children, headline,btnName,onSubmit,cancelBtnNa
                 </div>
               </div>
 
-              <div className="flex py-2 items-center justify-end">
+              {(btn || cancelBtn) && (
+                <div className="flex py-2 items-center justify-end gap-3">
 
-                <Button className="my-1 " variant="outline-danger" type="button" onClick={onCancel} >{cancelBtnName}</Button>
-                <Button className="my-1 ml-3 mr-1" variant="success" type="button" onClick={onSubmit}  >{btnName}</Button>
+                  {cancelBtn && (
+                    typeof (cancelBtn) === "string" ? (
+                      <Button className="my-1 " variant="outline-danger" type="button" onClick={onCancel} >{cancelBtn}</Button>
+                    ) : cancelBtn
+                  )}
 
-              </div>
+                  {btn && (
+                    typeof (btn) === "string" ? (
+                      <Button className="my-1" variant="success" type="button" onClick={onSubmit}  >{btn}</Button>
+                    ) : btn
 
+                  )}
+
+                </div>
+              )}
             </div>
-
-
           </Transition.Child>
 
         </div>
@@ -67,6 +77,18 @@ function Modal({ show, onCancel, children, headline,btnName,onSubmit,cancelBtnNa
       </Dialog>
     </Transition>
   )
+}
+
+Modal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  headline: PropTypes.string,
+  btn: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  onSubmit: PropTypes.func,
+  cancelBtn: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  className: PropTypes.string
+
 }
 
 export default Modal
