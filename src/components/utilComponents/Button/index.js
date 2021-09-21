@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import { joinClassNames } from '../../../utils/functions'
+import LoadingSpinner from '../LoadingSpinner'
 
 const PRIMARY_COMMON = "focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-0 text-white transition duration-200 ease-in-out shadow-md"
 const OUTLINE_COMMON = "focus:ring-1 focus:ring-indigo-200 focus:ring-opacity-50 border-1 transition duration-200 ease-in-out"
@@ -39,9 +40,14 @@ const variants = Object.freeze({
 
 
 
-function Button({ variant = "primary", className, children, ...props }) {
+function Button({ variant = "primary", className, children,loading=false, ...props }) {
   return (
-    <button className={joinClassNames("py-1 px-2 border rounded-md cursor-pointer outline-none disabled:opacity-50 disabled:cursor-not-allowed","" ,variants[variant], className)} {...props} > {children}</button>
+    <button className={joinClassNames("py-1 px-2 border rounded-md cursor-pointer outline-none disabled:opacity-50 disabled:cursor-not-allowed","" ,variants[variant], className)} {...props} >
+
+    {loading && <LoadingSpinner className="w-5 mr-1" />}
+
+    {children}
+    </button>
   )
 }
 
@@ -49,7 +55,8 @@ Button.propTypes = {
   variant: PropTypes.oneOf(Object.keys(variants)),
   type: PropTypes.oneOf(["submit", "button", "reset"]),
   onClick: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  loading:PropTypes.bool
 }
 
 export default Button
