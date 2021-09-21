@@ -92,7 +92,7 @@ function CreateTagModal({ show, onClose }) {
           />
           <div className="flex justify-end items-center gap-3">
             <Button variant="outline-danger" type="button" onClick={onClose} >Cancel</Button>
-            <Button type="submit"  >Create</Button>
+            <Button type="submit" disabled={loading} loading={loading}  >Create</Button>
           </div>
 
 

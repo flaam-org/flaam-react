@@ -7,8 +7,8 @@ import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField } from '../../components/formComponents/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLoading, selectSignupError, setSignupError, signupAsync } from '../../slices/authSlice'
-import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
 import Alert from '../../components/utilComponents/Alert'
+import Button from '../../components/utilComponents/Button'
 
 const initialValues = {
   first_name: "",
@@ -27,11 +27,6 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("This field is required."),
   confirm_password: Yup.string().required("This field is required.")
 })
-
-
-const classes = {
-  BTN: 'mt-1 p-3 block w-full bg-blue-200 rounded hover:bg-blue-300 text-black font-semi-bold text-xl dark:bg-blue-900 dark:hover:bg-blue-800 dark:text-white '
-}
 
 function Signup() {
 
@@ -80,12 +75,7 @@ function Signup() {
 
               <InputField label="Confirm password" name="confirm_password" type="password" labelClassName="block mb-6 w-full" className="block mt-1 w-full" />
 
-              <button type="submit" className={classes.BTN} disabled={loading}>
-                {loading && <LoadingSpinner />}
-                <span className="inline-block align-middle">
-                  SignUp
-                </span>
-              </button>
+              <Button className="w-full py-3 text-lg" variant="secondary" disabled={loading} loading={loading} type="submit" >SignUp</Button>
 
             </Form>
           </Formik>
