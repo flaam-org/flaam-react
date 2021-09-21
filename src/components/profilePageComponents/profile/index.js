@@ -71,6 +71,7 @@ function Profile() {
           setActiveTags(prev => {
             return [...prev].map(t => ({ ...t, "active": true }))
           })
+          setAvatar(user.avatar)
         }}
         enableReinitialize
 
