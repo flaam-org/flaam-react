@@ -29,11 +29,15 @@ function getSeed(imgUrl) {
   return imgUrl.match(/\/(?<seed>[^/]*)\.svg/)?.groups?.seed
 }
 
+function getSprite(imgUrl) {
+  return imgUrl.match(/\/(?<sprite>[^/]*)\/[^/]*\.svg/)?.groups?.sprite
+}
+
 function ProfilePicture({ avatar, setAvatar }) {
   const isEditMode = useSelector(selectIsEditMode)
   const [isOpen, setIsOpen] = useState(false)
   const [dicebearSeed, setDicebearSeed] = useState(getSeed(avatar) || "")
-  const [dicebearSprite, setDicebearSprite] = useState(sprites[0])
+  const [dicebearSprite, setDicebearSprite] = useState(getSprite(avatar) || sprites[0])
   const [previewOpen, setPreviewOpen] = useState(false)
 
   const generatedAvatar = `https://avatars.dicebear.com/api/${dicebearSprite}/${dicebearSeed}.svg`;
@@ -95,8 +99,8 @@ function ProfilePicture({ avatar, setAvatar }) {
         className=""
         show={isOpen}
         headline="Change Profile Picture"
-        btnName="Change"
-        cancelBtnName="Cancel"
+        btn="Change"
+        cancelBtn="Cancel"
         onSubmit={() => {
           setIsOpen(false)
           setAvatar(generatedAvatar)
@@ -104,6 +108,8 @@ function ProfilePicture({ avatar, setAvatar }) {
         onCancel={() => {
           setIsOpen(false)
           setDicebearSeed(getSeed(avatar) || "")
+          setDicebearSprite(getSprite(avatar) || sprites[0])
+
         }}
 
       >

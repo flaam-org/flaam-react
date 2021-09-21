@@ -4,6 +4,7 @@ import Button from '../Button'
 import PropTypes from "prop-types"
 
 function Modal({ show, onCancel, children, headline, btn, onSubmit, cancelBtn, className }) {
+
   return (
     <Transition show={show} as={Fragment} >
       <Dialog
