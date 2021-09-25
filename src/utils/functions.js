@@ -1,3 +1,3 @@
 export function joinClassNames(...classes) {
-  return classes.join(" ")
+  return classes.filter(Boolean).join(' ')
 }

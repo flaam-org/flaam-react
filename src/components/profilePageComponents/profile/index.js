@@ -50,7 +50,7 @@ function Profile() {
 
 
   return (
-    <div className="w-full p-2 border " >
+    <div className="w-full snap-mt-2 p-2 border snap-start" >
       <div className={joinClassNames(
         isEditMode ? "hidden" : "",
         "w-full py-2 px-10 flex flex-row-reverse cursor-pointer"
