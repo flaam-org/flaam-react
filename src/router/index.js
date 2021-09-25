@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch,Redirect } from 'react-router-dom'
 import Feed from '../pages/Feed'
 import LandingPage from '../pages/LandingPage'
 import Login from '../pages/Login'
@@ -28,6 +28,7 @@ const RoutingComp = () => {
         {/* authentication routes */}
         <PublicRoute path={routes.LOGIN} component={Login} />
         <PublicRoute path={routes.SIGNUP} component={Signup} />
+        <Redirect from="*" to={routes.FEED} />
       </Switch>
     </Router>
   )
