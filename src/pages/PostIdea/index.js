@@ -72,11 +72,11 @@ function PostIdea() {
 
                 <TextAreaField label="description" placeholder="Briefly describe about your Idea...." name="description" labelClassName="block" className="w-full resize-none" labelSpanClassName="" rows="6" />
 
-                <TextAreaField label="body" name="body" placeholder="" rows="20" labelClassName="block" className="w-full" labelSpanClassName="" />
+                <TextAreaField label="body" name="body" placeholder="Elaborate and include all details of the idea here..." rows="20" labelClassName="block" className="w-full" labelSpanClassName="" />
 
                 <div className="flex space-x-2 mt-2 justify-end" >
                   <Button variant="outline-danger" type="reset" >Reset</Button>
-                  <Button variant="success" >Post Idea </Button>
+                  <Button variant="secondary" >Post Idea </Button>
 
                 </div>
 
