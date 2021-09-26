@@ -70,7 +70,7 @@ const PLACEMENT = {
 /**
  * @param {{
  * message:string,
- * onClose: function `A function to run when alert closes`,
+ * onClose: function,
  * autoClose: boolean,
  * duration:number,
  * variant:"error" | "success" | "warning",

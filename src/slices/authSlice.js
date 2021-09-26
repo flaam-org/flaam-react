@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
 import { endpoints } from "../utils/constants"
+import { enqueueNotification } from './globalNotificationSlice'
 
 const initialState = {
   isLoggedIn: false,
@@ -57,6 +58,11 @@ export const loginAsync = (data) => async dispatch => {
       localStorage.setItem('access_token', resData?.access)
 
       dispatch(setIsLoggedIn(true))
+      dispatch(enqueueNotification({
+        msg: "Logged In Successfully.",
+        type: "success",
+        duration: 3000
+      }))
 
     }
 
@@ -81,9 +87,9 @@ export const manageLoginAsync = () => async dispatch => {
   const refresh_token = localStorage.getItem("refresh_token")
 
 
-  if(access_token && refresh_token ) {
+  if (access_token && refresh_token) {
     dispatch(setIsLoggedIn(true))
-  }else {
+  } else {
     dispatch(setIsLoggedIn(false))
     return
   }
@@ -98,6 +104,11 @@ export const manageLoginAsync = () => async dispatch => {
 
     if (accessRes.ok) {
       dispatch(setIsLoggedIn(true))
+      dispatch(enqueueNotification({
+        msg: "Logged In Successfully.",
+        type: "success",
+        duration: 3000
+      }))
       return
     }
 
@@ -171,6 +182,11 @@ export const logout = () => dispatch => {
   dispatch(setLoginError(""))
   dispatch(setSignupError(""))
   dispatch(setLoading(false))
+  dispatch(enqueueNotification({
+    msg: "Logged out successfully",
+    type: "error",
+    duration: 3000
+  }))
 }
 
 
