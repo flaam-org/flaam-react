@@ -33,37 +33,51 @@ const PLACEMENT = {
     from: "-translate-y-full",
     to: "translate-y-1"
   },
-  "left-start":{
-    default:"top-2 left-1",
-    from:"-translate-x-full",
-    to:"translate-x-0"
+  "left-start": {
+    default: "top-2 left-1",
+    from: "-translate-x-full",
+    to: "translate-x-0"
   },
-  "left-middle":{
-    default:"top-1/2 left-1 -translate-y-1/2",
-    from:"-translate-x-full",
-    to:"translate-x-0"
+  "left-middle": {
+    default: "top-1/2 left-1 -translate-y-1/2",
+    from: "-translate-x-full",
+    to: "translate-x-0"
   },
-  "left-end":{
-    default:"bottom-20 left-1",
-    from:"-translate-x-full",
-    to:"translate-x-0"
+  "left-end": {
+    default: "bottom-20 left-1",
+    from: "-translate-x-full",
+    to: "translate-x-0"
   },
-  "right-start":{
-    default:"top-1 right-1",
-    from:"translate-x-full",
-    to:"translate-x-0"
+  "right-start": {
+    default: "top-1 right-1",
+    from: "translate-x-full",
+    to: "translate-x-0"
   },
-  "right-middle":{
-    default:"top-1/2 right-1 -translate-y-1/2",
-    from:"translate-x-full",
-    to:"translate-x-0"
+  "right-middle": {
+    default: "top-1/2 right-1 -translate-y-1/2",
+    from: "translate-x-full",
+    to: "translate-x-0"
   },
-  "right-end":{
-    default:"bottom-10 right-1",
-    from:"translate-x-full",
-    to:"translate-x-0"
+  "right-end": {
+    default: "bottom-10 right-1",
+    from: "translate-x-full",
+    to: "translate-x-0"
   }
 }
+
+
+
+/**
+ * @param {{
+ * message:string,
+ * onClose: function `A function to run when alert closes`,
+ * autoClose: boolean,
+ * duration:number,
+ * variant:"error" | "success" | "warning",
+ * corners:"sharp" | "very-light-curve" | "light-curve" | "heavy-curve" | "very-heavy-curve" | "almost-circular",
+ * placement:"top-middle" | "top-start" | "top-end" | "left-start" | "left-middle" | "left-end" | "right-start" | "right-middle" | "right-end",
+ *  }}
+ */
 
 function Alert({ message, onClose, autoClose, duration, variant = "error", corners = "light-curve", placement = "top-middle" }) {
 
