@@ -37,6 +37,10 @@ function Profile() {
     setActiveTags(favouriteTags.map(t => ({ ...t, "active": true })))
   }, [favouriteTags])
 
+  useUpdateEffect(() => {
+    setAvatar(user.avatar)
+  },[user.avatar])
+
 
   const initialValues = {
     first_name: user.firstName,
@@ -81,7 +85,6 @@ function Profile() {
 
           <div className="flex" >
             <div className="flex flex-col items-center flex-1 p-2 " >
-              {/* <div className="w-40 h-40 mb-3 rounded-full bg-gray-400 bg-cover  " style={{ background: `url("${user.avatar || "https://picsum.photos/400"}")` }} ></div> */}
 
               <ProfilePicture avatar={avatar} setAvatar={setAvatar} />
 

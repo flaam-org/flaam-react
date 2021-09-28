@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Sidebar from '../../components/Sidebar'
 import Header from '../../components/Header'
 import Main from "../../components/utilComponents/Main"
@@ -6,8 +6,16 @@ import ContentContainer from "../../components/utilComponents/ContentContainer"
 import NewsContainer from "../../components/utilComponents/NewsContainer"
 import Profile from "../../components/profilePageComponents/profile"
 import TabsContainer from '../../components/profilePageComponents/TabsContainer'
+import { useDispatch } from 'react-redux'
+import { getUserAsync } from '../../slices/userSlice'
 
 function ProfilePage() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUserAsync())
+  }, [dispatch])
+
   return (
     <div className="flex bg-gray-100 dark:bg-gray-900 transition duration-500" >
       <Sidebar />
@@ -18,9 +26,9 @@ function ProfilePage() {
         <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
           <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white py-5 px-3 snap snap-y snap-mandatory">
 
-              <Profile />
+            <Profile />
 
-              <TabsContainer />
+            <TabsContainer />
 
 
           </ContentContainer>
