@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
-import { endpoints } from "../utils/constants"
+import { endpoints, timeInMilliseconds } from "../utils/constants"
 import { enqueueNotification } from './globalNotificationSlice'
+import { areTokensValid, setTokenWithExpiry } from "../utils/functions"
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: areTokensValid(),
   loading: false,
   errors: {
     loginError: "",
@@ -54,8 +55,8 @@ export const loginAsync = (data) => async dispatch => {
 
     if (res.ok) {
 
-      localStorage.setItem('refresh_token', resData?.refresh)
-      localStorage.setItem('access_token', resData?.access)
+      setTokenWithExpiry('refresh_token', resData?.refresh, 89 * timeInMilliseconds.DAY);
+      setTokenWithExpiry('access_token', resData?.access, 29 * timeInMilliseconds.MINUTE);
 
       dispatch(setIsLoggedIn(true))
       dispatch(enqueueNotification({
@@ -83,61 +84,38 @@ export const loginAsync = (data) => async dispatch => {
 
 export const manageLoginAsync = () => async dispatch => {
 
-  const access_token = localStorage.getItem("access_token")
-  const refresh_token = localStorage.getItem("refresh_token")
+  const isAccessTokenValid = areTokensValid()
 
+  if (!isAccessTokenValid) {
+    const refresh_token = JSON.parse(localStorage.getItem('refresh_token'));
 
-  if (access_token && refresh_token) {
-    dispatch(setIsLoggedIn(true))
-  } else {
-    dispatch(setIsLoggedIn(false))
-    return
-  }
-
-
-  try {
-
-    // verify access token
-    const accessRes = await fetchWrapper.post(endpoints.VERIFY_TOKEN, {
-      "token": access_token
-    })
-
-    if (accessRes.ok) {
-      dispatch(setIsLoggedIn(true))
-      dispatch(enqueueNotification({
-        msg: "Logged In Successfully.",
-        type: "success",
-        duration: 3000
-      }))
-      return
+    if (refresh_token.expires_at <= new Date().getTime()) {
+      dispatch(setIsLoggedIn(false))
     }
 
-    // if access token is not valid then check refresh token and get new access token
-    const refreshRes = await fetchWrapper.post(endpoints.VERIFY_TOKEN, {
-      "token": refresh_token
-    })
 
-    if (refreshRes.ok) {
+    try {
+
       const newAccessRes = await fetchWrapper.post(endpoints.REFRESH_TOKEN, {
         "refresh": refresh_token
       })
       const data = await newAccessRes.json()
 
       if (newAccessRes.ok) {
-        localStorage.setItem('access_token', data?.access)
+        // localStorage.setItem('access_token', data?.access)
+        setTokenWithExpiry('access_token', data?.access, 29 * timeInMilliseconds.MINUTE)
         dispatch(setIsLoggedIn(true))
         return
       }
+
+      // if refresh token is also not valid return to login page
+      dispatch(setIsLoggedIn(false))
+      return
+
     }
-
-    // if refresh token is also not valid return to login page
-    dispatch(setIsLoggedIn(false))
-    return
-
-
-  }
-  catch (err) {
-    console.log(err);
+    catch (err) {
+      console.log(err);
+    }
   }
 }
 
@@ -152,8 +130,8 @@ export const signupAsync = (data) => async dispatch => {
 
     if (res.ok) {
 
-      localStorage.setItem('refresh_token', resData?.refresh)
-      localStorage.setItem('access_token', resData?.access)
+      setTokenWithExpiry('refresh_token', resData?.refresh, 89 * timeInMilliseconds.DAY);
+      setTokenWithExpiry('access_token', resData?.access, 29 * timeInMilliseconds.MINUTE);
 
       dispatch(setIsLoggedIn(true))
 

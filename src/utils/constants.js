@@ -18,3 +18,8 @@ export const breakpoints = {
   xl: '(min-width: 1280px)',
   '2xl': '(min-width: 1536px)'
 }
+
+export const timeInMilliseconds = {
+  MINUTE: 60 * 1000,
+  DAY: 24 * 60 * 60 * 1000
+}
