@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { endpoints } from "../utils/constants";
 import { fetchWrapper } from "../utils/fetchWrapper";
+import { manageLoginAsync } from "./authSlice";
 
 const initialState = {
   isEditMode: false,
@@ -64,6 +65,7 @@ export const getUserAsync = () => async dispatch => {
 
   try {
 
+    await dispatch(manageLoginAsync())
     const res = await fetchWrapper.get(endpoints.USER_PROFILE, true)
 
     const resData = await res.json()
@@ -88,6 +90,7 @@ export const getExpandedFavouriteTags = (tagIds) => async dispatch => {
     const ids = tagIds.join(',')
     const url = `${endpoints.FAVOURITE_TAGS}?ids=${ids}&limit=${tagIds.length}`
 
+    await dispatch(manageLoginAsync())
     const res = await fetchWrapper.get(url, true)
     const resData = await res.json()
 
@@ -110,6 +113,7 @@ export const updateUserAsync = (profile) => async dispatch => {
   dispatch(setLoading(true))
   try {
 
+    await dispatch(manageLoginAsync())
     const res = await fetchWrapper.put(endpoints.USER_PROFILE, profile, true)
     const resData = await res.json()
 

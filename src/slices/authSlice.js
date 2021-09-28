@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
 import { endpoints, timeInMilliseconds } from "../utils/constants"
 import { enqueueNotification } from './globalNotificationSlice'
-import { areTokensValid, setTokenWithExpiry } from "../utils/functions"
+import { checkTokenState, setTokenWithExpiry, tokenStates } from "../utils/functions"
 
 const initialState = {
-  isLoggedIn: areTokensValid(),
+  isLoggedIn: checkTokenState() === tokenStates.VALID,
   loading: false,
   errors: {
     loginError: "",
@@ -84,10 +84,16 @@ export const loginAsync = (data) => async dispatch => {
 
 export const manageLoginAsync = () => async dispatch => {
 
-  const isAccessTokenValid = areTokensValid()
+  if (checkTokenState() === tokenStates.PARTIAL) {
 
-  if (!isAccessTokenValid) {
-    const refresh_token = JSON.parse(localStorage.getItem('refresh_token'));
+    const refresh = localStorage.getItem('refresh_token');
+
+    if (typeof refresh === "undefined" || refresh === null) {
+      dispatch(setIsLoggedIn(false))
+      return
+    }
+
+    const refresh_token = JSON.parse(refresh);
 
     if (refresh_token.expires_at <= new Date().getTime()) {
       dispatch(setIsLoggedIn(false))
