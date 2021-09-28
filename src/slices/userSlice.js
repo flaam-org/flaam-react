@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { endpoints } from "../utils/constants";
 import { fetchWrapper } from "../utils/fetchWrapper";
 import { manageLoginAsync } from "./authSlice";
+import { enqueueNotification } from "./globalNotificationSlice";
 
 const initialState = {
   isEditMode: false,
@@ -54,7 +55,7 @@ export const userSlice = createSlice({
 
 
 
-export const { setUserState, setLoading, setFavouriteTags,setIsEditMode } = userSlice.actions
+export const { setUserState, setLoading, setFavouriteTags, setIsEditMode } = userSlice.actions
 
 
 
@@ -120,11 +121,21 @@ export const updateUserAsync = (profile) => async dispatch => {
     if (res.ok) {
       dispatch(setUserState(resData))
       dispatch(getExpandedFavouriteTags(resData.favourite_tags))
+      dispatch(enqueueNotification({
+        msg: "Profile updated Successfully",
+        type: "success",
+        duration: 3000
+      }))
     }
 
   } catch (error) {
     console.log(error)
     dispatch(setLoading(false))
+    dispatch(enqueueNotification({
+      msg: "Profile update Failed.",
+      type: "error",
+      duration: 1500
+    }))
   }
 }
 
