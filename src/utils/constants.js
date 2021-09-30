@@ -1,13 +1,28 @@
 export const host = "https://flaam-api.herokuapp.com/"
+const endpointInitial = `${host}api/v1`
 
 export const endpoints = {
-  LOGIN_USER: `${host}api/v1/accounts/login`,
-  SIGNUP_USER: `${host}api/v1/accounts/user`,
-  VERIFY_TOKEN: `${host}api/v1/accounts/login/verify`,
-  REFRESH_TOKEN: `${host}api/v1/accounts/login/refresh`,
-  CHECK_EXISTS: `${host}api/v1/accounts/user/exists`,
-  USER_PROFILE: `${host}api/v1/accounts/user/profile`,
-  FAVOURITE_TAGS: `${host}api/v1/tags`
+  // authentication
+  LOGIN_USER: `${endpointInitial}/accounts/login`,
+  SIGNUP_USER: `${endpointInitial}/accounts/user`,
+  VERIFY_TOKEN: `${endpointInitial}/accounts/login/verify`,
+  REFRESH_TOKEN: `${endpointInitial}/accounts/login/refresh`,
+  CHECK_EXISTS: `${endpointInitial}/accounts/user/exists`,
+
+  //user
+  USER_PROFILE: `${endpointInitial}/accounts/user/profile`,
+
+  //tags
+  FAVOURITE_TAGS: `${endpointInitial}/tags`,
+
+  // ideas
+  GET_IDEAS: `${endpointInitial}/ideas`,
+  POST_IDEA: `${endpointInitial}/ideas`,
+  GET_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
+  UPDATE_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
+  DELETE_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
+  ADD_IDEA_TO_BOOKMARKS: (ideaId) => `${endpointInitial}/idea/${ideaId}/bookmark`,
+  DELETE_IDEA_FROM_BOOKMARKS: (ideaId) => `${endpointInitial}/idea/${ideaId}/bookmark`,
 }
 
 
