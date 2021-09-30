@@ -13,7 +13,11 @@ const notificationSlice = createSlice({
       state.current = action.payload
     },
 
-
+    /**
+     *
+     * @param {*} state
+     * @param {{payload:{msg:string,type:"success"|"error"|"warning",duration:number}}} action
+     */
     enqueueNotification: (state, action) => {
       if (state.current === null) {
         state.current = action.payload
