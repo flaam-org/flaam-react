@@ -103,7 +103,7 @@ export const manageLoginAsync = () => async dispatch => {
     try {
 
       const newAccessRes = await fetchWrapper.post(endpoints.REFRESH_TOKEN, {
-        "refresh": refresh_token
+        "refresh": refresh_token.token
       })
       const data = await newAccessRes.json()
 
