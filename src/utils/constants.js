@@ -4,7 +4,7 @@ const endpointInitial = `${host}api/v1`
 export const endpoints = {
   // authentication
   LOGIN_USER: `${endpointInitial}/accounts/login`,
-  SIGNUP_USER: `${endpointInitial}/accounts/user`,
+  SIGNUP_USER: `${endpointInitial}/accounts/users`,
   VERIFY_TOKEN: `${endpointInitial}/accounts/login/verify`,
   REFRESH_TOKEN: `${endpointInitial}/accounts/login/refresh`,
   CHECK_EXISTS: `${endpointInitial}/accounts/user/exists`,
