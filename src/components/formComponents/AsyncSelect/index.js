@@ -5,7 +5,7 @@ import { fetchWrapper } from "../../../utils/fetchWrapper"
 import { endpoints } from "../../../utils/constants"
 
 
-function AsyncSelect({onSubmit,resultFilter,disabled}) {
+function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
 
   const [query, setQuery] = useState("")
   const [isOpen, setIsOpen] = useState(false)
