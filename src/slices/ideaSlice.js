@@ -30,8 +30,7 @@ export const { setLoading } = IdeaSlice.actions;
 // TODO make thunk for generating the feed
 
 
-export const PostIdeaAsync = (idea) => async dispatch => {
-
+export const postIdeaAsync = (idea) => async dispatch => {
   dispatch(setLoading(true))
 
   try {
