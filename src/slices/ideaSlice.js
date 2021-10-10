@@ -7,19 +7,15 @@ import { enqueueNotification } from "./globalNotificationSlice";
 const initialState = {
   loading: false,
   currentIdea: {},
-  feed: []
 }
 
 const IdeaSlice = createSlice({
   name: 'idea',
   initialState: initialState,
   reducers: {
-
     setLoading: (state, action) => {
       state.loading = action.payload
     }
-
-
   }
 
 })
@@ -28,7 +24,6 @@ export const { setLoading } = IdeaSlice.actions;
 
 
 // TODO make thunk for generating the feed
-
 
 export const postIdeaAsync = (idea) => async dispatch => {
   dispatch(setLoading(true))
@@ -221,3 +216,5 @@ export const deleteIdeaFromBookmarkAsync = (ideaId) => async dispatch => {
 
 }
 
+
+export default IdeaSlice.reducer
