@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react'
 import React from 'react'
 import { joinClassNames } from '../../../utils/functions'
 import ImplementationTabPanel from '../ImplementationTabPanel'
-import ProjectsTabPanel from '../ProjectsTabPanel'
+import MyIdeasTabPanel from '../MyIdeasTabPanel'
 import SavedTabPanel from '../SavedTabPanel'
 
 const TTab = ({ children }) => {
@@ -26,14 +26,14 @@ function TabsContainer() {
       <Tab.List className="flex py-1 px-2 space-x-2 rounded-md">
 
         <TTab>Saved</TTab>
-        <TTab>My Projects</TTab>
+        <TTab>My Ideas</TTab>
         <TTab>My Implementations</TTab>
 
 
       </Tab.List>
       <Tab.Panels className="mt-2 px-2 h-[80vh]">
         <SavedTabPanel />
-        <ProjectsTabPanel />
+        <MyIdeasTabPanel />
         <ImplementationTabPanel />
       </Tab.Panels>
     </Tab.Group>
