@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { endpoints } from "../utils/constants";
 import { fetchWrapper } from "../utils/fetchWrapper";
+import { getTokenDetails } from "../utils/functions";
 import { manageLoginAsync } from "./authSlice";
 import { enqueueNotification } from "./globalNotificationSlice";
 
@@ -28,7 +29,7 @@ export const {setLoading,addToMyIdeas} = myIdeasSlice.actions
 
 export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
-  const ownerId = getState().user.id
+  const ownerId = getTokenDetails(localStorage.getItem('access_token')).user_id
   const offset = getState().myIdeas.value.length
 
   dispatch(setLoading(true));
@@ -36,7 +37,7 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}`,true)
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}&ordering=-created_at`,true)
 
     if (res.ok) {
       const resData = await res.json()
