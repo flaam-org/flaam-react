@@ -89,7 +89,8 @@ function setHeaders(isPrivate) {
 
   if (isPrivate) {
 
-    const accessToken = getToken('access_token')
+    // const accessToken = getToken('access_token')
+    const accessToken = localStorage.getItem('access_token')
 
     if (typeof accessToken !== "undefined" && accessToken !== null)
       return {
