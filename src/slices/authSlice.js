@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
-import { endpoints, timeInMilliseconds } from "../utils/constants"
+import { endpoints} from "../utils/constants"
 import { enqueueNotification } from './globalNotificationSlice'
-import { checkTokenState, getCurrentTimeInSeconds, getTokenDetails, setTokenWithExpiry, tokenStates } from "../utils/functions"
+import { checkTokenState, getCurrentTimeInSeconds, getTokenDetails, tokenStates } from "../utils/functions"
 
 const initialState = {
   isLoggedIn: checkTokenState() === tokenStates.VALID,
@@ -55,8 +55,6 @@ export const loginAsync = (data) => async dispatch => {
 
     if (res.ok) {
 
-      // setTokenWithExpiry('refresh_token', resData?.refresh, 89 * timeInMilliseconds.DAY);
-      // setTokenWithExpiry('access_token', resData?.access, 29 * timeInMilliseconds.MINUTE);
       localStorage.setItem('refresh_token', resData?.refresh)
       localStorage.setItem('access_token', resData?.access)
 
@@ -97,9 +95,6 @@ export const manageLoginAsync = () => async dispatch => {
 
     const refresh_token_details = getTokenDetails(refresh);
 
-    // if (refresh_token.expires_at <= new Date().getTime()) {
-    //   dispatch(setIsLoggedIn(false))
-    // }
     if (refresh_token_details.exp < getCurrentTimeInSeconds()) {
       dispatch(setIsLoggedIn(false))
     }
@@ -113,7 +108,6 @@ export const manageLoginAsync = () => async dispatch => {
       const data = await newAccessRes.json()
 
       if (newAccessRes.ok) {
-        // setTokenWithExpiry('access_token', data?.access, 29 * timeInMilliseconds.MINUTE))
         localStorage.setItem('access_token', data?.access)
         dispatch(setIsLoggedIn(true))
         return
@@ -141,8 +135,6 @@ export const signupAsync = (data) => async dispatch => {
 
     if (res.ok) {
 
-      // setTokenWithExpiry('refresh_token', resData?.refresh, 89 * timeInMilliseconds.DAY);
-      // setTokenWithExpiry('access_token', resData?.access, 29 * timeInMilliseconds.MINUTE);
       localStorage.setItem('refresh_token', resData?.refresh)
       localStorage.setItem('access_token', resData?.access)
 

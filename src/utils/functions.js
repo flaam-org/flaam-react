@@ -39,34 +39,6 @@ function isTokenExpired(tokenObject) {
   return tokenObject.exp < getCurrentTimeInSeconds()
 }
 
-
-/**
- *
- * @param {string} name key name
- * @param {string} token the token
- * @param {number} expiry milliseconds after which token expires
- */
-// export function setTokenWithExpiry(name, token, expire_after) {
-
-//   localStorage.setItem(name, JSON.stringify({
-//     token: token,
-//     expires_at: new Date().getTime() + expire_after
-//   }))
-
-// }
-
-// export function getToken(name) {
-
-//   const t = localStorage.getItem(name);
-//   return JSON.parse(t)?.token
-// }
-
-// export function getTokenExpiry(name) {
-//   const t = localStorage.getItem(name);
-//   return JSON.parse(t).expires_at
-
-// }
-
 /**
  *
  * @param {string} token a base64 encoded jwt token

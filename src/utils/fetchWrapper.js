@@ -1,5 +1,3 @@
-import { getToken } from "./functions"
-
 /**
  *
  * @param {string} url endpoint
@@ -89,7 +87,6 @@ function setHeaders(isPrivate) {
 
   if (isPrivate) {
 
-    // const accessToken = getToken('access_token')
     const accessToken = localStorage.getItem('access_token')
 
     if (typeof accessToken !== "undefined" && accessToken !== null)
