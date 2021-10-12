@@ -23,7 +23,7 @@ const TTab = ({ children }) => {
 function TabsContainer() {
   return (
     <Tab.Group as="div" className="w-full px-2 py-3 sm:px-0 snap-start "  >
-      <Tab.List className="flex py-1 px-2 space-x-2 rounded-md">
+      <Tab.List className="flex py-1 px-2 space-x-2 rounded-md border-b">
 
         <TTab>Saved</TTab>
         <TTab>My Ideas</TTab>
@@ -31,7 +31,7 @@ function TabsContainer() {
 
 
       </Tab.List>
-      <Tab.Panels className="mt-2 px-2 h-[80vh]">
+      <Tab.Panels className="mt-2 px-2 h-[80vh] overflow-y-scroll keep-scrolling">
         <SavedTabPanel />
         <MyIdeasTabPanel />
         <ImplementationTabPanel />

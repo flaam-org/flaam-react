@@ -1,9 +1,12 @@
 import { Tab } from '@headlessui/react'
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import {getMyIdeasAsync} from "../../../slices/myIdeasSlice"
+import { useDispatch, useSelector } from 'react-redux'
+import { getMyIdeasAsync, selectMyIdeas } from "../../../slices/myIdeasSlice"
+import IdeaCard from '../../IdeaCard'
 
 function MyIdeasTabPanel() {
+
+  const myIdeas = useSelector(selectMyIdeas)
 
   const dispatch = useDispatch()
 
@@ -11,11 +14,19 @@ function MyIdeasTabPanel() {
 
     dispatch(getMyIdeasAsync())
 
-  },[dispatch])
+  }, [dispatch])
+
+  console.log(myIdeas);
 
   return (
     <Tab.Panel>
-      my ideas
+      <div className="flex flex-col space-y-3 mt-2 ">
+        {myIdeas.map(idea => {
+
+          return <IdeaCard idea={idea} key={idea.id} />
+        })}
+
+      </div>
     </Tab.Panel>
   )
 }
