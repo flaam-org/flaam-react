@@ -115,7 +115,7 @@ export const updateUserAsync = (profile) => async dispatch => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.put(endpoints.USER_PROFILE, profile, true)
+    const res = await fetchWrapper.patch(endpoints.USER_PROFILE, profile, true)
     const resData = await res.json()
 
     if (res.ok) {

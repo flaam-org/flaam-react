@@ -51,6 +51,22 @@ function put(url, body, isPrivate = false) {
   return fetch(url, requestOptions)
 }
 
+/**
+ *
+ * @param {string} url endpoint
+ * @param {Object} body data to be sent
+ * @param {boolean} isPrivate
+ */
+ function patch(url, body, isPrivate = false) {
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: setHeaders(isPrivate),
+    body: JSON.stringify(body)
+  }
+
+  return fetch(url, requestOptions)
+}
 
 
 /**
@@ -106,5 +122,6 @@ export const fetchWrapper = {
   get,
   post,
   put,
+  patch,
   _delete
 }
