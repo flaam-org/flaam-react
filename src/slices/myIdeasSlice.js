@@ -7,7 +7,7 @@ import { enqueueNotification } from "./globalNotificationSlice";
 
 const initialState = {
   loading: false,
-  value: []
+  value: {}
 }
 
 const myIdeasSlice = createSlice({
@@ -19,13 +19,16 @@ const myIdeasSlice = createSlice({
     },
 
     addToMyIdeas: (state, action) => {
-      state.value = [...state.value, ...action.payload]
+      state.value = action.payload.reduce((prev, curr) => {
+        prev[curr.id] = curr
+        return prev
+      }, {})
     },
 
   }
 })
 
-export const {setLoading,addToMyIdeas} = myIdeasSlice.actions
+export const { setLoading, addToMyIdeas } = myIdeasSlice.actions
 
 export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
@@ -37,7 +40,7 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}&ordering=-created_at`,true)
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}&ordering=-created_at`, true)
 
     if (res.ok) {
       const resData = await res.json()
@@ -62,7 +65,7 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
 }
 
 
-export const selectMyIdeas = state => state.myIdeas.value
+export const selectMyIdeas = state => Object.values(state.myIdeas.value)
 export const selectLoading = state => state.myIdeas.loading
 
 export default myIdeasSlice.reducer
