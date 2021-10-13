@@ -1,6 +1,20 @@
 import React from 'react'
 import Tag from '../utilComponents/Tag'
-import {BookmarkIcon,ShareIcon} from "@heroicons/react/outline"
+import { BookmarkIcon, ShareIcon } from "@heroicons/react/outline"
+import { EyeIcon } from "@heroicons/react/solid"
+import { format, isToday, isYesterday } from 'date-fns'
+
+function formatCreatedAt(date) {
+
+  const d = new Date(date)
+
+  if (isToday(d)) return `Created Today`
+
+  if (isYesterday(d)) return `Created Yesterday`
+
+  return `Created on ${format(d, 'do MMMM, yyyy ')}`
+
+}
 
 function IdeaCard({ idea }) {
 
@@ -17,6 +31,7 @@ function IdeaCard({ idea }) {
     // downvote_count,
     // implementation_count,
     // bookmarked,
+    view_count,
     created_at,
   } = idea
 
@@ -30,12 +45,16 @@ function IdeaCard({ idea }) {
       </div>
 
       {/* username and created at */}
-      <div className="col-start-2 col-end-8 flex flex-col justify-center">
+      <div className="col-start-2 col-end-8 flex flex-col justify-center ">
         <p className="">
           {owner_username}
         </p>
-        <p className="text-sm text-gray-600" >
-          {created_at}
+        <p className="text-sm text-gray-600 flex divide-x " >
+          <span className="pr-2">{formatCreatedAt(created_at)}</span>
+          <span className="pl-2 flex items-center justify-between space-x-1" >
+            <span>{view_count}</span>
+            <EyeIcon className="w-3 h-3" />
+          </span>
         </p>
       </div>
 
