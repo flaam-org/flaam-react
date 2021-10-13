@@ -6,17 +6,17 @@ function IdeaCard({ idea }) {
 
   const {
     title,
-    owner,
+    // owner,
     owner_avatar,
     owner_username,
     description,
-    vote,
+    // vote,
     tags,
-    view_count,
-    upvote_count,
-    downvote_count,
-    implementation_count,
-    bookmarked,
+    // view_count,
+    // upvote_count,
+    // downvote_count,
+    // implementation_count,
+    // bookmarked,
     created_at,
   } = idea
 
@@ -76,7 +76,7 @@ function IdeaCard({ idea }) {
 
       <div className="col-start-2 col-end-8 flex flex-wrap pt-2" >
         {tags.map(t => {
-          return <Tag tag={t} />
+          return <Tag tag={t} key={t.id} />
         })}
       </div>
 
@@ -85,76 +85,3 @@ function IdeaCard({ idea }) {
 }
 
 export default IdeaCard
-
-
-
-
-
-
-
-
-
-
-
-// how to do with grid template areas
-
-{/* <div className="bg-green-100 p-2 rounded-lg grid gap-2" style={{
-  gridTemplateColumns:"repeat(16,1fr)",
-  // gridTemplateRows:"1fr 1fr 1fr 1fr",
-  gridTemplateAreas:`
-  'av av us us us us us us us us us us us us bo sh'
-  'av av cr cr cr cr cr cr cr cr cr cr cr cr  .  .'
-  ' .  . ti ti ti ti ti ti ti ti ti ti ti ti  .  .'
-  'vo vo ti ti ti ti ti ti ti ti ti ti ti ti  .  .'
-  'vo vo de de de de de de de de de de de de  .  .'
-  ' .  . de de de de de de de de de de de de  .  .'
-  'pr pr de de de de de de de de de de de de  .  .'
-  'pr pr de de de de de de de de de de de de  .  .'
-  ' .  . de de de de de de de de de de de de  .  .'
-  ' .  . ta ta ta ta ta ta ta ta ta ta ta ta  .  .'
-  ' .  . ta ta ta ta ta ta ta ta ta ta ta ta  .  .'
-  ' .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .'
-  `
-}} >
-  <div className="" style={{gridArea:"av"}} >
-    <img className=" h-14 w-14 rounded-full bg-white/80 shadow-md object-contain" src={owner_avatar} alt={owner_username} />
-  </div>
-  <p className="" style={{gridArea:"us"}}>
-    {owner_username}
-  </p>
-  <p className="" style={{gridArea:"cr"}}>
-    {created_at}
-  </p>
-  <div className="" style={{gridArea:"bo"}}>
-    book
-  </div>
-  <div className="" style={{gridArea:"sh"}}>
-    share
-  </div>
-
-  <div className="" style={{gridArea:"vo"}}>
-    <div className="" >
-      <p className="" >6</p>
-      <p className="" >votes</p>
-    </div>
-  </div>
-
-  <div className="" style={{gridArea:"pr"}}>
-    <div className="" >
-      <p className="" >2</p>
-      <p className="" >projects</p>
-    </div>
-  </div>
-
-  <div className="" style={{gridArea:"ti"}}>
-    <p className="" >{title}</p>
-  </div>
-
-  <div className="" style={{gridArea:"de"}}>
-    <p className="" >{description}</p>
-  </div>
-
-  <div className="" style={{gridArea:"ta"}}>
-    tags
-  </div>
-</div> */}
