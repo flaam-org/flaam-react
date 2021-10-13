@@ -22,10 +22,15 @@ const myIdeasSlice = createSlice({
       state.value = [...state.value, ...action.payload]
     },
 
+    logoutResetMyIdeas: (state, action) => {
+      state.loading = false
+      state.value = []
+    }
+
   }
 })
 
-export const {setLoading,addToMyIdeas} = myIdeasSlice.actions
+export const { setLoading, addToMyIdeas, logoutResetMyIdeas } = myIdeasSlice.actions
 
 export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
@@ -37,7 +42,7 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}&ordering=-created_at`,true)
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}&ordering=-created_at`, true)
 
     if (res.ok) {
       const resData = await res.json()

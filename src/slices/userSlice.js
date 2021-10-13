@@ -49,13 +49,28 @@ export const userSlice = createSlice({
 
     setLoading: (state, action) => {
       state.loading = action.payload
+    },
+
+    logoutResetUser: (state, action) => {
+      state.isEditMode = false
+      state.loading = false
+      state.id = null
+      state.username = ""
+      state.email = ""
+      state.firstName = ""
+      state.lastName = ""
+      state.status = ""
+      state.description = ""
+      state.avatar = ""
+      state.favouriteTagIds = []
+      state.favouriteTags = []
     }
   }
 })
 
 
 
-export const { setUserState, setLoading, setFavouriteTags, setIsEditMode } = userSlice.actions
+export const { setUserState, setLoading, setFavouriteTags, setIsEditMode,logoutResetUser } = userSlice.actions
 
 
 

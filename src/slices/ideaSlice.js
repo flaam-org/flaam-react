@@ -16,6 +16,11 @@ const IdeaSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload
     }
+  },
+
+  logoutReset: (state, action) => {
+    state.loading = false
+    state.currentIdea = {}
   }
 
 })

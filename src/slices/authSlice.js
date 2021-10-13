@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchWrapper } from '../utils/fetchWrapper'
-import { endpoints} from "../utils/constants"
+import { endpoints } from "../utils/constants"
 import { enqueueNotification } from './globalNotificationSlice'
 import { checkTokenState, getCurrentTimeInSeconds, getTokenDetails, tokenStates } from "../utils/functions"
+import { logoutResetMyIdeas } from './myIdeasSlice'
+import { logoutResetUser } from './userSlice'
 
 const initialState = {
   isLoggedIn: checkTokenState() === tokenStates.VALID,
@@ -32,13 +34,20 @@ export const authSlice = createSlice({
 
     setLoading: (state, action) => {
       state.loading = action.payload
+    },
+
+    logoutResetAuth: (state, action) => {
+      state.isLoggedIn = false
+      state.loading = false
+      state.errors.loginError = ""
+      state.errors.signupError = ""
     }
 
   }
 })
 
 
-export const { setIsLoggedIn, setLoginError, setSignupError, setLoading } = authSlice.actions
+export const { setIsLoggedIn, setLoginError, setSignupError, setLoading, logoutResetAuth } = authSlice.actions
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -160,11 +169,10 @@ export const logout = () => dispatch => {
   localStorage.removeItem("access_token")
   localStorage.removeItem("refresh_token")
 
+  dispatch(logoutResetAuth())
+  dispatch(logoutResetMyIdeas())
+  dispatch(logoutResetUser())
 
-  dispatch(setIsLoggedIn(false))
-  dispatch(setLoginError(""))
-  dispatch(setSignupError(""))
-  dispatch(setLoading(false))
   dispatch(enqueueNotification({
     msg: "Logged out successfully",
     type: "error",
