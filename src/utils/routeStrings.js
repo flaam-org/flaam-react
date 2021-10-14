@@ -4,5 +4,6 @@ export const routes = {
   SIGNUP: '/signup',
   FEED:'/',
   POST_IDEA:'/post/idea',
-  PROFILE:'/profile'
+  PROFILE:'/profile',
+  IDEA_DETAIL:(ideaId) => `/idea/detail/${ideaId ? ideaId : ":ideaId"}`
 }

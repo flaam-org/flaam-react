@@ -7,6 +7,7 @@ import { joinClassNames } from '../../utils/functions'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../slices/userSlice'
 import { Link } from 'react-router-dom'
+import { routes } from '../../utils/routeStrings'
 
 function formatCreatedAt(date) {
 
@@ -32,8 +33,8 @@ function IdeaCard({ idea }) {
     description,
     vote,
     tags,
-    upvote_count,
-    downvote_count,
+    // upvote_count,
+    // downvote_count,
     implementation_count,
     bookmarked,
     view_count,
@@ -109,7 +110,7 @@ function IdeaCard({ idea }) {
       </div>
 
       <div className="col-start-8 col-end-9 flex items-center justify-center" >
-        <Link to="/" className="text-center text-xs py-1 px-2 border-2 border-black/50 rounded-full hover:bg-gray-500 hover:text-white transition duration-300 ease-in-out" >
+        <Link to={routes.IDEA_DETAIL(idea.id)} className="text-center text-xs py-1 px-2 border-2 border-black/50 rounded-full hover:bg-gray-500 hover:text-white transition duration-300 ease-in-out" >
 
           View Details
         </Link>

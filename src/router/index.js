@@ -8,6 +8,7 @@ import Login from '../pages/Login'
 import PostIdea from '../pages/PostIdea'
 import ProfilePage from '../pages/ProfilePage'
 import Signup from '../pages/Signup'
+import IdeaDetail from "../pages/IdeaDetail"
 import { dequeueNotification,selectCurrentObject } from '../slices/globalNotificationSlice'
 import { routes } from '../utils/routeStrings'
 import PrivateRoute from './PrivateRoute'
@@ -39,6 +40,7 @@ const RoutingComp = () => {
         <PrivateRoute exact path={routes.FEED} component={Feed} />
         <PrivateRoute exact path={routes.POST_IDEA} component={PostIdea} />
         <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
+        <PrivateRoute exact path={routes.IDEA_DETAIL()} component={IdeaDetail} />
 
         {/* landing page */}
         <PublicRoute path={routes.LANDING_PAGE} component={LandingPage} />
