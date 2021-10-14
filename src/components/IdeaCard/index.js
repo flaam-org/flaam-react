@@ -3,6 +3,10 @@ import Tag from '../utilComponents/Tag'
 import { BookmarkIcon, ShareIcon } from "@heroicons/react/outline"
 import { EyeIcon } from "@heroicons/react/solid"
 import { format, isToday, isYesterday } from 'date-fns'
+import { joinClassNames } from '../../utils/functions'
+import { useSelector } from 'react-redux'
+import { selectUserId } from '../../slices/userSlice'
+import { Link } from 'react-router-dom'
 
 function formatCreatedAt(date) {
 
@@ -18,19 +22,20 @@ function formatCreatedAt(date) {
 
 function IdeaCard({ idea }) {
 
+  const currentUserId = useSelector(selectUserId)
+
   const {
     title,
-    // owner,
+    owner,
     owner_avatar,
     owner_username,
     description,
-    // vote,
+    vote,
     tags,
-    // view_count,
-    // upvote_count,
-    // downvote_count,
-    // implementation_count,
-    // bookmarked,
+    upvote_count,
+    downvote_count,
+    implementation_count,
+    bookmarked,
     view_count,
     created_at,
   } = idea
@@ -60,22 +65,26 @@ function IdeaCard({ idea }) {
 
       {/* idea actions(share and bookmark) */}
       <div className="col-start-8 col-end-9 flex gap-2 text-center justify-around " >
-        <div className="flex-1 cursor-pointer">
-          <BookmarkIcon className="w-5 h-5" />
-        </div>
-        <div className="flex-1 cursor-pointer" >
+        <button
+          className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed "
+          disabled={currentUserId === owner} >
+          <BookmarkIcon className={joinClassNames(
+            "w-5 h-5",
+            bookmarked && currentUserId !== owner ? "text-yellow-300 fill-current" : "")} />
+        </button>
+        <button className="flex-1 cursor-pointer" >
           <ShareIcon className="w-5 h-5" />
-        </div>
+        </button>
       </div>
 
 
       <div className="col-start-1 col-end-2 flex flex-col gap-3 justify-around text-center" >
         <div className="" >
-          <p className="text-4xl font-bold" >6</p>
+          <p className="text-4xl font-bold" >{vote}</p>
           <p className="text-sm" >votes</p>
         </div>
         <div className="" >
-          <p className="text-4xl font-bold" >2</p>
+          <p className="text-4xl font-bold" >{implementation_count}</p>
           <p className="text-sm" >projects</p>
         </div>
       </div>
@@ -97,6 +106,13 @@ function IdeaCard({ idea }) {
         {tags.map(t => {
           return <Tag tag={t} key={t.id} />
         })}
+      </div>
+
+      <div className="col-start-8 col-end-9 flex items-center justify-center" >
+        <Link to="/" className="text-center text-xs py-1 px-2 border-2 border-black/50 rounded-full hover:bg-gray-500 hover:text-white transition duration-300 ease-in-out" >
+
+          View Details
+        </Link>
       </div>
 
     </div>
