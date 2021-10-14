@@ -221,5 +221,7 @@ export const deleteIdeaFromBookmarkAsync = (ideaId) => async dispatch => {
 
 }
 
+export const selectCurrentIdea = state => state.idea.currentIdea
+export const selectLoading = state => state.idea.loading
 
 export default IdeaSlice.reducer

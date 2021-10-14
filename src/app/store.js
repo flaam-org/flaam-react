@@ -10,7 +10,7 @@ export const store = configureStore({
     notification: notificationReducer,
     auth: authReducer,
     user: userReducer,
-    ideas: ideaReducer,
+    idea: ideaReducer,
     myIdeas:myIdeasReducer
   },
 });
