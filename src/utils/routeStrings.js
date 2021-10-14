@@ -2,6 +2,7 @@ export const routes = {
   LANDING_PAGE: '/landing-page',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  SEND_RESET_TOKEN:"/send-reset-token",
   FEED:'/',
   POST_IDEA:'/post/idea',
   PROFILE:'/profile',

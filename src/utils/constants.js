@@ -8,6 +8,7 @@ export const endpoints = {
   VERIFY_TOKEN: `${endpointInitial}/accounts/login/verify`,
   REFRESH_TOKEN: `${endpointInitial}/accounts/login/refresh`,
   CHECK_EXISTS: `${endpointInitial}/accounts/user/exists`,
+  OBTAIN_RESET_TOKEN:`${endpointInitial}/accounts/password/reset`,
 
   //user
   USER_PROFILE: `${endpointInitial}/accounts/user/profile`,

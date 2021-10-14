@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Redirect,Route } from 'react-router-dom'
 import Alert from '../components/utilComponents/Alert'
 import Feed from '../pages/Feed'
 import LandingPage from '../pages/LandingPage'
@@ -13,6 +13,7 @@ import { dequeueNotification,selectCurrentObject } from '../slices/globalNotific
 import { routes } from '../utils/routeStrings'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
+import SendResetToken from '../pages/SendResetToken'
 
 
 
@@ -48,6 +49,9 @@ const RoutingComp = () => {
         {/* authentication routes */}
         <PublicRoute path={routes.LOGIN} component={Login} />
         <PublicRoute path={routes.SIGNUP} component={Signup} />
+
+        <Route path={routes.SEND_RESET_TOKEN} component={SendResetToken} />
+
         <Redirect from="*" to={routes.FEED} />
       </Switch>
     </Router>
