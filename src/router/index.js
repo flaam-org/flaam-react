@@ -50,7 +50,7 @@ const RoutingComp = () => {
         <PublicRoute path={routes.LOGIN} component={Login} />
         <PublicRoute path={routes.SIGNUP} component={Signup} />
 
-        <Route path={routes.SEND_RESET_TOKEN} component={SendResetToken} />
+        <PublicRoute path={routes.SEND_RESET_TOKEN} component={SendResetToken} />
 
         <Redirect from="*" to={routes.FEED} />
       </Switch>
