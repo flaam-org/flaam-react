@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter as Router, Switch, Redirect,Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
 import Alert from '../components/utilComponents/Alert'
 import Feed from '../pages/Feed'
 import LandingPage from '../pages/LandingPage'
@@ -9,11 +9,12 @@ import PostIdea from '../pages/PostIdea'
 import ProfilePage from '../pages/ProfilePage'
 import Signup from '../pages/Signup'
 import IdeaDetail from "../pages/IdeaDetail"
-import { dequeueNotification,selectCurrentObject } from '../slices/globalNotificationSlice'
+import { dequeueNotification, selectCurrentObject } from '../slices/globalNotificationSlice'
 import { routes } from '../utils/routeStrings'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 import SendResetToken from '../pages/SendResetToken'
+import ResetPassword from '../pages/ResetPassword'
 
 
 
@@ -44,13 +45,14 @@ const RoutingComp = () => {
         <PrivateRoute exact path={routes.IDEA_DETAIL()} component={IdeaDetail} />
 
         {/* landing page */}
-        <PublicRoute path={routes.LANDING_PAGE} component={LandingPage} />
+        <PublicRoute exact path={routes.LANDING_PAGE} component={LandingPage} />
 
         {/* authentication routes */}
-        <PublicRoute path={routes.LOGIN} component={Login} />
-        <PublicRoute path={routes.SIGNUP} component={Signup} />
+        <PublicRoute exact path={routes.LOGIN} component={Login} />
+        <PublicRoute exact path={routes.SIGNUP} component={Signup} />
 
-        <PublicRoute path={routes.SEND_RESET_TOKEN} component={SendResetToken} />
+        <PublicRoute exact path={routes.SEND_RESET_TOKEN} component={SendResetToken} />
+        <PublicRoute exact path={routes.RESET_PASSWORD} component={ResetPassword} />
 
         <Redirect from="*" to={routes.FEED} />
       </Switch>
