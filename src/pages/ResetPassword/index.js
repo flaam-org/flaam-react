@@ -9,6 +9,7 @@ import * as Yup from "yup"
 import { useDispatch } from 'react-redux'
 import { enqueueNotification } from "../../slices/globalNotificationSlice"
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
+import bahutTezImg from "../../assets/bahut-tez.gif"
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required("This field is Required."),
@@ -47,7 +48,7 @@ function ResetPassword() {
       if (!uidb64 || !token) return
 
       try {
-        const res = await fetchWrapper.get(endpoints.VALIDATE_RESET_TOKEN(uidb64))
+        const res = await fetchWrapper.get(endpoints.VALIDATE_RESET_TOKEN(uidb64,token))
 
         const resData = await res.json()
 
@@ -66,7 +67,7 @@ function ResetPassword() {
 
     }
 
-    // getUsername()
+    getUsername()
 
   }, [token, uidb64])
 
@@ -150,8 +151,11 @@ function ResetPassword() {
       )}
 
       {(!uidb64 || !token) && (
-        <div className="w-full h-full flex items-center justify-center" >
-          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-7xl  font-bold" >BADE TEZ HO RHE HO, Hnnn....</h1>
+        <div className="w-full h-full flex flex-col items-center justify-center" >
+          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-5  font-bold" >
+            BAHUT TEZ HO RHE HO, Hnnn....
+          </h1>
+          <img src={bahutTezImg} alt="bahut tez ho rhe ho" />
         </div>
       )}
     </div>
