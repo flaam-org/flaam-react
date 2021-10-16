@@ -11,11 +11,11 @@ import NewsContainer from '../../components/utilComponents/NewsContainer'
 
 function Feed() {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getUserAsync())
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(getUserAsync())
+  // }, [dispatch])
 
 
   return (

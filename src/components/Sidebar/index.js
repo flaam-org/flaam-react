@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { routes } from "../../utils/routeStrings"
 import logoImg from "../../assets/logos/icon.svg"
 // import logoTextImg from "../../assets/logos/icon-text.svg"
@@ -7,8 +7,8 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { LightBulbIcon, UserIcon, NewspaperIcon } from "@heroicons/react/outline"
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../utils/constants'
-import { useSelector } from 'react-redux'
-import { selectAvatar, selectFullName } from '../../slices/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserAsync, selectAvatar, selectFullName } from '../../slices/userSlice'
 
 function joinClassNames(...classes) {
   return classes.join(" ")
@@ -19,6 +19,12 @@ function Sidebar() {
   const location = useLocation()
   const fullName = useSelector(selectFullName)
   const avatar = useSelector(selectAvatar)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUserAsync())
+  },[dispatch])
+
 
   const navigation = useMemo(() => {
 
