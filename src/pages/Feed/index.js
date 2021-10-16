@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Header from '../../components/Header'
-import { useDispatch } from 'react-redux'
 import Sidebar from '../../components/Sidebar'
-import { getUserAsync } from '../../slices/userSlice'
 import Main from '../../components/utilComponents/Main'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
-// import {logout} from '../../slices/authSlice'
-// import ThemeChangeFAB from "../../components/ThemeChangeFAB"
+
 
 function Feed() {
-
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(getUserAsync())
-  // }, [dispatch])
-
 
   return (
     <div className="flex bg-gray-100 dark:bg-gray-900 transition duration-500" >

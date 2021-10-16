@@ -43,7 +43,7 @@ function SendResetToken() {
 
                 const res = await fetchWrapper.post(endpoints.OBTAIN_RESET_TOKEN, values, false)
 
-                const resData = await res.json()
+                // const resData = await res.json()
 
                 if (res.ok) {
                   setMsg("Password reset link has been sent to your registered email.Please check your inbox for further steps. ")
