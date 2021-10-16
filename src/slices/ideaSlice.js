@@ -15,17 +15,20 @@ const IdeaSlice = createSlice({
   reducers: {
     setLoading: (state, action) => {
       state.loading = action.payload
+    },
+
+    setCurrentIdea: (state, action) => {
+      state.currentIdea = action.payload
+    },
+
+    logoutReset: (state, action) => {
+      state.loading = false
+      state.currentIdea = {}
     }
-  },
-
-  logoutReset: (state, action) => {
-    state.loading = false
-    state.currentIdea = {}
   }
-
 })
 
-export const { setLoading } = IdeaSlice.actions;
+export const { setLoading, logoutReset, setCurrentIdea } = IdeaSlice.actions;
 
 
 // TODO make thunk for generating the feed
@@ -72,17 +75,11 @@ export const getSingleIdeaAsync = (ideaId) => async dispatch => {
     await dispatch(manageLoginAsync())
     const res = await fetchWrapper.get(endpoints.GET_SINGLE_IDEA(ideaId), true)
 
-    // const resData = await res.json()
+    const resData = await res.json()
 
     if (res.ok) {
-      /**
-       * -> set this resData to a state and use it to display full
-       * details of the idea
-       *
-       * -> use it to fill the initial state
-       * of the edit idea form
-       *
-       */
+
+      dispatch(setCurrentIdea(resData))
     }
 
   } catch (error) {
