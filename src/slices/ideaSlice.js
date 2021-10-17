@@ -21,6 +21,18 @@ const IdeaSlice = createSlice({
       state.currentIdea = action.payload
     },
 
+    setCurrentIdeaVote: (state, action) => {
+      state.currentIdea.vote = action.payload
+    },
+
+    addToUpVoteCount: (state, action) => {
+      state.currentIdea.upvote_count += action.payload
+    },
+
+    addToDownVoteCount: (state, action) => {
+      state.currentIdea.downvote_count += action.payload
+    },
+
     logoutReset: (state, action) => {
       state.loading = false
       state.currentIdea = {}
@@ -28,7 +40,7 @@ const IdeaSlice = createSlice({
   }
 })
 
-export const { setLoading, logoutReset, setCurrentIdea } = IdeaSlice.actions;
+export const { setLoading, logoutReset, setCurrentIdea, setCurrentIdeaVote, addToUpVoteCount, addToDownVoteCount } = IdeaSlice.actions;
 
 
 // TODO make thunk for generating the feed
@@ -162,7 +174,32 @@ export const deleteIdeaAsync = (ideaId) => async dispatch => {
 
 }
 
+export const setIdeaVoteAsync = (ideaId, vote, upDiff, downDiff) => async dispatch => {
 
+  setLoading(true)
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.post(`${endpoints.VOTE_IDEA(ideaId)}?value=${vote}`, {}, true)
+
+    if (res.ok) {
+
+      dispatch(setCurrentIdeaVote(vote))
+      dispatch(addToUpVoteCount(upDiff))
+      dispatch(addToDownVoteCount(downDiff))
+
+    }
+
+  }
+  catch (err) {
+    console.log(err)
+  }
+  finally {
+    setLoading(false)
+  }
+
+}
 
 
 export const addIdeaToBookmarksAsync = (ideaId) => async dispatch => {
