@@ -25,7 +25,7 @@ const feedSlice = createSlice({
 
       state.value = state.value.map(idea => {
         if (idea.id === action.payload.ideaId) {
-          return { ...idea, bookmarked: action.payload }
+          return { ...idea, bookmarked: action.payload.value }
         }
 
         return idea
@@ -76,7 +76,7 @@ export const addIdeaToBookmarksAsync = (ideaId) => async dispatch => {
 
     if (res.ok) {
 
-      dispatch(setBookmarkedState(true))
+      dispatch(setBookmarkedState({ ideaId, value: true }))
       dispatch(enqueueNotification({
         msg: `Added Idea to BookMarks`,
         type: "success",
@@ -103,7 +103,7 @@ export const deleteIdeaFromBookmarkAsync = (ideaId) => async dispatch => {
     const res = await fetchWrapper._delete(endpoints.DELETE_IDEA_FROM_BOOKMARKS(ideaId), true)
 
     if (res.ok) {
-      dispatch(setBookmarkedState(false))
+      dispatch(setBookmarkedState({ ideaId, value: false }))
       dispatch(enqueueNotification({
         msg: "Removed idea from bookmarks.",
         type: "success",
