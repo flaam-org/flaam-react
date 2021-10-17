@@ -4,6 +4,7 @@ import userReducer from '../slices/userSlice'
 import notificationReducer from '../slices/globalNotificationSlice'
 import ideaReducer from "../slices/ideaSlice"
 import myIdeasReducer from "../slices/myIdeasSlice"
+import feedReducer from "../slices/feedSlice"
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     auth: authReducer,
     user: userReducer,
     idea: ideaReducer,
-    myIdeas:myIdeasReducer
+    myIdeas: myIdeasReducer,
+    feed: feedReducer
   },
 });
