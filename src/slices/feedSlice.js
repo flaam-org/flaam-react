@@ -19,12 +19,24 @@ const feedSlice = createSlice({
 
     addToFeed: (state, action) => {
       state.value = [...state.value, ...action.payload]
+    },
+
+    setBookmarkedState: (state, action) => {
+
+      state.value = state.value.map(idea => {
+        if (idea.id === action.payload.ideaId) {
+          return { ...idea, bookmarked: action.payload }
+        }
+
+        return idea
+      })
+
     }
 
   }
 })
 
-export const { setLoading, addToFeed } = feedSlice.actions
+export const { setLoading, addToFeed, setBookmarkedState } = feedSlice.actions
 
 export const getFeedAsync = () => async dispatch => {
   dispatch(setLoading(true))
@@ -56,6 +68,57 @@ export const getFeedAsync = () => async dispatch => {
   }
 }
 
+export const addIdeaToBookmarksAsync = (ideaId) => async dispatch => {
+
+  try {
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.post(endpoints.ADD_IDEA_TO_BOOKMARKS(ideaId), {}, true)
+
+    if (res.ok) {
+
+      dispatch(setBookmarkedState(true))
+      dispatch(enqueueNotification({
+        msg: `Added Idea to BookMarks`,
+        type: "success",
+        duration: 2000
+      }))
+
+    }
+
+  } catch (err) {
+    console.log(err);
+    dispatch(enqueueNotification({
+      msg: "Bookmarking Idea Failed.",
+      type: "error",
+      duration: 3000
+    }))
+  }
+
+}
+
+export const deleteIdeaFromBookmarkAsync = (ideaId) => async dispatch => {
+
+  try {
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper._delete(endpoints.DELETE_IDEA_FROM_BOOKMARKS(ideaId), true)
+
+    if (res.ok) {
+      dispatch(setBookmarkedState(false))
+      dispatch(enqueueNotification({
+        msg: "Removed idea from bookmarks.",
+        type: "success",
+        duration: 3000
+      }))
+    }
+
+    return res
+
+
+  } catch (err) {
+    console.log(err)
+  }
+
+}
 
 export const selectFeed = state => state.feed.value
 export const selectLoading = state => state.feed.loading
