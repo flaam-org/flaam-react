@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-import Sidebar from '../../components/Sidebar'
-import Header from '../../components/Header'
-import Main from '../../components/utilComponents/Main'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
 import { Form, Formik } from 'formik'
@@ -44,12 +41,6 @@ function PostIdea() {
 
 
   return (
-    <div className="flex bg-gray-100 dark:bg-gray-800 transition duration-500" >
-      <Sidebar />
-
-      <Main>
-        <Header />
-
         <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2 px-1" >
           <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white pt-5 pb-32 px-3 h-full">
 
@@ -112,11 +103,6 @@ function PostIdea() {
             </div>
           </NewsContainer>
         </div>
-
-
-      </Main>
-
-    </div>
   )
 }
 
