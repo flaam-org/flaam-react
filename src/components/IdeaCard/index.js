@@ -21,7 +21,7 @@ function formatCreatedAt(date) {
 
 }
 
-function IdeaCard({ idea }) {
+function IdeaCard({ idea, handleBookmarkClick }) {
 
   const currentUserId = useSelector(selectUserId)
 
@@ -68,7 +68,9 @@ function IdeaCard({ idea }) {
       <div className="col-start-8 col-end-9 flex gap-2 text-center justify-around " >
         <button
           className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed "
-          disabled={currentUserId === owner} >
+          disabled={currentUserId === owner}
+          onClick={() => handleBookmarkClick()}
+          >
           <BookmarkIcon className={joinClassNames(
             "w-5 h-5",
             bookmarked && currentUserId !== owner ? "text-yellow-300 fill-current" : "")} />
