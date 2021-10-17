@@ -1,7 +1,4 @@
 import React, { useEffect } from 'react'
-import Sidebar from '../../components/Sidebar'
-import Header from '../../components/Header'
-import Main from "../../components/utilComponents/Main"
 import ContentContainer from "../../components/utilComponents/ContentContainer"
 import NewsContainer from "../../components/utilComponents/NewsContainer"
 import Profile from "../../components/profilePageComponents/profile"
@@ -17,27 +14,20 @@ function ProfilePage() {
   }, [dispatch])
 
   return (
-    <div className="flex bg-gray-100 dark:bg-gray-900 transition duration-500" >
-      <Sidebar />
+
+    <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
+      <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white py-5 px-3 snap snap-y snap-mandatory">
+
+        <Profile />
+
+        <TabsContainer />
 
 
-      <Main>
-        <Header />
-        <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
-          <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white py-5 px-3 snap snap-y snap-mandatory">
-
-            <Profile />
-
-            <TabsContainer />
-
-
-          </ContentContainer>
-          <NewsContainer className="px-2" >
-            <div className="h-48 p-4 rounded shadow-lg bg-white dark:bg-gray-800">
-            </div>
-          </NewsContainer>
+      </ContentContainer>
+      <NewsContainer className="px-2" >
+        <div className="h-48 p-4 rounded shadow-lg bg-white dark:bg-gray-800">
         </div>
-      </Main>
+      </NewsContainer>
     </div>
   )
 }
