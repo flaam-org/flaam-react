@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react'
 import React from 'react'
 
-function IdeaImplementations() {
+function IdeaImplementationsPanel() {
   return (
     <Tab.Panel>
       Idea implementations
@@ -9,4 +9,4 @@ function IdeaImplementations() {
   )
 }
 
-export default IdeaImplementations
+export default IdeaImplementationsPanel

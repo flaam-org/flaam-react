@@ -1,6 +1,9 @@
 import { Tab } from '@headlessui/react'
 import React from 'react'
 import CustomTab from '../utilComponents/CustomTab'
+import IdeaDetailPanel from './IdeaDetailPanel'
+import IdeaDiscussionsPanel from './IdeaDiscussionsPanel'
+import IdeaImplementationsPanel from './IdeaImplementationsPanel'
 
 
 
@@ -16,13 +19,11 @@ function IdeaDetailTabs() {
 
       </Tab.List>
       <Tab.Panels className="mt-2 px-2 h-[80vh] overflow-y-scroll keep-scrolling">
-        <Tab.Panel>
-          Details
-        </Tab.Panel>
 
-        <Tab.Panel>
-          Details
-        </Tab.Panel>
+        <IdeaDetailPanel />
+        <IdeaDiscussionsPanel />
+        <IdeaImplementationsPanel />
+
       </Tab.Panels>
 
 
