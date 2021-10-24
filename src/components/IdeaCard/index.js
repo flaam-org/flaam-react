@@ -9,7 +9,6 @@ import { selectUserId } from '../../slices/userSlice'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import Modal from '../utilComponents/Modal'
-import handleClickEye from "../utilComponents/Modal"
 
 function formatCreatedAt(date) {
 
@@ -62,7 +61,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
           <span className="pr-2">{formatCreatedAt(created_at)}</span>
           <span className="pl-2 flex items-center justify-between space-x-1" >
             <span>{view_count}</span>
-            <EyeIcon className="w-3 h-3" onClick={() => handleClickEye.click()} />
+            <EyeIcon className="w-3 h-3"/>
           </span>
         </p>
       </div>
