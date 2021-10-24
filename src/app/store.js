@@ -5,6 +5,7 @@ import notificationReducer from '../slices/globalNotificationSlice'
 import ideaReducer from "../slices/ideaSlice"
 import myIdeasReducer from "../slices/myIdeasSlice"
 import feedReducer from "../slices/feedSlice"
+import bookmarkedIdeasReducer from "../slices/bookmarkedIdeasSlice"
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     user: userReducer,
     idea: ideaReducer,
     myIdeas: myIdeasReducer,
+    bookmarkedIdeas: bookmarkedIdeasReducer,
     feed: feedReducer
   },
 });
