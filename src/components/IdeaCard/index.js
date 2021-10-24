@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
 import { BookmarkIcon, ShareIcon } from "@heroicons/react/outline"
 import { EyeIcon } from "@heroicons/react/solid"
@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux'
 import { selectUserId } from '../../slices/userSlice'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
+import Modal from '../utilComponents/Modal'
+import handleClickEye from "../utilComponents/Modal"
 
 function formatCreatedAt(date) {
 
@@ -24,6 +26,7 @@ function formatCreatedAt(date) {
 function IdeaCard({ idea, handleBookmarkClick }) {
 
   const currentUserId = useSelector(selectUserId)
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
 
   const {
     title,
@@ -59,7 +62,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
           <span className="pr-2">{formatCreatedAt(created_at)}</span>
           <span className="pl-2 flex items-center justify-between space-x-1" >
             <span>{view_count}</span>
-            <EyeIcon className="w-3 h-3" />
+            <EyeIcon className="w-3 h-3" onClick={() => handleClickEye.click()} />
           </span>
         </p>
       </div>
@@ -70,12 +73,12 @@ function IdeaCard({ idea, handleBookmarkClick }) {
           className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed "
           disabled={currentUserId === owner}
           onClick={() => handleBookmarkClick()}
-          >
+        >
           <BookmarkIcon className={joinClassNames(
             "w-5 h-5",
             bookmarked && currentUserId !== owner ? "text-yellow-300 fill-current" : "")} />
         </button>
-        <button className="flex-1 cursor-pointer" >
+        <button className="flex-1 cursor-pointer" onClick={() => setIsShareModalOpen(true)} >
           <ShareIcon className="w-5 h-5" />
         </button>
       </div>
@@ -117,6 +120,23 @@ function IdeaCard({ idea, handleBookmarkClick }) {
           View Details
         </Link>
       </div>
+
+
+      <Modal show={isShareModalOpen} onCancel={() => setIsShareModalOpen(false)}
+        headline="Share Idea"
+        onSubmit={() => null}
+      >
+
+        <div className="border">
+          <input value={"something"} className="border" />
+          <button type="button" className="border"  >
+          copy to clipboard
+          </button>
+        </div>
+
+
+      </Modal>
+
 
     </div>
   )
