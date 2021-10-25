@@ -33,15 +33,17 @@ export const { setLoading, addToBookmarkedIdeas, logoutResetBookmarkedIdeas } = 
 
 export const getBookmarkedIdeasAsync = () => async (dispatch, getState) => {
 
-  const owner_id = getTokenDetails(localStorage.getItem('access_token')).user_id
-  const offset = getState().bookmarkedIdeas.value.length
+  const queryParams = []
+  queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  queryParams.push(`offset=${getState().bookmarkedIdeas.value.length}`)
+  queryParams.push(`ordering=-created_at`)
 
   dispatch(setLoading(true))
 
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?bookmarked_by=${owner_id}&offset={offset}&ordering=-created_at`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()

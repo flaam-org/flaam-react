@@ -34,15 +34,17 @@ export const { setLoading, addToMyIdeas, logoutResetMyIdeas } = myIdeasSlice.act
 
 export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
-  const ownerId = getTokenDetails(localStorage.getItem('access_token')).user_id
-  const offset = getState().myIdeas.value.length
+  const queryParams = []
+  queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  queryParams.push(`offset=${getState().myIdeas.value.length}`)
+  queryParams.push('ordering=-created_at')
 
   dispatch(setLoading(true));
 
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?owner=${ownerId}&offset=${offset}&ordering=-created_at`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
