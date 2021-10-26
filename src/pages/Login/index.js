@@ -44,9 +44,9 @@ function Login() {
           >
             <Form>
 
-              <InputField label="username" name="username" type="text" labelClassName="block mb-3" className="w-full mt-1" />
+              <InputField label="username" name="username" type="text" labelClassName="block mb-3" className="w-full mt-1" placeholder="Enter email / username" />
 
-              <InputField label="password" name="password" type="password" labelClassName="block mb-6" className="w-full mt-1" />
+              <InputField label="password" name="password" type="password" labelClassName="block mb-6" className="w-full mt-1" placeholder="Enter password" />
 
               <Button className="w-full py-3 text-lg" disabled={loading} loading={loading} type="submit" >Login</Button>
 

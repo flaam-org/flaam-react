@@ -61,19 +61,19 @@ function Signup() {
             <Form>
               <div className="flex justify-between flex-wrap" >
 
-                <InputField label="first name" name="first_name" type="text" labelClassName="inline-block mb-2 w-full md:w-[49%]" className="block mt-1 w-full" />
+                <InputField label="first name" name="first_name" type="text" labelClassName="inline-block mb-2 w-full md:w-[49%]" className="block mt-1 w-full" placeholder="First Name" />
 
-                <InputField label="last name" name="last_name" type="text" labelClassName="inline-block mb-2 w-full md:w-[49%]" className="block mt-1 w-full" />
+                <InputField label="last name" name="last_name" type="text" labelClassName="inline-block mb-2 w-full md:w-[49%]" className="block mt-1 w-full" placeholder="Last Name" />
 
               </div>
 
-              <AvailabilityCheckInput label="email" name="email" type="email" labelClassName="block mb-2 w-full" className="block" />
+              <AvailabilityCheckInput label="email" name="email" type="email" labelClassName="block mb-2 w-full" className="block" placeholder="Enter Email address" />
 
-              <AvailabilityCheckInput label="username" name="username" type="text" labelClassName="block mb-2 w-full" className="block" />
+              <AvailabilityCheckInput label="username" name="username" type="text" labelClassName="block mb-2 w-full" className="block" placeholder="Enter a unique username" />
 
-              <InputField label="password" name="password" type="password" labelClassName="block mb-2  w-full" className="block mt-1 w-full" />
+              <InputField label="password" name="password" type="password" labelClassName="block mb-2  w-full" className="block mt-1 w-full" placeholder="Enter Password" />
 
-              <InputField label="Confirm password" name="confirm_password" type="password" labelClassName="block mb-6 w-full" className="block mt-1 w-full" />
+              <InputField label="Confirm password" name="confirm_password" type="password" labelClassName="block mb-6 w-full" className="block mt-1 w-full" placeholder="Confirm Password" />
 
               <Button className="w-full py-3 text-lg" variant="secondary" disabled={loading} loading={loading} type="submit" >SignUp</Button>
 
