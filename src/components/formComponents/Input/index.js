@@ -124,7 +124,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName,labelSpanClassNam
 
           {currentInputState === INPUT_STATES.UNAVAILABLE && <XIcon className="w-6 text-red-500" />}
 
-          {currentInputState === INPUT_STATES.CHECKING && <LoadingSpinner />}
+          {currentInputState === INPUT_STATES.CHECKING && <LoadingSpinner className="w-6 h-6" />}
 
         </span>
       </div>
