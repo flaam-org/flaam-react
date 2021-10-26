@@ -23,9 +23,26 @@ const validationSchema = Yup.object().shape({
   first_name: Yup.string().required("This field is required."),
   last_name: Yup.string(),
   email: Yup.string().required("email field is required.").email("not a valid email format."),
-  username: Yup.string().required("username field is required."),
-  password: Yup.string().required("This field is required."),
-  confirm_password: Yup.string().required("This field is required.")
+  username: Yup.string()
+    .required("username field is required.")
+    .min(4, "must have at least 4 characters.")
+    .max(15, "cannot contain more than 15 characters")
+    .matches(/^[a-z0-9_]+$/, "should contain only lowercase characters.")
+    .matches(/^[^_].*$/, "should not start with underscore _.")
+    .matches(/^.*[^_]$/, "should not end with underscore _.")
+    .matches(/^([^_]+_?[^_]+)+$/, "should not contain consecutive underscore _.")
+  ,
+  password: Yup.string()
+    .required("This field is required."),
+  confirm_password: Yup.string().required("This field is required.").test({
+    name: "confirm",
+    exclusive: false,
+    params: {},
+    message: "Passwords must match.",
+    test: function (value) {
+      return this.parent.password === value
+    }
+  })
 })
 
 function Signup() {
@@ -40,7 +57,7 @@ function Signup() {
 
       <div className="min-h-[100vh] flex-grow flex items-center justify-center dark:bg-gray-800 py-10">
 
-      <Alert message={SignupError} onClose={() => dispatch(setSignupError(""))} />
+        <Alert message={SignupError} onClose={() => dispatch(setSignupError(""))} />
 
         <div className="w-10/12 md:w-8/12" >
           <h2 className="text-4xl mb-7" >
