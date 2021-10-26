@@ -20,7 +20,7 @@ function SendResetToken() {
   return (
     <div className="w-full h-full min-h-screen flex items-center justify-center bg-gray-100">
 
-      <div className="border rounded-lg p-5 shadow-xl bg-white"  >
+      <div className="border rounded-lg p-5 shadow-xl bg-white max-w-sm "  >
         {msg && (
           <p className={joinClassNames(
             "w-full text-center border-2 py-1 px-2 text-sm rounded-xl",
@@ -65,8 +65,10 @@ function SendResetToken() {
             validateOnChange
           >
             <Form>
-              <InputField label="email" name="email" type="email" labelClassName="block m-3" className=" mt-1" />
-
+              <p className="text-center text-gray-500">
+                Enter your registered Email address to get further instructions on how to reset password.
+              </p>
+              <InputField label="email" name="email" type="email" labelClassName=" block mt-3 mb-1" className="w-full mt-1" placeholder="Enter Registered Email" />
 
               <Button variant="primary" className="" type="submit" >Submit</Button>
 
