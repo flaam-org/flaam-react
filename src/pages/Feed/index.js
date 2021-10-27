@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IdeaCard from '../../components/IdeaCard'
+import IdeaCardShimmer from '../../components/IdeaCard/IdeaCardShimmer'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
-import { addIdeaToBookmarksAsync, deleteIdeaFromBookmarkAsync, getFeedAsync, selectFeed } from '../../slices/feedSlice'
+import { addIdeaToBookmarksAsync, deleteIdeaFromBookmarkAsync, getFeedAsync, selectFeed, selectLoading } from '../../slices/feedSlice'
 
 
 function Feed() {
 
   const feed = useSelector(selectFeed)
-
+  const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -40,6 +41,16 @@ function Feed() {
 
           return <IdeaCard idea={idea} key={idea.id} handleBookmarkClick={handleBookmarkClick} />
         })}
+
+        {isLoading && (
+          <>
+            <IdeaCardShimmer />
+            <IdeaCardShimmer />
+            <IdeaCardShimmer />
+            <IdeaCardShimmer />
+            <IdeaCardShimmer />
+          </>
+        )}
 
       </ContentContainer>
       <NewsContainer className="px-2" >
