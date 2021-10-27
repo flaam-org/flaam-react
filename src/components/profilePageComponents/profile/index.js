@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { PencilIcon } from "@heroicons/react/solid"
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFavouriteTags, selectIsEditMode, setIsEditMode, selectUser, updateUserAsync } from '../../../slices/userSlice'
+import { selectFavouriteTags, selectIsEditMode, setIsEditMode, selectUser, updateUserAsync, selectLoading } from '../../../slices/userSlice'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
 import { AvailabilityCheckInput, InputField, TextAreaField } from '../../formComponents/Input'
@@ -28,6 +28,7 @@ function Profile() {
   const isEditMode = useSelector(selectIsEditMode)
   const favouriteTags = useSelector(selectFavouriteTags)
   const user = useSelector(selectUser)
+  const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
 
   const [activeTags, setActiveTags] = useState(favouriteTags.map(t => ({ ...t, "active": true })))
@@ -39,7 +40,7 @@ function Profile() {
 
   useUpdateEffect(() => {
     setAvatar(user.avatar)
-  },[user.avatar])
+  }, [user.avatar])
 
 
   const initialValues = {
@@ -67,7 +68,7 @@ function Profile() {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           const favourite_tags = activeTags.filter(t => t.active === true).map(t => t.id)
-          dispatch(updateUserAsync({ ...values, favourite_tags, avatar}))
+          dispatch(updateUserAsync({ ...values, favourite_tags, avatar }))
         }}
         validateOnChange={true}
         onReset={(values) => {
@@ -162,7 +163,7 @@ function Profile() {
 
           <div className={joinClassNames(isEditMode ? "" : "hidden", "flex justify-end px-3")} >
             <Button variant="outline-danger" type="reset" className="my-1" >Cancel</Button>
-            <Button variant="primary" type="submit" className="my-1 ml-3" >Save</Button>
+            <Button variant="primary" type="submit" className="my-1 ml-3" loading={isLoading} disabled={isLoading} >Save</Button>
           </div>
 
 

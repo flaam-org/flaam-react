@@ -8,8 +8,8 @@ import Button from '../../components/utilComponents/Button'
 import RelatedTags from '../../components/PostIdeaComponents/RelatedTags'
 import useArray from '../../hooks/useArrayWithId'
 import IdeaMilestones from "../../components/PostIdeaComponents/IdeaMileStones"
-import { useDispatch } from 'react-redux'
-import { postIdeaAsync } from '../../slices/ideaSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { postIdeaAsync, selectLoading } from '../../slices/ideaSlice'
 import { routes } from '../../utils/routeStrings'
 import {useHistory} from "react-router-dom"
 
@@ -22,9 +22,9 @@ const validationSchema = Yup.object().shape({
 function PostIdea() {
 
   const [tags, setTags] = useState([])
+  const isLoading = useSelector(selectLoading)
   const milestones = useArray([])
   const history = useHistory()
-
   const dispatch = useDispatch()
 
   /**
@@ -87,7 +87,7 @@ function PostIdea() {
 
                 <div className="flex space-x-2 mt-2 justify-end" >
                   <Button variant="outline-danger" type="reset" >Reset</Button>
-                  <Button variant="secondary" type="submit" >Post Idea </Button>
+                  <Button variant="secondary" type="submit" loading={isLoading} disabled={isLoading} >Post Idea </Button>
                 </div>
 
 
