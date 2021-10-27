@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react'
 import React from 'react'
 
-function ImplementationTabPanel() {
+function MyImplementationTabPanel() {
   return (
     <Tab.Panel>
       implenentation tab Panel
@@ -9,4 +9,4 @@ function ImplementationTabPanel() {
   )
 }
 
-export default ImplementationTabPanel
+export default MyImplementationTabPanel
