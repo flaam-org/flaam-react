@@ -26,7 +26,10 @@ export const endpoints = {
   DELETE_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
   ADD_IDEA_TO_BOOKMARKS: (ideaId) => `${endpointInitial}/idea/${ideaId}/bookmark`,
   DELETE_IDEA_FROM_BOOKMARKS: (ideaId) => `${endpointInitial}/idea/${ideaId}/bookmark`,
-  VOTE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}/vote`
+  VOTE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}/vote`,
+
+  //implementations
+  GET_IMPLEMENTATIONS:`${endpointInitial}/implementations`
 }
 
 

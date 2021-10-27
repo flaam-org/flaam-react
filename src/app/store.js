@@ -6,6 +6,7 @@ import ideaReducer from "../slices/ideaSlice"
 import myIdeasReducer from "../slices/myIdeasSlice"
 import feedReducer from "../slices/feedSlice"
 import bookmarkedIdeasReducer from "../slices/bookmarkedIdeasSlice"
+import myImplementationsReducer from '../slices/myImplementationsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     idea: ideaReducer,
     myIdeas: myIdeasReducer,
     bookmarkedIdeas: bookmarkedIdeasReducer,
-    feed: feedReducer
+    feed: feedReducer,
+    myImplementations: myImplementationsReducer
   },
 });
