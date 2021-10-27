@@ -100,6 +100,9 @@ export const getUserAsync = () => async dispatch => {
 
 
 export const getExpandedFavouriteTags = (tagIds) => async dispatch => {
+
+  if(tagIds.length === 0) return
+
   dispatch(setLoading(true))
 
   try {
