@@ -7,6 +7,7 @@ import { enqueueNotification } from "./globalNotificationSlice";
 
 const initialState = {
   loading: false,
+  totalCount: 0,
   value: []
 }
 
@@ -22,6 +23,14 @@ const bookmarkedIdeasSlice = createSlice({
       state.value = [...state.value, ...action.payload]
     },
 
+    setBookmarkedIdeas: (state, action) => {
+      state.value = action.payload
+    },
+
+    setTotalCount: (state, action) => {
+      state.totalCount = action.payload
+    },
+
     logoutResetBookmarkedIdeas: (state, action) => {
       state.loading = false
       state.value = []
@@ -29,14 +38,15 @@ const bookmarkedIdeasSlice = createSlice({
   }
 })
 
-export const { setLoading, addToBookmarkedIdeas, logoutResetBookmarkedIdeas } = bookmarkedIdeasSlice.actions
+export const { setLoading, setBookmarkedIdeas, addToBookmarkedIdeas, logoutResetBookmarkedIdeas, setTotalCount } = bookmarkedIdeasSlice.actions
 
 export const getBookmarkedIdeasAsync = () => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
-  queryParams.push(`offset=${getState().bookmarkedIdeas.value.length}`)
+  queryParams.push(`offset=${0}`)
   queryParams.push(`ordering=-created_at`)
+  queryParams.push(`limit=${5}`)
 
   dispatch(setLoading(true))
 
@@ -48,7 +58,8 @@ export const getBookmarkedIdeasAsync = () => async (dispatch, getState) => {
     if (res.ok) {
       const resData = await res.json()
 
-      dispatch(addToBookmarkedIdeas(resData?.results))
+      dispatch(setBookmarkedIdeas(resData?.results))
+      dispatch(setTotalCount(resData?.count))
     }
 
 
@@ -64,6 +75,48 @@ export const getBookmarkedIdeasAsync = () => async (dispatch, getState) => {
     dispatch(setLoading(false))
   }
 
+}
+
+
+
+export const getNextBookmarkedIdeasAsync = () => async (dispatch, getState) => {
+
+  const {value,totalCount} = getState().bookmarkedIdeas
+
+  if(value.length === totalCount) return
+
+  const queryParams = []
+  queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  queryParams.push(`offset=${value.length}`)
+  queryParams.push(`ordering=-created_at`)
+  queryParams.push(`limit=${10}`)
+
+  dispatch(setLoading(true))
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
+
+    if (res.ok) {
+      const resData = await res.json()
+
+      dispatch(addToBookmarkedIdeas(resData?.results))
+
+    }
+
+
+  } catch (error) {
+    console.log(error)
+    dispatch(enqueueNotification({
+      msg: "Failed to fetch bookmarked Ideas",
+      type: "error",
+      duration: 3000
+    }))
+  }
+  finally {
+    dispatch(setLoading(false))
+  }
 }
 
 export const selectBookmarkedIdeas = state => state.bookmarkedIdeas.value
