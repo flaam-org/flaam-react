@@ -7,6 +7,7 @@ import { enqueueNotification } from "./globalNotificationSlice";
 
 const initialState = {
   loading: false,
+  totalCount: 0,
   value: []
 }
 
@@ -18,8 +19,16 @@ const myIdeasSlice = createSlice({
       state.loading = action.payload
     },
 
+    setMyIdeas: (state, action) => {
+      state.value = action.payload
+    },
+
     addToMyIdeas: (state, action) => {
       state.value = [...state.value, ...action.payload]
+    },
+
+    setTotalCount: (state, action) => {
+      state.totalCount = action.payload
     },
 
     logoutResetMyIdeas: (state, action) => {
@@ -30,7 +39,7 @@ const myIdeasSlice = createSlice({
   }
 })
 
-export const { setLoading, addToMyIdeas, logoutResetMyIdeas } = myIdeasSlice.actions
+export const { setLoading, addToMyIdeas, logoutResetMyIdeas, setMyIdeas,setTotalCount } = myIdeasSlice.actions
 
 export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
@@ -38,6 +47,48 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
   queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
   queryParams.push(`offset=${getState().myIdeas.value.length}`)
   queryParams.push('ordering=-created_at')
+  queryParams.push(`limit=${5}`)
+
+  dispatch(setLoading(true));
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
+
+    if (res.ok) {
+      const resData = await res.json()
+
+      dispatch(setMyIdeas(resData?.results))
+      dispatch(setTotalCount(resData?.count))
+    }
+
+  }
+  catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Failed to fetch ideas",
+      type: "error",
+      duration: 3000
+    }))
+  }
+  finally {
+    dispatch(setLoading(false))
+  }
+
+}
+
+export const getNextMyIdeasAsync = () => async (dispatch,getState) => {
+
+  const {value,totalCount} = getState().myIdeas
+
+  if(value.length === totalCount) return
+
+  const queryParams = []
+  queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  queryParams.push(`offset=${value.length}`)
+  queryParams.push('ordering=-created_at')
+  queryParams.push(`limit=${10}`)
 
   dispatch(setLoading(true));
 
@@ -63,9 +114,8 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
     }))
   }
   finally {
-    setLoading(false)
+    dispatch(setLoading(false))
   }
-
 }
 
 
