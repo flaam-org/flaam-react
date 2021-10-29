@@ -6,6 +6,7 @@ import { enqueueNotification } from "./globalNotificationSlice"
 
 const initialState = {
   loading: false,
+  totalCount: 0,
   value: []
 }
 
@@ -17,7 +18,22 @@ const feedSlice = createSlice({
       state.loading = action.payload
     },
 
+    setFeed: (state, action) => {
+      state.value = action.payload
+    },
+
+    setTotalCount: (state, action) => {
+      state.totalCount = action.payload
+    },
+
     addToFeed: (state, action) => {
+
+      // const existing = new Set(state.value.map(x => x.id))
+
+      // const uniqueResults = action.payload.filter(r => {
+      //   return !existing.has
+      // })
+
       state.value = [...state.value, ...action.payload]
     },
 
@@ -36,22 +52,30 @@ const feedSlice = createSlice({
   }
 })
 
-export const { setLoading, addToFeed, setBookmarkedState } = feedSlice.actions
+export const { setLoading, addToFeed, setBookmarkedState, setTotalCount, setFeed } = feedSlice.actions
 
-export const getFeedAsync = () => async dispatch => {
+
+export const getFeedAsync = () => async (dispatch, getState) => {
+
+  const queryParams = []
+  queryParams.push(`offset=${getState().feed.value.length}`)
+  queryParams.push(`ordering=-created_at`)
+  queryParams.push(`limit=${10}`)
+
   dispatch(setLoading(true))
 
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?ordering=-created_at`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
 
 
     if (res.ok) {
 
       const resData = await res.json()
 
-      dispatch(addToFeed(resData?.results))
+      dispatch(setFeed(resData?.results))
+      dispatch(setTotalCount(resData?.count))
 
     }
 
@@ -65,6 +89,48 @@ export const getFeedAsync = () => async dispatch => {
   }
   finally {
     dispatch(setLoading(false))
+  }
+}
+
+
+
+export const addToFeedAsync = () => async (dispatch, getState) => {
+
+  const { value, totalCount } = getState().feed
+
+  if (value.length === totalCount) return
+
+  const queryParams = []
+  queryParams.push(`offset=${getState().feed.value.length}`)
+  queryParams.push(`ordering=-created_at`)
+  queryParams.push(`limit=${10}`)
+
+  await dispatch(setLoading(true))
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
+
+
+    if (res.ok) {
+
+      const resData = await res.json()
+
+      await dispatch(addToFeed(resData?.results))
+
+    }
+
+  } catch (err) {
+    console.log(err)
+    enqueueNotification({
+      msg: "Failed to load feed",
+      type: "error",
+      duration: 3000
+    })
+  }
+  finally {
+    await dispatch(setLoading(false))
   }
 }
 

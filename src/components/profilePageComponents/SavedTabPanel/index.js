@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
@@ -13,20 +13,26 @@ function SavedTabPanel() {
   const bookmarkedIdeas = useSelector(selectBookmarkedIdeas)
   const dispatch = useDispatch()
 
+  const loadingRef = useRef()
+
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.1 })
 
   useEffect(() => {
     dispatch(getBookmarkedIdeasAsync())
   }, [dispatch])
 
+  useEffect(() => {
+    loadingRef.current = isLoading
+  }, [isLoading])
+
   useUpdateEffect(() => {
 
-    if (!isLoading && isVisible) {
+    if (!loadingRef.current && isVisible) {
       console.log("next fetched")
       dispatch(getNextBookmarkedIdeasAsync())
     }
 
-  }, [isVisible, isLoading, dispatch])
+  }, [isVisible, dispatch])
 
 
   return (
@@ -35,7 +41,9 @@ function SavedTabPanel() {
         {bookmarkedIdeas.map((idea, index) => {
 
           if (index === bookmarkedIdeas.length - 1)
-            return <div ref={setRef} ><IdeaCard idea={idea} key={idea.id} /></div>
+            return <div ref={setRef} key={idea.id} >
+              <IdeaCard idea={idea} />
+            </div>
 
           return <IdeaCard idea={idea} key={idea.id} />
         })}

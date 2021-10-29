@@ -7,7 +7,9 @@ export default function useIsOnScreen(options) {
 
   useEffect(() => {
 
-    const observer = new IntersectionObserver(([entry]) => {
+    const observer = new IntersectionObserver((entries) => {
+
+      const [entry] = entries
 
       setIsVisible(entry.isIntersecting)
 
@@ -17,6 +19,7 @@ export default function useIsOnScreen(options) {
 
     return () => {
       if(ref) observer.unobserve(ref)
+      console.log("code ran");
     }
 
   }, [ref, options])

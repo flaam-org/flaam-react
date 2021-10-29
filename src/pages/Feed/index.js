@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import IdeaCard from '../../components/IdeaCard'
 import IdeaCardShimmer from '../../components/IdeaCard/IdeaCardShimmer'
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
-import { addIdeaToBookmarksAsync, deleteIdeaFromBookmarkAsync, getFeedAsync, selectFeed, selectLoading } from '../../slices/feedSlice'
+import useIsOnScreen from '../../hooks/useIsOnScreen'
+import { addIdeaToBookmarksAsync, addToFeedAsync, deleteIdeaFromBookmarkAsync, getFeedAsync, selectFeed, selectLoading } from '../../slices/feedSlice'
 
 
 function Feed() {
@@ -12,10 +13,25 @@ function Feed() {
   const feed = useSelector(selectFeed)
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
+  const loadingRef = useRef()
+
+  const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 1 })
 
   useEffect(() => {
-    dispatch(getFeedAsync())
-  }, [dispatch])
+    loadingRef.current = isLoading
+  },[isLoading])
+
+  useEffect(() => {
+      dispatch(getFeedAsync())
+  },[dispatch])
+
+  useEffect(() => {
+
+    if (!loadingRef.current && isVisible) {
+      dispatch(addToFeedAsync())
+    }
+
+  }, [isVisible, dispatch])
 
 
 
@@ -23,7 +39,7 @@ function Feed() {
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
       <ContentContainer className="flex-col space-y-3 overflow-auto keep-scrolling py-5 mx-2 bg-white">
 
-        {feed.map(idea => {
+        {feed.map((idea, index) => {
 
           function handleBookmarkClick() {
 
@@ -37,6 +53,14 @@ function Feed() {
 
             console.log(idea)
 
+          }
+
+          if (index === feed.length-1) {
+            return (
+              <div ref={setRef} key={idea.id} >
+                <IdeaCard idea={idea} handleBookmarkClick={handleBookmarkClick} />
+              </div>
+            )
           }
 
           return <IdeaCard idea={idea} key={idea.id} handleBookmarkClick={handleBookmarkClick} />
