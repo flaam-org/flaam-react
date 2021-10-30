@@ -58,7 +58,7 @@ export const { setLoading, addToFeed, setBookmarkedState, setTotalCount, setFeed
 export const getFeedAsync = () => async (dispatch, getState) => {
 
   const queryParams = []
-  queryParams.push(`offset=${getState().feed.value.length}`)
+  queryParams.push(`offset=${0}`)
   queryParams.push(`ordering=-created_at`)
   queryParams.push(`limit=${10}`)
 
