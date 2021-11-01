@@ -27,7 +27,7 @@ function IdeaDetail() {
   return (
     <div className="flex divide-x divide-gray-50 overflow-hidden pt-2 " >
       {idea && (
-        <ContentContainer className="flex-col space-y-1 overflow-auto keep-scrolling p-4 px-4 pb-10 ml-2 bg-white rounded-l">
+        <ContentContainer className="flex-col space-y-1 overflow-auto keep-scrolling p-4 px-4 ml-2 bg-white rounded-l">
 
           <h1 className="text-xl font-bold" >{idea.title}</h1>
 

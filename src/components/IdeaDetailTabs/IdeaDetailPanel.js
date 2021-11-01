@@ -6,6 +6,7 @@ import Tag from "../utilComponents/Tag"
 import { ChevronDoubleUpIcon, ChevronDoubleDownIcon } from "@heroicons/react/outline"
 import { joinClassNames } from '../../utils/functions'
 import LoadingSpinner from "../utilComponents/LoadingSpinner"
+import Button from "../utilComponents/Button"
 
 const ideaVoteStates = {
   UP: 1,
@@ -110,9 +111,7 @@ function IdeaDetailPanel() {
               )} />
               <span>{idea.downvote_count}</span>
             </div>
-            <p className="cursor-pointer" >
-              choose to implement
-            </p>
+            <Button variant="outline-secondary" type="button" onClick={() => console.log("choose to implement")}  >Add your Implementation</Button>
           </div>
         </>
       )}

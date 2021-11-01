@@ -43,8 +43,6 @@ const IdeaSlice = createSlice({
 export const { setLoading, logoutReset, setCurrentIdea, setCurrentIdeaVote, addToUpVoteCount, addToDownVoteCount } = IdeaSlice.actions;
 
 
-// TODO make thunk for generating the feed
-
 export const postIdeaAsync = (idea) => async dispatch => {
   dispatch(setLoading(true))
 
@@ -174,6 +172,8 @@ export const deleteIdeaAsync = (ideaId) => async dispatch => {
 
 }
 
+
+
 export const setIdeaVoteAsync = (ideaId, vote, upDiff, downDiff) => async dispatch => {
 
   setLoading(true)
@@ -200,7 +200,6 @@ export const setIdeaVoteAsync = (ideaId, vote, upDiff, downDiff) => async dispat
   }
 
 }
-
 
 export const addIdeaToBookmarksAsync = (ideaId) => async dispatch => {
 
