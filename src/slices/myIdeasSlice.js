@@ -45,7 +45,7 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
   const queryParams = []
   queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
-  queryParams.push(`offset=${getState().myIdeas.value.length}`)
+  queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${5}`)
 
