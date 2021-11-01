@@ -33,6 +33,7 @@ const myIdeasSlice = createSlice({
 
     logoutResetMyIdeas: (state, action) => {
       state.loading = false
+      state.totalCount = 0
       state.value = []
     }
 
