@@ -137,7 +137,7 @@ export const updateIdeaAsync = (ideaId, idea) => async dispatch => {
     }))
 
   } finally {
-    setLoading(false)
+    dispatch(setLoading(false))
   }
 
 }
@@ -176,7 +176,7 @@ export const deleteIdeaAsync = (ideaId) => async dispatch => {
 
 export const setIdeaVoteAsync = (ideaId, vote, upDiff, downDiff) => async dispatch => {
 
-  setLoading(true)
+  dispatch(setLoading(true))
 
   try {
 
@@ -196,7 +196,7 @@ export const setIdeaVoteAsync = (ideaId, vote, upDiff, downDiff) => async dispat
     console.log(err)
   }
   finally {
-    setLoading(false)
+    dispatch(setLoading(false))
   }
 
 }
