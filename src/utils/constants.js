@@ -30,6 +30,10 @@ export const endpoints = {
 
   //implementations
   GET_POST_IMPLEMENTATIONS:`${endpointInitial}/implementations`,
+  SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}`,
+  VOTE_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/vote`,
+  ACCEPT_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/accept`,
+  VALIDATE_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/validate`,
 
   // discussions
   GET_POST_DISCUSSIONS: `${endpointInitial}/discussions`,
