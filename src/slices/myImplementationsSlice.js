@@ -73,7 +73,7 @@ export const getMyImplementationsAsync = () => async (dispatch, getState) => {
     }))
   }
   finally {
-    setLoading(false)
+    dispatch(setLoading(false))
   }
 
 }

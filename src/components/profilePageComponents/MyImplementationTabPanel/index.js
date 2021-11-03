@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
 import { getMyImplementationsAsync, getNextMyImplementationsAsync, selectLoading, selectMyImplementations } from '../../../slices/myImplementationsSlice'
+import ImplementationCard from "../../ImplementationCard"
+import ImplementationCardShimmer from "../../ImplementationCard/ImplementationCardShimmer"
 
 function MyImplementationTabPanel() {
 
@@ -30,12 +32,35 @@ function MyImplementationTabPanel() {
 
   }, [isVisible, dispatch])
 
-  console.log(myImplementations)
+  // console.log(myImplementations)
+  console.log("isloading",isLoading)
 
 
   return (
     <Tab.Panel>
-      implenentation tab Panel
+            <div className="flex flex-col space-y-3 mt-2 ">
+        {myImplementations.map((imp, index) => {
+
+          if (index === myImplementations.length - 1) {
+            return (
+              <div ref={setRef} key={imp.id} >
+                <ImplementationCard implementation={imp} />
+              </div>
+            )
+          }
+
+          return <ImplementationCard implementation={imp} key={imp.id} />
+        })}
+
+        {isLoading && (
+          <>
+          <ImplementationCardShimmer />
+          <ImplementationCardShimmer />
+          <ImplementationCardShimmer />
+          </>
+        )}
+
+      </div>
     </Tab.Panel>
   )
 }
