@@ -12,6 +12,7 @@ import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 import SendResetToken from '../pages/SendResetToken'
 import ResetPassword from '../pages/ResetPassword'
+import ImplementationDetail from '../pages/ImplementationDetail'
 
 
 
@@ -24,6 +25,7 @@ const RoutingComp = () => {
       <PrivateRoute exact path={routes.POST_IDEA} component={PostIdea} />
       <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
       <PrivateRoute exact path={routes.IDEA_DETAIL()} component={IdeaDetail} />
+      <PrivateRoute exact path={routes.IMPLEMENTATION_DETAIL()} component={ImplementationDetail} />
 
       {/* landing page */}
       <PublicRoute exact path={routes.LANDING_PAGE} component={LandingPage} />

@@ -7,5 +7,6 @@ export const routes = {
   FEED: '/',
   POST_IDEA: '/post/idea',
   PROFILE: '/profile',
-  IDEA_DETAIL: (ideaId) => `/idea/detail/${ideaId ? ideaId : ":ideaId"}`
+  IDEA_DETAIL: (ideaId) => `/idea/detail/${ideaId ? ideaId : ":ideaId"}`,
+  IMPLEMENTATION_DETAIL: (implementationId) => `/implementation/detail/${implementationId ? implementationId : ":implementationId" }`
 }

@@ -120,7 +120,7 @@ function ImplementationCard({ implementation, handleBookmarkClick }) {
       </div>
 
       <div className="col-start-8 col-end-9 flex items-center justify-center" >
-        <Link to={routes.IDEA_DETAIL(implementation.id)} className="text-center text-xs py-1 px-2 border-2 border-black/50 rounded-full hover:bg-gray-500 hover:text-white transition duration-300 ease-in-out" >
+        <Link to={routes.IMPLEMENTATION_DETAIL(implementation.id)} className="text-center text-xs py-1 px-2 border-2 border-black/50 rounded-full hover:bg-gray-500 hover:text-white transition duration-300 ease-in-out" >
 
           View Details
         </Link>
