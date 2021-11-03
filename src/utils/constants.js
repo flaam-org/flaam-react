@@ -29,7 +29,7 @@ export const endpoints = {
   VOTE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}/vote`,
 
   //implementations
-  GET_IMPLEMENTATIONS:`${endpointInitial}/implementations`,
+  GET_POST_IMPLEMENTATIONS:`${endpointInitial}/implementations`,
 
   // discussions
   GET_POST_DISCUSSIONS: `${endpointInitial}/discussions`,
