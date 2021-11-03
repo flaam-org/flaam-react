@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentIdea, selectLoading, setIdeaVoteAsync } from '../../slices/ideaSlice'
 import Tag from "../utilComponents/Tag"
@@ -7,6 +7,7 @@ import { ChevronDoubleUpIcon, ChevronDoubleDownIcon } from "@heroicons/react/out
 import { joinClassNames } from '../../utils/functions'
 import LoadingSpinner from "../utilComponents/LoadingSpinner"
 import Button from "../utilComponents/Button"
+import CreateImplementationModal from '../CreateImplementationModal'
 
 const ideaVoteStates = {
   UP: 1,
@@ -19,6 +20,7 @@ function IdeaDetailPanel() {
   const idea = useSelector(selectCurrentIdea)
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
+  const [isImplementationModalOpen, setIsImplementationModalOpen] = useState(false)
 
   function handleUpVoteClick() {
 
@@ -111,10 +113,12 @@ function IdeaDetailPanel() {
               )} />
               <span>{idea.downvote_count}</span>
             </div>
-            <Button variant="outline-secondary" type="button" onClick={() => console.log("choose to implement")}  >Add your Implementation</Button>
+            <Button variant="outline-secondary" type="button" onClick={() => setIsImplementationModalOpen(true)}  >Add your Implementation</Button>
           </div>
         </>
       )}
+
+      <CreateImplementationModal show={isImplementationModalOpen} onClose={() => setIsImplementationModalOpen(false) }  />
 
     </Tab.Panel>
   )
