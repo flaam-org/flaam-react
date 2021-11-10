@@ -2,7 +2,7 @@ import {Transition } from '@headlessui/react'
 import React, { Fragment, useEffect, useState } from 'react'
 import useDebounceTimeout from '../../../hooks/useDebounceTimeout'
 import { fetchWrapper } from "../../../utils/fetchWrapper"
-import { endpoints } from "../../../utils/constants"
+import { endpoints } from "../../../utils/endpoints"
 
 
 function AsyncSelect({onSubmit,resultFilter,disabled=false}) {

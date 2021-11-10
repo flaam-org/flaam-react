@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchWrapper } from "../utils/fetchWrapper"
 import { manageLoginAsync } from "./authSlice"
-import { endpoints } from "../utils/constants"
+import { endpoints } from "../utils/endpoints"
 import { enqueueNotification } from "./globalNotificationSlice"
 
 const initialState = {
