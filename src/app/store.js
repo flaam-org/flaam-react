@@ -9,6 +9,7 @@ import bookmarkedIdeasReducer from "../slices/bookmarkedIdeasSlice"
 import myImplementationsReducer from '../slices/myImplementationsSlice';
 import ideaDiscussionsReducer from '../slices/ideaDiscussionsSlice';
 import implementationReducer from '../slices/implementationSlice';
+import ideaImplementationsReducer from "../slices/ideaImplementationsSlice"
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     feed: feedReducer,
     myImplementations: myImplementationsReducer,
     ideaDiscussions: ideaDiscussionsReducer,
-    implementation: implementationReducer
+    implementation: implementationReducer,
+    ideaImplementations: ideaImplementationsReducer
   },
 });
