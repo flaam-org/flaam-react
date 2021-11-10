@@ -44,6 +44,7 @@ function ImplementationCard({ implementation, handleBookmarkClick }) {
     created_at,
   } = implementation
 
+  console.log("completed",completed_milestones.length )
 
   return (
     <div className="bg-blue-300/30 p-2 pt-3 rounded-lg grid grid-cols-8 gap-1 drop-shadow-xl shadow-md" >
@@ -111,10 +112,10 @@ function ImplementationCard({ implementation, handleBookmarkClick }) {
       <div className="col-start-2 col-end-8 flex flex-col pt-2" >
 
         <p className="text-xs text-black text-center select-none " >
-          {Math.ceil(completed_milestones.length / milestones.length)}% completed
+          {Math.ceil((completed_milestones.length / milestones.length) * 100)}% completed
         </p>
         <div className="overflow-hidden w-full h-2 mb-4 flex rounded bg-blue-300 " >
-          <div style={{ width: `${Math.ceil(completed_milestones.length / milestones.length)}%` }} className="bg-blue-500" ></div>
+          <div style={{ width: `${Math.ceil((completed_milestones.length / milestones.length)*100)}%` }} className="bg-blue-500" ></div>
         </div>
 
       </div>

@@ -19,7 +19,6 @@ export default function useIsOnScreen(options) {
 
     return () => {
       if(ref) observer.unobserve(ref)
-      console.log("code ran");
     }
 
   }, [ref, options])
