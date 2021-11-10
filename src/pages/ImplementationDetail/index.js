@@ -20,6 +20,7 @@ function ImplementationDetail() {
 
       <ContentContainer className="flex-col space-y-1 overflow-auto keep-scrolling p-4 px-4 ml-2 bg-white rounded-l" >
         hbkjv vvnlekf
+        {implementationId}
       </ContentContainer>
 
       <NewsContainer className="mr-2 bg-white rounded-r min-h-screen">

@@ -6,7 +6,8 @@ import Modal from "../utilComponents/Modal"
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { postImplementationAsync, selectLoading } from "../../slices/implementationSlice"
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
+import { routes } from "../../utils/routeStrings"
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().max(50, 'Title is too long').required('Title is required'),
@@ -17,7 +18,9 @@ function CreateImplementationModal({ show, onClose, }) {
 
   const isLoading = useSelector(selectLoading)
   const { ideaId } = useParams()
+
   const dispatch = useDispatch()
+  const history = useHistory()
 
   async function handleSubmit(values) {
 
@@ -26,10 +29,13 @@ function CreateImplementationModal({ show, onClose, }) {
       idea: ideaId
     }
 
-    await dispatch(postImplementationAsync(data))
-    onClose()
+    const result = await dispatch(postImplementationAsync(data))
 
-    // TODO navigate to implementation edit page
+    if (result.status === 201) {
+      onClose()
+      history.push(routes.IMPLEMENTATION_DETAIL(result.data.id))
+      return
+    }
 
 
   }

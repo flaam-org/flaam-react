@@ -60,10 +60,9 @@ export const postImplementationAsync = (implementation) => async dispatch => {
         duration: 3000
       }))
 
-      return resData
     }
 
-
+    return { status: res.status, data: resData }
 
   } catch (err) {
     console.log(err);
