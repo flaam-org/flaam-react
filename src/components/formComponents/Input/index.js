@@ -118,7 +118,7 @@ export const AvailabilityCheckInput = ({ label, labelClassName,labelSpanClassNam
       <span className={`capitalize ${labelSpanClassName}`} >{label}</span>
       <div className="flex mt-1">
         <input {...field}  {...props} className={`${classes.INPUT(meta.error, meta.touched)} ${className} w-full rounded-l`} onChange={changeHandler} />
-        <span className="block p-1 w-12 shadow-sm dark:bg-gray-700 dark:focus:bg-gray-600 rounded-r flex items-center justify-center border-2 dark:border-gray-600/80" >
+        <span className="p-1 w-12 shadow-sm dark:bg-gray-700 dark:focus:bg-gray-600 rounded-r flex items-center justify-center border-2 dark:border-gray-600/80" >
 
           {currentInputState === INPUT_STATES.AVAILABLE && <CheckIcon className="w-6 text-green-400" />}
 
