@@ -1,17 +1,20 @@
-import {Transition } from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 import React, { Fragment, useEffect, useState } from 'react'
 import useDebounceTimeout from '../../../hooks/useDebounceTimeout'
 import { fetchWrapper } from "../../../utils/fetchWrapper"
 import { endpoints } from "../../../utils/endpoints"
+import { useDispatch } from "react-redux"
+import { manageLoginAsync } from "../../../slices/authSlice"
 
 
-function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
+function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
 
   const [query, setQuery] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const [results, setResults] = useState([])
+  const dispatch = useDispatch()
 
 
   useDebounceTimeout(() => {
@@ -23,6 +26,7 @@ function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
         setLoading(true)
 
         try {
+          await dispatch(manageLoginAsync())
           const res = await fetchWrapper.get(`${endpoints.FAVOURITE_TAGS}?name=${query}&limit=10`, true)
 
           const resData = await res.json()
@@ -56,7 +60,7 @@ function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
       if (results.length !== 0 && query !== "") {
         setIsOpen(true)
       }
-      else if(query === ""){
+      else if (query === "") {
         setIsOpen(false)
       }
     }
@@ -84,7 +88,7 @@ function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
 
     reset()
 
-  },[disabled])
+  }, [disabled])
 
 
   return (
@@ -106,7 +110,7 @@ function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
       >
         <ul className="absolute top-full mt-1 max-h-56 overflow-y-scroll bg-gray-500 text-white text-center w-full rounded-md py-1 px-2 shadow-2xl z-50 space-y-1 divide-y divide-white/25 text-sm" >
 
-            <InnerElement loading={loading} query={query} results={resultFilter(results)} onSubmit={handleSubmit} />
+          <InnerElement loading={loading} query={query} results={resultFilter(results)} onSubmit={handleSubmit} />
 
         </ul>
       </Transition>
@@ -119,7 +123,7 @@ function AsyncSelect({onSubmit,resultFilter,disabled=false}) {
 }
 
 
-const InnerElement = ({ loading, query, results,onSubmit }) => {
+const InnerElement = ({ loading, query, results, onSubmit }) => {
 
   if (loading) {
     return (

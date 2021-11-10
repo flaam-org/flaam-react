@@ -14,7 +14,7 @@ function Tag({ tag, faded, onClick,editMode=false, onDelete }) {
       <span className={editMode ? "pl-3 pr-2 " : "pb-0.5 px-2"} >
         {tag.name}
       </span>
-      {editMode && <XCircleIcon className="h-4 w-4 cursor-pointer mr-0.5 hover:scale-105 hover:text-purple-900 transition duration-200 ease-in-out" onClick={onDelete} />}
+      {editMode && <XCircleIcon className="h-4 w-4 cursor-pointer mr-0.5 hover:scale-105 hover:text-green-900 transition duration-100 ease-in-out" onClick={onDelete} />}
     </p>
   )
 }
