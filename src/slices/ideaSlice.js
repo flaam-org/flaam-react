@@ -49,7 +49,7 @@ export const postIdeaAsync = (idea) => async dispatch => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.post(endpoints.POST_IDEA, idea, true)
+    const res = await fetchWrapper.post(endpoints.GET_POST_IDEA, idea, true)
 
     // const resData = await res.json()
 
@@ -83,7 +83,7 @@ export const getSingleIdeaAsync = (ideaId) => async dispatch => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(endpoints.GET_SINGLE_IDEA(ideaId), true)
+    const res = await fetchWrapper.get(endpoints.SINGLE_IDEA(ideaId), true)
 
     const resData = await res.json()
 
@@ -113,7 +113,7 @@ export const updateIdeaAsync = (ideaId, idea) => async dispatch => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.put(endpoints.UPDATE_SINGLE_IDEA(ideaId), idea, true)
+    const res = await fetchWrapper.put(endpoints.SINGLE_IDEA(ideaId), idea, true)
 
     // const resData = await res.json()
 
@@ -147,7 +147,7 @@ export const deleteIdeaAsync = (ideaId) => async dispatch => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper._delete(endpoints.DELETE_SINGLE_IDEA(ideaId), true)
+    const res = await fetchWrapper._delete(endpoints.SINGLE_IDEA(ideaId), true)
 
     const resData = await res.json()
 

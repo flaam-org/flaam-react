@@ -20,11 +20,8 @@ export const endpoints = {
   FAVOURITE_TAGS: `${endpointInitial}/tags`,
 
   // ideas
-  GET_IDEAS: `${endpointInitial}/ideas`,
-  POST_IDEA: `${endpointInitial}/ideas`,
-  GET_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
-  UPDATE_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
-  DELETE_SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
+  GET_POST_IDEA: `${endpointInitial}/ideas`,
+  SINGLE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}`,
   ADD_IDEA_TO_BOOKMARKS: (ideaId) => `${endpointInitial}/idea/${ideaId}/bookmark`,
   DELETE_IDEA_FROM_BOOKMARKS: (ideaId) => `${endpointInitial}/idea/${ideaId}/bookmark`,
   VOTE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}/vote`,

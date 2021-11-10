@@ -55,7 +55,7 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_IDEA}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
@@ -96,7 +96,7 @@ export const getNextMyIdeasAsync = () => async (dispatch,getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_IDEAS}?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_IDEA }?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
