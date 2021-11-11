@@ -1,10 +1,13 @@
 import { Tab } from '@headlessui/react'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import useIsOnScreen from '../../hooks/useIsOnScreen'
 import useUpdateEffect from '../../hooks/useUpdateEffect'
 import { getIdeaDiscussions, getNextIdeaDiscussions, selectIdeaDiscussions, selectLoading } from '../../slices/ideaDiscussionsSlice'
+import CreateEditDiscussionModal from '../modals/CreateEditDiscussionModal'
+import Button from '../utilComponents/Button'
+import DiscussionCard from "../DiscussionCard"
 
 function IdeaDiscussionsPanel() {
 
@@ -13,6 +16,7 @@ function IdeaDiscussionsPanel() {
   const ideaDiscussions = useSelector(selectIdeaDiscussions)
   const dispatch = useDispatch()
   const loadingRef = useRef()
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.1 })
 
@@ -35,7 +39,22 @@ function IdeaDiscussionsPanel() {
 
   return (
     <Tab.Panel>
-      Idea discussions
+      <Button variant="outline-primary" onClick={() => setIsCreateModalOpen(true)} >Add Discussion</Button>
+
+      {ideaDiscussions.map((discussion, index) => {
+
+        if (index === ideaDiscussions.length - 1) {
+          return (
+            <div key={discussion.id} ref={setRef}>
+              <DiscussionCard discussion={discussion} />
+            </div>
+          )
+        }
+
+        return <DiscussionCard discussion={discussion} key={discussion.id} />
+      })}
+
+      <CreateEditDiscussionModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} ideaId={ideaId} />
     </Tab.Panel>
   )
 }

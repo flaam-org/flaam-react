@@ -27,6 +27,9 @@ const discussionSlice = createSlice({
         addToIdeaDiscussions: (state, action) => {
             state.value = [...state.value, ...action.payload]
         },
+        addNewDiscussion: (state, action) => {
+            state.value = [action.payload, ...state.value]
+        },
         logoutResetIdeaDiscussions: (state, action) => {
             state.loading = false;
             state.totalCount = 0;
@@ -35,7 +38,7 @@ const discussionSlice = createSlice({
     }
 })
 
-export const { setLoading, setIdeaDiscussions, addToIdeaDiscussions, setTotalCount, logoutResetIdeaDiscussions } = discussionSlice.actions;
+export const { setLoading, setIdeaDiscussions, addToIdeaDiscussions, addNewDiscussion, setTotalCount, logoutResetIdeaDiscussions } = discussionSlice.actions;
 
 
 export const getIdeaDiscussions = (ideaId) => async (dispatch, getState) => {
@@ -110,6 +113,37 @@ export const getNextIdeaDiscussions = (ideaId) => async (dispatch, getState) => 
     }
     finally {
         dispatch(setLoading(false));
+    }
+}
+
+export const postDiscussionAsync = (data) => async (dispatch, getState) => {
+    try {
+        await dispatch(manageLoginAsync())
+        const res = await fetchWrapper.post(endpoints.GET_POST_DISCUSSIONS, data, true)
+
+        const resData = await res.json()
+
+        if (res.ok) {
+
+            dispatch(addNewDiscussion(resData))
+
+            dispatch(enqueueNotification({
+                msg: "A new discussion created successfully",
+                type: "success",
+                duration: 3000
+            }))
+        }
+
+        return { status: res.status, data: resData }
+
+    }
+    catch (err) {
+        console.log(err);
+        dispatch(enqueueNotification({
+            msg: "Failed to created discussion",
+            type: "error",
+            duration: 3000
+        }))
     }
 }
 
