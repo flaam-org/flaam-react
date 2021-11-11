@@ -108,23 +108,21 @@ export const getSingleIdeaAsync = (ideaId) => async dispatch => {
 export const updateIdeaAsync = (ideaId, idea) => async dispatch => {
 
 
-  dispatch(setLoading(true))
-
   try {
 
     await dispatch(manageLoginAsync())
     const res = await fetchWrapper.put(endpoints.SINGLE_IDEA(ideaId), idea, true)
 
-    // const resData = await res.json()
+    const resData = await res.json()
 
     if (res.ok) {
+      dispatch(setCurrentIdea(resData))
+
       dispatch(enqueueNotification({
         msg: "Idea has been updated.",
         type: "success",
         duration: 2500
       }))
-
-      // TODO update every place where this idea is being stored using `resData`
 
     }
 
@@ -136,10 +134,7 @@ export const updateIdeaAsync = (ideaId, idea) => async dispatch => {
       duration: 2000
     }))
 
-  } finally {
-    dispatch(setLoading(false))
   }
-
 }
 
 export const deleteIdeaAsync = (ideaId) => async dispatch => {
