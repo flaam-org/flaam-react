@@ -8,5 +8,7 @@ export const routes = {
   POST_IDEA: '/post/idea',
   PROFILE: '/profile',
   IDEA_DETAIL: (ideaId) => `/idea/detail/${ideaId ? ideaId : ":ideaId"}`,
-  IMPLEMENTATION_DETAIL: (implementationId) => `/implementation/detail/${implementationId ? implementationId : ":implementationId" }`
+  IDEA_EDIT: (ideaId) => `/idea/edit/${ideaId ? ideaId : ":ideaId"}`,
+  IMPLEMENTATION_DETAIL: (implementationId) => `/implementation/detail/${implementationId ? implementationId : ":implementationId" }`,
+  IMPLEMENTATION_EDIT: (implementationId) => `/implementation/edit/${implementationId ? implementationId : ":implementationId" }`
 }

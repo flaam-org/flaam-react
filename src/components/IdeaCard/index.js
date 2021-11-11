@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
-import { BookmarkIcon, ShareIcon } from "@heroicons/react/outline"
+import { BookmarkIcon, ShareIcon, PencilIcon } from "@heroicons/react/outline"
 import { EyeIcon } from "@heroicons/react/solid"
 import { format, isToday, isYesterday } from 'date-fns'
 import { joinClassNames } from '../../utils/functions'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../slices/userSlice'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import Modal from '../utilComponents/Modal'
 
@@ -26,8 +26,10 @@ function IdeaCard({ idea, handleBookmarkClick }) {
 
   const currentUserId = useSelector(selectUserId)
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const history = useHistory()
 
   const {
+    id,
     title,
     owner,
     owner_avatar,
@@ -61,7 +63,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
           <span className="pr-2">{formatCreatedAt(created_at)}</span>
           <span className="pl-2 flex items-center justify-between space-x-1" >
             <span>{view_count}</span>
-            <EyeIcon className="w-3 h-3"/>
+            <EyeIcon className="w-3 h-3" />
           </span>
         </p>
       </div>
@@ -77,6 +79,19 @@ function IdeaCard({ idea, handleBookmarkClick }) {
             "w-5 h-5",
             bookmarked && currentUserId !== owner ? "text-yellow-300 fill-current" : "")} />
         </button>
+
+        {currentUserId === owner && (
+          <button
+            className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed "
+            onClick={() => history.push(routes.IDEA_EDIT(id))}
+          >
+            <PencilIcon className={joinClassNames(
+              "w-5 h-5",
+              bookmarked && currentUserId !== owner ? "text-yellow-300 fill-current" : "")} />
+          </button>
+        )}
+
+
         <button className="flex-1 cursor-pointer" onClick={() => setIsShareModalOpen(true)} >
           <ShareIcon className="w-5 h-5" />
         </button>
@@ -129,7 +144,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
         <div className="border">
           <input value={"something"} className="border" />
           <button type="button" className="border"  >
-          copy to clipboard
+            copy to clipboard
           </button>
         </div>
 
@@ -137,7 +152,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
       </Modal>
 
 
-    </div>
+    </div >
   )
 }
 
