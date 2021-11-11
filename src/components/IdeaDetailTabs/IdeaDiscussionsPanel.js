@@ -41,18 +41,20 @@ function IdeaDiscussionsPanel() {
     <Tab.Panel>
       <Button variant="outline-primary" onClick={() => setIsCreateModalOpen(true)} >Add Discussion</Button>
 
-      {ideaDiscussions.map((discussion, index) => {
+      <div className="flex flex-col gap-3 my-3">
+        {ideaDiscussions.map((discussion, index) => {
 
-        if (index === ideaDiscussions.length - 1) {
-          return (
-            <div key={discussion.id} ref={setRef}>
-              <DiscussionCard discussion={discussion} />
-            </div>
-          )
-        }
+          if (index === ideaDiscussions.length - 1) {
+            return (
+              <div key={discussion.id} ref={setRef}>
+                <DiscussionCard discussion={discussion} />
+              </div>
+            )
+          }
 
-        return <DiscussionCard discussion={discussion} key={discussion.id} />
-      })}
+          return <DiscussionCard discussion={discussion} key={discussion.id} />
+        })}
+      </div>
 
       <CreateEditDiscussionModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} ideaId={ideaId} />
     </Tab.Panel>
