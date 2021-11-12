@@ -28,7 +28,6 @@ function SavedTabPanel() {
   useUpdateEffect(() => {
 
     if (!loadingRef.current && isVisible) {
-      console.log("next fetched")
       dispatch(getNextBookmarkedIdeasAsync())
     }
 

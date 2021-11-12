@@ -78,8 +78,6 @@ function EditIdea() {
                 tags: tags.map(t => t.id),
                 milestones: milestoneValues
               }
-              console.log(idea)
-
               setIsUpdating(true)
               await dispatch(updateIdeaAsync(ideaId,idea))
               setIsUpdating(false)

@@ -58,7 +58,6 @@ function PostIdea() {
                   tags: tags.map(t => t.id),
                   milestones: milestones.values
                 }
-                console.log(idea)
 
                 await dispatch(postIdeaAsync(idea));
                 history.push(routes.FEED)

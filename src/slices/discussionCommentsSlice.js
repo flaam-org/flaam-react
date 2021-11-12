@@ -62,7 +62,6 @@ export const getDiscussionCommentsAsync = (discussionId) => async (dispatch, get
     if (res.ok) {
       const resData = await res.json()
 
-      console.log(resData)
       dispatch(setDiscussionComments(resData.results))
       dispatch(setTotalCount(resData.count))
     }
@@ -103,7 +102,6 @@ export const getNextDiscussionCommentsAsync = (discussionId) => async (dispatch,
     if (res.ok) {
       const resData = await res.json()
 
-      console.log(resData)
       dispatch(addToDiscussionComments(resData.results))
     }
 
@@ -132,7 +130,6 @@ export const postCommentAsync = (discussionId, comment) => async (dispatch, getS
 
     if (res.ok) {
 
-      console.log(resData)
       dispatch(addNewDiscussionComment(resData))
     }
 

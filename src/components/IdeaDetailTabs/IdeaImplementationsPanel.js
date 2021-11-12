@@ -34,8 +34,6 @@ function IdeaImplementationsPanel() {
 
   }, [ideaId, isVisible, dispatch])
 
-  // console.log(myImplementations)
-  console.log("isloading", isLoading)
 
 
   return (

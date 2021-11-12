@@ -31,8 +31,6 @@ function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
 
           const resData = await res.json()
 
-          console.log("results", resData);
-
           if (res.ok) {
             setResults(resData.results)
           }

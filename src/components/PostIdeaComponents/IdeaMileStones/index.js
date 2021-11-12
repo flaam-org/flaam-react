@@ -95,7 +95,6 @@ function IdeaMilestones({ milestones }) {
             if(e.key === 'Enter') {
               e.preventDefault()
               handleAdd()
-              console.log(inputRef)
 
             }
           }}

@@ -44,7 +44,6 @@ function ImplementationCard({ implementation, handleBookmarkClick }) {
     created_at,
   } = implementation
 
-  console.log("completed",completed_milestones.length )
 
   return (
     <div className="bg-blue-300/30 p-2 pt-3 rounded-lg grid grid-cols-8 gap-1 drop-shadow-xl shadow-md" >

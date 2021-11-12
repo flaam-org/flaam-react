@@ -32,8 +32,6 @@ function MyImplementationTabPanel() {
 
   }, [isVisible, dispatch])
 
-  // console.log(myImplementations)
-  console.log("isloading",isLoading)
 
 
   return (

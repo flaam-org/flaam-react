@@ -36,8 +36,6 @@ function SendResetToken() {
             }}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
-              console.log(values)
-
               setLoading(true)
               try {
 

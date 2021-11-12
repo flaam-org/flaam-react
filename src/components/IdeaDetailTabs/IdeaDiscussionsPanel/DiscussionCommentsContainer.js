@@ -31,8 +31,6 @@ function DiscussionCommentsContainer({ discussionId, onBack }) {
     }
   }, [isVisible, dispatch, discussionId])
 
-  console.log()
-
 
   return (
     <div className="flex flex-col gap-3 my-3">

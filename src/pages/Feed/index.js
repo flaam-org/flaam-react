@@ -47,11 +47,8 @@ function Feed() {
               dispatch(deleteIdeaFromBookmarkAsync(idea.id))
             }
             else {
-              console.log("clicked")
               dispatch(addIdeaToBookmarksAsync(idea.id))
             }
-
-            console.log(idea)
 
           }
 

@@ -33,7 +33,6 @@ function CreateEditDiscussionModal({ show, onClose, ideaId, editMode, discussion
         }}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          console.log(values)
           setIsLoading(true)
 
           if (editMode) {

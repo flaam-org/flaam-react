@@ -34,7 +34,6 @@ function DiscussionsContainer({ ideaId, onDiscussionSelect }) {
     }
   }, [isVisible, dispatch, ideaId])
 
-  console.log(ideaDiscussions)
 
 
   return (

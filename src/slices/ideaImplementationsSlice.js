@@ -58,7 +58,6 @@ export const getIdeaImplementationsAsync = (ideaId) => async (dispatch, getState
     if (res.ok) {
       const resData = await res.json()
 
-      console.log(resData)
       dispatch(setIdeaImplementations(resData.results))
       dispatch(setTotalCount(resData.count))
     }
@@ -99,7 +98,6 @@ export const getNextIdeaImplementationsAsync = (ideaId) => async (dispatch, getS
     if (res.ok) {
       const resData = await res.json()
 
-      console.log(resData)
       dispatch(addToIdeaImplementations(resData.results))
     }
 

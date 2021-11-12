@@ -22,7 +22,6 @@ function PostComment({ discussionId }) {
     setLoading(false)
 
   }
-  console.log(comment)
 
   return (
     <div className="flex gap-1" >

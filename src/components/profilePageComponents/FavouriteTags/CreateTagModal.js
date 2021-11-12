@@ -35,7 +35,6 @@ function CreateTagModal({ show, onClose }) {
       const resData = await res.json()
 
       if (res.ok) {
-        console.log("tag created successfully")
         console.log(resData);
       }
 

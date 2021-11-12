@@ -59,7 +59,6 @@ export const getMyImplementationsAsync = () => async (dispatch, getState) => {
     if (res.ok) {
       const resData = await res.json()
 
-      console.log(resData)
       dispatch(setMyImplementations(resData.results))
       dispatch(setTotalCount(resData.count))
     }
@@ -100,7 +99,6 @@ export const getNextMyImplementationsAsync = () => async (dispatch, getState) =>
     if (res.ok) {
       const resData = await res.json()
 
-      console.log(resData)
       dispatch(addToMyImplementations(resData.results))
     }
 

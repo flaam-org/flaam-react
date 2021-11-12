@@ -24,7 +24,6 @@ function IdeaDetailPanel() {
 
   function handleUpVoteClick() {
 
-    console.log("clicked");
 
     switch (idea.vote) {
 
@@ -32,7 +31,6 @@ function IdeaDetailPanel() {
         break;
 
       case ideaVoteStates.NEUTRAL:
-        console.log("reached");
         dispatch(setIdeaVoteAsync(idea.id, ideaVoteStates.UP, 1, 0))
         break;
 
