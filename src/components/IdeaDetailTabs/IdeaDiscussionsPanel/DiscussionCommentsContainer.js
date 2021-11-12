@@ -37,7 +37,13 @@ function DiscussionCommentsContainer({ discussionId, onBack }) {
   return (
     <div className="flex flex-col gap-3 my-3">
 
-      <Button variant="outline-primary" onClick={onBack} >BACK</Button>
+      <div className="flex">
+        <Button variant="outline-primary" className="text-sm" onClick={onBack} >BACK</Button>
+        <p className="text-center flex-1 font-bold " >
+          this is the discussion title
+        </p>
+
+      </div>
 
       <PostComment discussionId={discussionId} />
 
