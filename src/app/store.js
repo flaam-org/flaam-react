@@ -10,6 +10,7 @@ import myImplementationsReducer from '../slices/myImplementationsSlice';
 import ideaDiscussionsReducer from '../slices/ideaDiscussionsSlice';
 import implementationReducer from '../slices/implementationSlice';
 import ideaImplementationsReducer from "../slices/ideaImplementationsSlice"
+import discussionCommentsReducer from "../slices/discussionCommentsSlice"
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     myImplementations: myImplementationsReducer,
     ideaDiscussions: ideaDiscussionsReducer,
     implementation: implementationReducer,
-    ideaImplementations: ideaImplementationsReducer
+    ideaImplementations: ideaImplementationsReducer,
+    discussionComments: discussionCommentsReducer
   },
 });

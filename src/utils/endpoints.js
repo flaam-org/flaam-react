@@ -1,4 +1,4 @@
-import {host} from './constants';
+import { host } from './constants';
 
 const endpointInitial = `${host}api/v1`
 
@@ -27,7 +27,7 @@ export const endpoints = {
   VOTE_IDEA: (ideaId) => `${endpointInitial}/idea/${ideaId}/vote`,
 
   //implementations
-  GET_POST_IMPLEMENTATIONS:`${endpointInitial}/implementations`,
+  GET_POST_IMPLEMENTATIONS: `${endpointInitial}/implementations`,
   SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}`,
   VOTE_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/vote`,
   ACCEPT_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/accept`,
@@ -37,4 +37,8 @@ export const endpoints = {
   GET_POST_DISCUSSIONS: `${endpointInitial}/discussions`,
   SINGLE_DISCUSSION: (discussionId) => `${endpointInitial}/discussion/${discussionId}`,
   VOTE_SINGLE_DISCUSSION: (discussionId) => `${endpointInitial}/discussion/${discussionId}/vote`,
+
+  // discussion comments
+  GET_POST_DISCUSSION_COMMENT: `${endpointInitial}/discussion/comments`,
+  SINGLE_DISCUSSION_COMMENT: (discussionCommentId) => `${endpointInitial}/discussion/comments/${discussionCommentId}`
 }

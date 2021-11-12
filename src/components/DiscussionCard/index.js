@@ -1,7 +1,7 @@
 import React from 'react'
 import { ArrowUpIcon, ArrowDownIcon, ShareIcon, ChevronRightIcon } from "@heroicons/react/outline"
 
-function DiscussionCard({ discussion }) {
+function DiscussionCard({ discussion, onRightArrowClick }) {
 
   const {
     // id,
@@ -49,7 +49,7 @@ function DiscussionCard({ discussion }) {
       </div>
 
       <div className="col-start-12 col-end-13 flex items-center justify-center " >
-        <div className="flex items-center justify-center w-12 h-12 rounded-full hover:bg-green-200/30 cursor-pointer transition-colors duration-100ease-in-out" >
+        <div onClick={onRightArrowClick}  className="flex items-center justify-center w-12 h-12 rounded-full hover:bg-green-200/30 cursor-pointer transition-colors duration-100ease-in-out" >
           <ChevronRightIcon className="w-8 h-8 text-gray-800" />
         </div>
       </div>
