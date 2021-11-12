@@ -13,10 +13,13 @@ function PostComment({ discussionId }) {
   async function handleCommentPost() {
     setLoading(true)
 
-    await dispatch(postCommentAsync(discussionId, comment))
+    const result =  await dispatch(postCommentAsync(discussionId, comment))
+
+    if(result.status === 201) {
+      setComment('')
+    }
 
     setLoading(false)
-    // console.log('posting comment')
 
   }
   console.log(comment)
