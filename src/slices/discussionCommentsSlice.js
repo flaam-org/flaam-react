@@ -27,6 +27,10 @@ const discussionCommentsSlice = createSlice({
       state.value = [...state.value, ...action.payload]
     },
 
+    addNewDiscussionComment: (state, action) => {
+      state.value = [action.payload, ...state.value]
+    },
+
     setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
@@ -39,7 +43,7 @@ const discussionCommentsSlice = createSlice({
 })
 
 
-export const { setLoading, setDiscussionComments, addToDiscussionComments, logoutResetDiscussionComments, setTotalCount } = discussionCommentsSlice.actions
+export const { setLoading, setDiscussionComments, addToDiscussionComments, logoutResetDiscussionComments, addNewDiscussionComment, setTotalCount } = discussionCommentsSlice.actions
 
 export const getDiscussionCommentsAsync = (discussionId) => async (dispatch, getState) => {
   const queryParams = []
@@ -115,6 +119,33 @@ export const getNextDiscussionCommentsAsync = (discussionId) => async (dispatch,
     dispatch(setLoading(false))
   }
 
+}
+
+
+export const postCommentAsync = (discussionId, comment) => async (dispatch, getState) => {
+
+  try {
+
+    await dispatch(manageLoginAsync())
+    const res = await fetchWrapper.post(`${endpoints.GET_POST_DISCUSSION_COMMENT}`, { discussion: discussionId, body: comment }, true)
+    const resData = await res.json()
+
+    if (res.ok) {
+
+      console.log(resData)
+      dispatch(addNewDiscussionComment(resData))
+    }
+
+    return { status: res.status, data: resData }
+
+  } catch (err) {
+    console.log(err)
+    dispatch(enqueueNotification({
+      msg: "Failed to post comment.",
+      type: "error",
+      duration: 3000
+    }))
+  }
 }
 
 

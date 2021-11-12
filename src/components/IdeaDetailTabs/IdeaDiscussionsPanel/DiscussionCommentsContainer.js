@@ -4,6 +4,8 @@ import { selectLoading, selectDiscussionComments, getDiscussionCommentsAsync, ge
 import useIsOnScreen from "../../../hooks/useIsOnScreen"
 import useUpdateEffect from "../../../hooks/useUpdateEffect"
 import Button from "../../utilComponents/Button"
+import DiscussionCommentCard from "../../DiscussionCommentCard"
+import PostComment from "./PostComment"
 
 
 function DiscussionCommentsContainer({ discussionId, onBack }) {
@@ -37,22 +39,22 @@ function DiscussionCommentsContainer({ discussionId, onBack }) {
 
       <Button variant="outline-primary" onClick={onBack} >BACK</Button>
 
-    {discussionComments.map((comment, index) => {
+      <PostComment discussionId={discussionId} />
 
-      if (index === comment.length - 1) {
-      return (
-      <div key={comment.id} ref={setRef}>
-    {/* <DiscussionCard discussion={discussion} onRightArrowClick={() => onDiscussionSelect(discussion.id)} /> */}
-      vfdvfgv
-      </div>
-    )
-    }
+      {discussionComments.map((comment, index) => {
 
-      return <div key={comment.id} ref={setRef}>
-    {/* <DiscussionCard discussion={discussion} onRightArrowClick={() => onDiscussionSelect(discussion.id)} /> */}
-      vfdvfgv
-      </div>
-    })}
+        if (index === comment.length - 1) {
+          return (
+            <div key={comment.id} ref={setRef}>
+              <DiscussionCommentCard comment={comment} />
+              vfdvfgv
+            </div>
+          )
+        }
+
+        return <DiscussionCommentCard comment={comment} key={comment.id} />
+
+      })}
     </div>
   )
 }
