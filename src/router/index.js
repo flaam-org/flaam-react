@@ -24,7 +24,7 @@ const RoutingComp = () => {
       {/* private routes */}
       <PrivateRoute exact path={routes.FEED} component={Feed} />
       <PrivateRoute exact path={routes.POST_IDEA} component={PostIdea} />
-      <PrivateRoute exact path={routes.PROFILE} component={ProfilePage} />
+      <PrivateRoute exact path={routes.PROFILE()} component={ProfilePage} />
       <PrivateRoute exact path={routes.IDEA_DETAIL()} component={IdeaDetail} />
       <PrivateRoute exact path={routes.IDEA_EDIT()} component={EditIdea} />
       <PrivateRoute exact path={routes.IMPLEMENTATION_DETAIL()} component={ImplementationDetail} />

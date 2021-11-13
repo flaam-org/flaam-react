@@ -10,7 +10,7 @@ import FavouriteTags from '../FavouriteTags'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
 import ProfilePicture from '../ProfilePicture'
 import Button from '../../utilComponents/Button'
-
+import { useParams } from "react-router-dom"
 
 
 const validationSchema = Yup.object().shape({
@@ -20,8 +20,6 @@ const validationSchema = Yup.object().shape({
   description: Yup.string(),
   status: Yup.string()
 })
-
-
 
 function Profile() {
 
@@ -33,10 +31,13 @@ function Profile() {
 
   const [activeTags, setActiveTags] = useState(favouriteTags.map(t => ({ ...t, "active": true })))
   const [avatar, setAvatar] = useState(user.avatar)
+  const { username } = useParams()
 
-  useUpdateEffect(() => {
-    setActiveTags(favouriteTags.map(t => ({ ...t, "active": true })))
-  }, [favouriteTags])
+  const isSelf =
+
+    useUpdateEffect(() => {
+      setActiveTags(favouriteTags.map(t => ({ ...t, "active": true })))
+    }, [favouriteTags])
 
   useUpdateEffect(() => {
     setAvatar(user.avatar)

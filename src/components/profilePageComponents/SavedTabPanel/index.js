@@ -1,6 +1,7 @@
 import { Tab } from '@headlessui/react'
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
 import { getBookmarkedIdeasAsync, getNextBookmarkedIdeasAsync, selectBookmarkedIdeas, selectLoading } from '../../../slices/bookmarkedIdeasSlice'
@@ -12,6 +13,7 @@ function SavedTabPanel() {
   const isLoading = useSelector(selectLoading)
   const bookmarkedIdeas = useSelector(selectBookmarkedIdeas)
   const dispatch = useDispatch()
+  const { username } = useParams()
 
   const loadingRef = useRef()
 
@@ -33,6 +35,7 @@ function SavedTabPanel() {
 
   }, [isVisible, dispatch])
 
+  console.log(username)
 
   return (
     <Tab.Panel>
