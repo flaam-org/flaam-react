@@ -6,7 +6,7 @@ export const routes = {
   RESET_PASSWORD: "/reset-password",
   FEED: '/',
   POST_IDEA: '/post/idea',
-  PROFILE: (username) => `/profile/${username ? username : ":username"}`,
+  PROFILE: (username) => `/profile/${typeof username !== "undefined" ? username : ":username"}`,
   IDEA_DETAIL: (ideaId) => `/idea/detail/${ideaId ? ideaId : ":ideaId"}`,
   IDEA_EDIT: (ideaId) => `/idea/edit/${ideaId ? ideaId : ":ideaId"}`,
   IMPLEMENTATION_DETAIL: (implementationId) => `/implementation/detail/${implementationId ? implementationId : ":implementationId" }`,

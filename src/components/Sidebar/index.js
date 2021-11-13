@@ -31,7 +31,7 @@ function Sidebar() {
     return [
       { name: "Feed", href: routes.FEED, icon: NewspaperIcon, current: location && location.pathname === routes.FEED },
       { name: "Post ", href: routes.POST_IDEA, icon: LightBulbIcon, current: location && location.pathname === routes.POST_IDEA },
-      { name: "Profile", href: routes.PROFILE(""), icon: UserIcon, current: location && location.pathname === routes.PROFILE("") }
+      { name: "Profile", href: routes.PROFILE("s"), icon: UserIcon, current: location && location.pathname === routes.PROFILE("s") }
     ]
 
   }, [location])
@@ -72,7 +72,7 @@ function Sidebar() {
           </div>
 
           {/* profile */}
-          <NavLink to={routes.PROFILE("")}>
+          <NavLink to={routes.PROFILE("s")}>
             <div className="flex pt-5 pb-8 px-5 justify-self-end items-center shadow-2xl cursor-pointer" >
               <img className=" h-14 w-14 block mr-2 shadow-lg bg-gray-100/40 hover:shadow-xl hover:scale-105 transition-transform duration-100 ease-in-out rounded-full" src={avatar} alt="Profile pic" />
               <p className="uppercase lg:text-lg px-5">
@@ -116,7 +116,7 @@ function Sidebar() {
         </div>
 
         {/* profile */}
-        <NavLink to={routes.PROFILE("")}>
+        <NavLink to={routes.PROFILE("s")}>
           <div className="flex pt-5 pb-8 justify-self-end items-center justify-center cursor-pointer" >
             <img className="h-14 w-14 block shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-100 ease-in-out rounded-full" src={avatar} alt="Profile pic" />
           </div>
