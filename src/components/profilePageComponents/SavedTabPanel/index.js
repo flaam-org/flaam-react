@@ -20,8 +20,8 @@ function SavedTabPanel() {
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.1 })
 
   useEffect(() => {
-    dispatch(getBookmarkedIdeasAsync())
-  }, [dispatch])
+    dispatch(getBookmarkedIdeasAsync(username === "s" ? undefined : username))
+  }, [username,dispatch])
 
   useEffect(() => {
     loadingRef.current = isLoading
@@ -30,10 +30,10 @@ function SavedTabPanel() {
   useUpdateEffect(() => {
 
     if (!loadingRef.current && isVisible) {
-      dispatch(getNextBookmarkedIdeasAsync())
+      dispatch(getNextBookmarkedIdeasAsync(username === "s" ? undefined : username))
     }
 
-  }, [isVisible, dispatch])
+  }, [username, isVisible, dispatch])
 
   console.log(username)
 

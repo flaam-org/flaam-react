@@ -40,10 +40,15 @@ const bookmarkedIdeasSlice = createSlice({
 
 export const { setLoading, setBookmarkedIdeas, addToBookmarkedIdeas, logoutResetBookmarkedIdeas, setTotalCount } = bookmarkedIdeasSlice.actions
 
-export const getBookmarkedIdeasAsync = () => async (dispatch, getState) => {
+export const getBookmarkedIdeasAsync = (username) => async (dispatch, getState) => {
 
   const queryParams = []
-  queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  if (username) {
+    queryParams.push(`bookmarked_by_u=${username}`)
+  }
+  else {
+    queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  }
   queryParams.push(`offset=${0}`)
   queryParams.push(`ordering=-created_at`)
   queryParams.push(`limit=${5}`)
@@ -79,14 +84,19 @@ export const getBookmarkedIdeasAsync = () => async (dispatch, getState) => {
 
 
 
-export const getNextBookmarkedIdeasAsync = () => async (dispatch, getState) => {
+export const getNextBookmarkedIdeasAsync = (username) => async (dispatch, getState) => {
 
   const {value,totalCount} = getState().bookmarkedIdeas
 
   if(value.length === totalCount) return
 
   const queryParams = []
-  queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  if (username) {
+    queryParams.push(`bookmarked_by_u=${username}`)
+  }
+  else {
+    queryParams.push(`bookmarked_by=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  }
   queryParams.push(`offset=${value.length}`)
   queryParams.push(`ordering=-created_at`)
   queryParams.push(`limit=${10}`)
