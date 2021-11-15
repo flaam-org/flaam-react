@@ -6,19 +6,23 @@ import IdeaCard from '../../IdeaCard'
 import IdeaCardShimmer from '../../IdeaCard/IdeaCardShimmer'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
+import { useParams } from 'react-router-dom'
+
+
 function MyIdeasTabPanel() {
 
   const myIdeas = useSelector(selectMyIdeas)
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
+  const { username } = useParams()
 
   const loadingRef = useRef()
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: "0px", threshold: 0.1 })
 
   useEffect(() => {
-    dispatch(getMyIdeasAsync())
-  }, [dispatch])
+    dispatch(getMyIdeasAsync(username === "s" ? undefined : username))
+  }, [username, dispatch])
 
   useEffect(() => {
     loadingRef.current = isLoading
@@ -29,10 +33,10 @@ function MyIdeasTabPanel() {
   useUpdateEffect(() => {
 
     if (!loadingRef.current && isVisible) {
-      dispatch(getNextMyIdeasAsync())
+      dispatch(getNextMyIdeasAsync(username === "s" ? undefined : username))
     }
 
-  }, [isVisible, dispatch])
+  }, [username, isVisible, dispatch])
 
 
   return (

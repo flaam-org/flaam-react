@@ -40,12 +40,16 @@ const myIdeasSlice = createSlice({
   }
 })
 
-export const { setLoading, addToMyIdeas, logoutResetMyIdeas, setMyIdeas,setTotalCount } = myIdeasSlice.actions
+export const { setLoading, addToMyIdeas, logoutResetMyIdeas, setMyIdeas, setTotalCount } = myIdeasSlice.actions
 
-export const getMyIdeasAsync = () => async (dispatch, getState) => {
+export const getMyIdeasAsync = (username) => async (dispatch, getState) => {
 
   const queryParams = []
-  queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  if (username) {
+    queryParams.push(`owner_u=${username}`)
+  } else {
+    queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  }
   queryParams.push(`offset=${0}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${5}`)
@@ -79,14 +83,18 @@ export const getMyIdeasAsync = () => async (dispatch, getState) => {
 
 }
 
-export const getNextMyIdeasAsync = () => async (dispatch,getState) => {
+export const getNextMyIdeasAsync = (username) => async (dispatch, getState) => {
 
-  const {value,totalCount} = getState().myIdeas
+  const { value, totalCount } = getState().myIdeas
 
-  if(value.length === totalCount) return
+  if (value.length === totalCount) return
 
   const queryParams = []
-  queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  if (username) {
+    queryParams.push(`owner_u=${username}`)
+  } else {
+    queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  }
   queryParams.push(`offset=${value.length}`)
   queryParams.push('ordering=-created_at')
   queryParams.push(`limit=${10}`)
@@ -96,7 +104,7 @@ export const getNextMyIdeasAsync = () => async (dispatch,getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_POST_IDEA }?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_IDEA}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
