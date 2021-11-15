@@ -50,8 +50,8 @@ function IdeaCard({ idea, handleBookmarkClick }) {
     <div className="bg-green-200/30 p-2 pt-3 rounded-lg grid grid-cols-8 gap-1 drop-shadow-xl shadow-md" >
 
       {/* image */}
-      <div className="justify-center col-start-1 col-end-2 flex items-center" >
-        <img className=" h-14 w-14 rounded-full bg-white/80 shadow-md object-contain" src={owner_avatar} alt={owner_username} />
+      <div className="justify-center col-start-1 col-end-2 flex items-center" onClick={() => history.push(routes.PROFILE(owner_username))} >
+        <img className=" h-14 w-14 rounded-full bg-white/80 shadow-md object-contain hover:shadow-lg hover:scale-105 cursor-pointer " src={owner_avatar} alt={owner_username} />
       </div>
 
       {/* username and created at */}
