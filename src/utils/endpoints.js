@@ -15,6 +15,7 @@ export const endpoints = {
 
   //user
   USER_PROFILE: `${endpointInitial}/accounts/user/profile`,
+  PUBLIC_USER: (username) => `${endpointInitial}/accounts/user/${username}`,
 
   //tags
   FAVOURITE_TAGS: `${endpointInitial}/tags`,

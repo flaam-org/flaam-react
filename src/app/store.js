@@ -11,12 +11,14 @@ import ideaDiscussionsReducer from '../slices/ideaDiscussionsSlice';
 import implementationReducer from '../slices/implementationSlice';
 import ideaImplementationsReducer from "../slices/ideaImplementationsSlice"
 import discussionCommentsReducer from "../slices/discussionCommentsSlice"
+import publicUserReducer from '../slices/publicUser';
 
 export const store = configureStore({
   reducer: {
     notification: notificationReducer,
     auth: authReducer,
     user: userReducer,
+    publicUser: publicUserReducer,
     idea: ideaReducer,
     myIdeas: myIdeasReducer,
     bookmarkedIdeas: bookmarkedIdeasReducer,

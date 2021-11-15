@@ -5,9 +5,13 @@ import Profile from "../../components/profilePageComponents/profile"
 import TabsContainer from '../../components/profilePageComponents/TabsContainer'
 import { useDispatch } from 'react-redux'
 import { getUserAsync } from '../../slices/userSlice'
+import PublicProfile from '../../components/profilePageComponents/PublicProfile'
+import { useParams } from 'react-router-dom'
 
 function ProfilePage() {
   const dispatch = useDispatch()
+
+  const { username } = useParams()
 
   useEffect(() => {
     dispatch(getUserAsync())
@@ -18,7 +22,8 @@ function ProfilePage() {
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
       <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white py-5 px-3 snap snap-y snap-mandatory">
 
-        <Profile />
+
+        {username === "s" ? <Profile /> : <PublicProfile />}
 
         <TabsContainer />
 
