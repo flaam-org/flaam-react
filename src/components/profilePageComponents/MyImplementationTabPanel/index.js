@@ -1,6 +1,7 @@
 import { Tab } from '@headlessui/react'
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import useUpdateEffect from '../../../hooks/useUpdateEffect'
 import { getMyImplementationsAsync, getNextMyImplementationsAsync, selectLoading, selectMyImplementations } from '../../../slices/myImplementationsSlice'
@@ -12,14 +13,15 @@ function MyImplementationTabPanel() {
   const myImplementations = useSelector(selectMyImplementations)
   const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch()
+  const { username } = useParams()
 
   const loadingRef = useRef()
 
   const { setRef, isVisible } = useIsOnScreen({ root: null, rootMargin: '0px', threshold: 0.1 })
 
   useEffect(() => {
-    dispatch(getMyImplementationsAsync())
-  }, [dispatch])
+    dispatch(getMyImplementationsAsync(username === "s" ? undefined : username))
+  }, [username, dispatch])
 
   useEffect(() => {
     loadingRef.current = isLoading
@@ -27,16 +29,16 @@ function MyImplementationTabPanel() {
 
   useUpdateEffect(() => {
     if (!loadingRef.current && isVisible) {
-      dispatch(getNextMyImplementationsAsync())
+      dispatch(getNextMyImplementationsAsync(username === "s" ? undefined : username))
     }
 
-  }, [isVisible, dispatch])
+  }, [username, isVisible, dispatch])
 
 
 
   return (
     <Tab.Panel>
-            <div className="flex flex-col space-y-3 mt-2 ">
+      <div className="flex flex-col space-y-3 mt-2 ">
         {myImplementations.map((imp, index) => {
 
           if (index === myImplementations.length - 1) {
@@ -52,9 +54,9 @@ function MyImplementationTabPanel() {
 
         {isLoading && (
           <>
-          <ImplementationCardShimmer />
-          <ImplementationCardShimmer />
-          <ImplementationCardShimmer />
+            <ImplementationCardShimmer />
+            <ImplementationCardShimmer />
+            <ImplementationCardShimmer />
           </>
         )}
 

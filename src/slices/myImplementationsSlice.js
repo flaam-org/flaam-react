@@ -8,7 +8,7 @@ import { enqueueNotification } from "./globalNotificationSlice";
 
 const initialState = {
   loading: false,
-  totalCount:0,
+  totalCount: 0,
   value: []
 }
 
@@ -20,15 +20,15 @@ const myImplementationsSlice = createSlice({
       state.loading = action.payload
     },
 
-    setMyImplementations:(state,action) => {
+    setMyImplementations: (state, action) => {
       state.value = action.payload
     },
 
-    addToMyImplementations:(state,action) => {
-      state.value = [...state.value,...action.payload]
+    addToMyImplementations: (state, action) => {
+      state.value = [...state.value, ...action.payload]
     },
 
-    setTotalCount:(state,action) => {
+    setTotalCount: (state, action) => {
       state.totalCount = action.payload
     },
 
@@ -40,11 +40,16 @@ const myImplementationsSlice = createSlice({
 })
 
 
-export const { setLoading, logoutResetMyImplementations,setMyImplementations,addToMyImplementations,setTotalCount } = myImplementationsSlice.actions
+export const { setLoading, logoutResetMyImplementations, setMyImplementations, addToMyImplementations, setTotalCount } = myImplementationsSlice.actions
 
-export const getMyImplementationsAsync = () => async (dispatch, getState) => {
+export const getMyImplementationsAsync = (username) => async (dispatch, getState) => {
   const queryParams = []
-  queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  if (username) {
+    queryParams.push(`owner_u=${username}`)
+  }
+  else {
+    queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  }
   queryParams.push(`offset=${0}`)
   queryParams.push(`limit=${10}`)
   queryParams.push(`ordering=-created_at`)
@@ -54,7 +59,7 @@ export const getMyImplementationsAsync = () => async (dispatch, getState) => {
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_POST_IMPLEMENTATIONS }?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_IMPLEMENTATIONS}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
@@ -78,13 +83,18 @@ export const getMyImplementationsAsync = () => async (dispatch, getState) => {
 }
 
 
-export const getNextMyImplementationsAsync = () => async (dispatch, getState) => {
-  const {value,totalCount} = getState().myImplementations
+export const getNextMyImplementationsAsync = (username) => async (dispatch, getState) => {
+  const { value, totalCount } = getState().myImplementations
 
-  if(value.length === totalCount) return
+  if (value.length === totalCount) return
 
   const queryParams = []
-  queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  if (username) {
+    queryParams.push(`owner_u=${username}`)
+  }
+  else {
+    queryParams.push(`owner=${getTokenDetails(localStorage.getItem('access_token')).user_id}`)
+  }
   queryParams.push(`offset=${value.length}`)
   queryParams.push(`limit=${10}`)
   queryParams.push(`ordering=-created_at`)
@@ -94,7 +104,7 @@ export const getNextMyImplementationsAsync = () => async (dispatch, getState) =>
   try {
 
     await dispatch(manageLoginAsync())
-    const res = await fetchWrapper.get(`${endpoints.GET_POST_IMPLEMENTATIONS }?${queryParams.join("&")}`, true)
+    const res = await fetchWrapper.get(`${endpoints.GET_POST_IMPLEMENTATIONS}?${queryParams.join("&")}`, true)
 
     if (res.ok) {
       const resData = await res.json()
@@ -102,7 +112,7 @@ export const getNextMyImplementationsAsync = () => async (dispatch, getState) =>
       dispatch(addToMyImplementations(resData.results))
     }
 
-  }catch(err) {
+  } catch (err) {
     console.log(err)
     dispatch(enqueueNotification({
       msg: "Failed to fetch your implementations.",
@@ -110,7 +120,7 @@ export const getNextMyImplementationsAsync = () => async (dispatch, getState) =>
       duration: 3000
     }))
   }
-  finally{
+  finally {
     dispatch(setLoading(false))
   }
 
