@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import ThemeChangeFAB from '../../components/ThemeChangeFAB'
@@ -9,6 +9,8 @@ import * as Yup from "yup"
 import { InputField } from '../../components/formComponents/Input'
 import Alert from '../../components/utilComponents/Alert'
 import Button from '../../components/utilComponents/Button'
+import { useLocation } from 'react-router-dom'
+import { setIsLoggedIn } from "../../slices/authSlice"
 
 
 const validationSchema = Yup.object().shape({
@@ -23,6 +25,23 @@ function Login() {
   const loading = useSelector(selectLoading)
   const dispatch = useDispatch()
 
+  const { search } = useLocation()
+
+  const query = new URLSearchParams(search)
+  const accessToken = query.get('access')
+  const refreshToken = query.get('refresh')
+
+  useEffect(() => {
+    if (accessToken && refreshToken) {
+      localStorage.setItem('access_token', accessToken)
+      localStorage.setItem('refresh_token', refreshToken)
+
+      dispatch(setIsLoggedIn(true))
+
+    }
+
+  }, [dispatch, accessToken, refreshToken])
+
   return (
     <div className="w-full min-h-[100vh] grid grid-cols-1 lg:grid-cols-2 grid-rows-1 dark:text-white">
 
@@ -31,7 +50,7 @@ function Login() {
 
         <div className="w-10/12 md:w-8/12" >
 
-        <Alert message={loginError} onClose={() => dispatch(setLoginError(""))} />
+          <Alert message={loginError} onClose={() => dispatch(setLoginError(""))} />
 
           <h2 className="text-4xl mb-10" >
             Login

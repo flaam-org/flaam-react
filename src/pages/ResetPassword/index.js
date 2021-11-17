@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { enqueueNotification } from "../../slices/globalNotificationSlice"
 import LoadingSpinner from '../../components/utilComponents/LoadingSpinner'
 import bahutTezImg from "../../assets/bahut-tez.gif"
+// import { setIsLoggedIn } from "../../slices/authSlice"
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required("This field is Required."),
@@ -48,7 +49,7 @@ function ResetPassword() {
       if (!uidb64 || !token) return
 
       try {
-        const res = await fetchWrapper.get(endpoints.VALIDATE_RESET_TOKEN(uidb64,token))
+        const res = await fetchWrapper.get(endpoints.VALIDATE_RESET_TOKEN(uidb64, token))
 
         const resData = await res.json()
 
@@ -111,12 +112,19 @@ function ResetPassword() {
                   if (res.ok) {
                     // either set the access and refresh token and redirect to home
                     // or redirect to login page
+                    // localStorage.setItem("access_token", resData.access)
+                    // localStorage.setItem("refresh_token", resData.refresh)
+
+                    // dispatch(setIsLoggedIn(true))
 
                     dispatch(enqueueNotification({
                       msg: "Password Reset Successful.",
                       type: "success",
                       duration: 3000
                     }))
+
+                    const link = window.location.origin + `/login?access=${resData.access}&refresh=${resData.refresh}`
+                    window.open(link, "_blank")
 
                   }
 
@@ -133,13 +141,13 @@ function ResetPassword() {
             >
 
               <Form>
-                <p className="p-1 border-b mb-2  " >Rest password of <strong>{username}</strong></p>
+                <p className="p-1 border-b mb-2  " >Reset password of <strong>{username}</strong></p>
 
                 <InputField label="Password" name="password" type="password" labelClassName=" block mb-3" className="w-full p-1 mt-1" />
 
                 <InputField label="Confirm Password" name="confirmPassword" type="password" labelClassName="block mb-3" className="w-full p-1 mt-1" />
 
-                <Button className="" onClick={() => null} type="submit" >Submit</Button>
+                <Button className="" type="submit" loading={loading} disabled={loading} >Submit</Button>
 
               </Form>
 
