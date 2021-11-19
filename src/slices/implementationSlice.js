@@ -178,8 +178,6 @@ export const deleteImplementationAsync = (implementationId) => async dispatch =>
 
 export const setImplementationVoteAsync = (implementationId, vote, upDiff, downDiff) => async dispatch => {
 
-  dispatch(setLoading(true))
-
   try {
 
     await dispatch(manageLoginAsync())
@@ -196,9 +194,6 @@ export const setImplementationVoteAsync = (implementationId, vote, upDiff, downD
   }
   catch (err) {
     console.log(err)
-  }
-  finally {
-    dispatch(setLoading(false))
   }
 
 }
