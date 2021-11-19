@@ -47,7 +47,7 @@ function DiscussionCommentsContainer({ discussionId, onBack }) {
 
       {discussionComments.map((comment, index) => {
 
-        if (index === comment.length - 1) {
+        if (index === discussionComments.length - 1) {
           return (
             <div key={comment.id} ref={setRef}>
               <DiscussionCommentCard comment={comment} />
