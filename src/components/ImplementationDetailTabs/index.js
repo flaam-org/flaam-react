@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react'
 import React from 'react'
 import CustomTab from '../utilComponents/CustomTab'
 import ImplementationDetailPanel from "./ImplementationDetailPanel"
-import ImplementationCommentsPanel from './ImplementationCommentsPanel'
+import ImplementationCommentsPanel from './ImplementationCommentsPanel/index'
 
 
 

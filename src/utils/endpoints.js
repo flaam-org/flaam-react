@@ -34,6 +34,11 @@ export const endpoints = {
   ACCEPT_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/accept`,
   VALIDATE_SINGLE_IMPLEMENTATION: (id) => `${endpointInitial}/implementation/${id}/validate`,
 
+  // implementation comments
+  GET_POST_IMPLEMENTATION_COMMENTS: `${endpointInitial}/implementation/comments`,
+  SINGLE_IMPLEMENTATION_COMMENT: (id) => `${endpointInitial}/implementation/comment/${id}`,
+
+
   // discussions
   GET_POST_DISCUSSIONS: `${endpointInitial}/discussions`,
   SINGLE_DISCUSSION: (discussionId) => `${endpointInitial}/discussion/${discussionId}`,

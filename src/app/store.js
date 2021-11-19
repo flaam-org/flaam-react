@@ -12,6 +12,7 @@ import implementationReducer from '../slices/implementationSlice';
 import ideaImplementationsReducer from "../slices/ideaImplementationsSlice"
 import discussionCommentsReducer from "../slices/discussionCommentsSlice"
 import publicUserReducer from '../slices/publicUser';
+import implementationCommentsReducer from "../slices/implementationComments"
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     ideaDiscussions: ideaDiscussionsReducer,
     implementation: implementationReducer,
     ideaImplementations: ideaImplementationsReducer,
-    discussionComments: discussionCommentsReducer
+    discussionComments: discussionCommentsReducer,
+    implementationComments: implementationCommentsReducer
   },
 });
