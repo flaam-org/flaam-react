@@ -130,7 +130,7 @@ export const postCommentAsync = (implementationId, comment) => async (dispatch, 
 
     await dispatch(manageLoginAsync())
     const res = await fetchWrapper.post(
-      `${endpoints.POST_POST_IMPLEMENTATION_COMMENTS}`,
+      `${endpoints.GET_POST_IMPLEMENTATION_COMMENTS}`,
       {
         implementation: implementationId,
         body: comment
