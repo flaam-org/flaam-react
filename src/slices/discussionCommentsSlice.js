@@ -24,11 +24,12 @@ const discussionCommentsSlice = createSlice({
     },
 
     addToDiscussionComments: (state, action) => {
-      state.value = [...state.value, ...action.payload]
+      state.value = [...state.value, action.payload]
     },
 
     addNewDiscussionComment: (state, action) => {
       state.value = [action.payload, ...state.value]
+      state.totalCount += 1
     },
 
     setTotalCount: (state, action) => {
