@@ -67,7 +67,7 @@ function PublicProfile() {
                 <FieldDisplay label="Last Name" value={user.lastName} />
               </div>
 
-              <FieldDisplay label="Email" value={user.email} className="text-left" />
+              {user.email && <FieldDisplay label="Email" value={user.email} className="text-left" />}
               <FieldDisplay label="description" value={user.description} />
             </div>
           </div>
