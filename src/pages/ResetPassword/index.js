@@ -13,7 +13,14 @@ import bahutTezImg from "../../assets/bahut-tez.gif"
 // import { setIsLoggedIn } from "../../slices/authSlice"
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string().required("This field is Required."),
+  password: Yup.string()
+    .required("This field is required.")
+    .min(8, "must have at least 8 characters.")
+    .max(32, "cannot contain more than 32 characters")
+    .matches(/[A-Z]/, "must contain at least one uppercase character.")
+    .matches(/[a-z]/, "must contain at least one lowercase character.")
+    .matches(/[0-9]/, "must contain at least one number.")
+    .matches(/[^a-zA-Z0-9]/, "must contain at least one special character."),
 
   confirmPassword: Yup.string().required("This field is Required").test({
     name: "confirm",
