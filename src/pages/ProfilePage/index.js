@@ -20,7 +20,7 @@ function ProfilePage() {
   return (
 
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
-      <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white py-5 px-3 snap snap-y snap-mandatory">
+      <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white dark:bg-gray-800 py-5 mx-2 snap snap-y snap-mandatory">
 
 
         {username === "s" ? <Profile /> : <PublicProfile />}

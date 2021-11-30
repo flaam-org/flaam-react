@@ -56,7 +56,7 @@ function Profile() {
 
 
   return (
-    <div className="w-full snap-mt-2 p-2 border snap-start" >
+    <div className="w-full snap-mt-2 p-2 border dark:border-gray-100/20 snap-start dark:text-white" >
       <div className={joinClassNames(
         isEditMode ? "hidden" : "",
         "w-full py-2 px-10 flex flex-row-reverse cursor-pointer"
@@ -100,7 +100,7 @@ function Profile() {
                 labelSpanClassName=""
                 className={joinClassNames(
                   isEditMode ? "" : "border-none shadow-none",
-                  "text-black/50 font-bold w-32 text-center"
+                  "text-black/50 font-bold w-32 text-center dark:text-white/50"
                 )}
                 disabled={!isEditMode}
               />
@@ -113,11 +113,11 @@ function Profile() {
                   label="first name"
                   name="first_name"
                   type="text"
-                  labelClassName=""
+                  labelClassName="dark:text-white"
                   labelSpanClassName=""
                   className={joinClassNames(
                     isEditMode ? "" : "",
-                    "p-1 w-full"
+                    "p-1 w-full dark:text-gray-300"
                   )}
                   disabled={!isEditMode}
                   placeholder="First Name" />
@@ -126,9 +126,9 @@ function Profile() {
                   label="last name"
                   name="last_name"
                   type="text"
-                  labelClassName=" "
+                  labelClassName=" dark:text-white"
                   labelSpanClassName=""
-                  className="p-1 w-full"
+                  className="p-1 w-full dark:text-gray-300"
                   disabled={!isEditMode}
                 />
 
@@ -138,9 +138,9 @@ function Profile() {
                 label="email"
                 name="email"
                 type="email"
-                labelClassName=""
+                labelClassName="dark:text-white"
                 labelSpanClassName=""
-                className="p-1"
+                className="p-1 dark:text-gray-300"
                 disabled={!isEditMode}
                 placeholder="email"
               />
@@ -149,8 +149,8 @@ function Profile() {
               <TextAreaField
                 label="description"
                 name="description"
-                labelClassName=""
-                className="p-1 text-sm w-full h-40 resize-none"
+                labelClassName="dark:text-white"
+                className="p-1 text-sm w-full h-40 resize-none dark:text-gray-300"
                 placeholder="please describe yourself ..."
                 disabled={!isEditMode}
 
