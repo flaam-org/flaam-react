@@ -13,6 +13,7 @@ function FavouriteTags({ activeTags, setActiveTags }) {
 
 
   function handleSubmit(tag) {
+    if(!isEditMode) return;
     setActiveTags(prev => ([...prev, { ...tag, active: true }]))
   }
 
@@ -57,7 +58,7 @@ function FavouriteTags({ activeTags, setActiveTags }) {
 
         </div>
       </div>
-      <CreateTagModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}  />
+      <CreateTagModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} onSubmit={handleSubmit}  />
     </>
   )
 }

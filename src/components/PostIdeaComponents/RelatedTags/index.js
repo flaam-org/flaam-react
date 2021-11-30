@@ -48,7 +48,7 @@ function RelatedTags({ tags, setTags }) {
 
         </div>
       </div>
-      <CreateTagModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
+      <CreateTagModal show={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} onSubmit={handleSubmit} />
     </>
   )
 }

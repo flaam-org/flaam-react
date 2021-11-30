@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
 
 
 
-function CreateTagModal({ show, onClose }) {
+function CreateTagModal({ show, onClose, onSubmit }) {
 
   const [loading,setLoading] = useState(false)
 
@@ -36,6 +36,7 @@ function CreateTagModal({ show, onClose }) {
 
       if (res.ok) {
         console.log(resData);
+        onSubmit(resData)
       }
 
       onClose()
