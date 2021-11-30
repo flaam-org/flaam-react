@@ -37,7 +37,7 @@ function Feed() {
 
   return (
     <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2" >
-      <ContentContainer className="flex-col space-y-3 overflow-auto keep-scrolling py-5 mx-2 bg-white">
+      <ContentContainer className="flex-col space-y-3 overflow-auto keep-scrolling py-5 mx-2 bg-white dark:bg-gray-800">
 
         {feed.map((idea, index) => {
 

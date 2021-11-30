@@ -47,7 +47,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
 
 
   return (
-    <div className="bg-green-200/30 p-2 pt-3 rounded-lg grid grid-cols-8 gap-1 drop-shadow-xl shadow-md" >
+    <div className="bg-green-200/30 dark:text-white p-2 pt-3 rounded-lg grid grid-cols-8 gap-1 drop-shadow-xl shadow-md" >
 
       {/* image */}
       <div className="justify-center col-start-1 col-end-2 flex items-center" onClick={() => history.push(routes.PROFILE(owner_username))} >
@@ -59,7 +59,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
         <p className="">
           {owner_username}
         </p>
-        <p className="text-sm text-gray-600 flex divide-x " >
+        <p className="text-sm text-gray-600 dark:text-gray-400 flex divide-x " >
           <span className="pr-2">{formatCreatedAt(created_at)}</span>
           <span className="pl-2 flex items-center justify-between space-x-1" >
             <span>{view_count}</span>
@@ -112,11 +112,11 @@ function IdeaCard({ idea, handleBookmarkClick }) {
       {/* content */}
       <div className="col-start-2 col-end-9 pr-5 flex flex-col">
         <div className="py-1 pb-2 " >
-          <p className="bg-white/50 rounded-lg px-2 py-1" >{title}</p>
+          <p className="bg-white/50 dark:bg-white/20 rounded-lg px-2 py-1" >{title}</p>
         </div>
 
         <div className="flex-1" >
-          <p className="h-full bg-white/50 rounded-lg px-2 py-1" >{description}</p>
+          <p className="h-full bg-white/50 dark:bg-white/20 rounded-lg px-2 py-1" >{description}</p>
         </div>
       </div>
 
@@ -129,7 +129,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
       </div>
 
       <div className="col-start-8 col-end-9 flex items-center justify-center" >
-        <Link to={routes.IDEA_DETAIL(idea.id)} className="text-center text-xs py-1 px-2 border-2 border-black/50 rounded-full hover:bg-gray-500 hover:text-white transition duration-300 ease-in-out" >
+        <Link to={routes.IDEA_DETAIL(idea.id)} className="text-center text-xs py-1 px-2 border-2 border-black/50 dark:border-white/50 rounded-full hover:bg-gray-500 dark:hover:bg-green-100/10 hover:text-white transition duration-300 ease-in-out" >
 
           View Details
         </Link>
@@ -152,7 +152,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
       </Modal>
 
 
-    </div >
+    </div>
   )
 }
 
