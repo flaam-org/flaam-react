@@ -93,7 +93,7 @@ function AsyncSelect({ onSubmit, resultFilter, disabled = false }) {
 
     // search Component
     <div className="relative">
-      <input className="border-0 border-b text-xs ml-2 p-2 min-w-[100px] max-w-[200px] dark:bg-gray-700 rounded-lg " style={{ boxShadow: "none" }} type="text" value={query} onChange={(e) => setQuery(e.target.value)} disabled={disabled} />
+      <input className="border-0 border-b text-xs ml-2 p-1 min-w-[100px] max-w-[200px] dark:bg-gray-700 rounded-lg " style={{ boxShadow: "none" }} type="text" value={query} onChange={(e) => setQuery(e.target.value)} disabled={disabled} />
 
       <Transition
         show={isOpen}

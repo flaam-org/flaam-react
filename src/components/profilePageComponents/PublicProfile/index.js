@@ -40,7 +40,7 @@ function PublicProfile() {
 
 
   return (
-    <div className="w-full snap-mt-2 p-2 border snap-start" >
+    <div className="w-full snap-mt-2 p-2 border snap-start dark:text-white" >
 
       {isLoading ? (
         <div className="min-h-[400px] flex items-center justify-center">
@@ -54,7 +54,7 @@ function PublicProfile() {
 
               <ProfilePicture avatar={avatar} setAvatar={setAvatar} />
 
-              <p className="text-xl font-bold mt-3" >{user.username}</p>
+              <p className="text-xl font-bold mt-3 dark:text-white" >{user.username}</p>
 
               <FieldDisplay value={user.status} className="mt-2" />
             </div>
@@ -88,8 +88,8 @@ const FieldDisplay = ({ label, value, className }) => {
       "flex flex-col p-2",
       className
     )} >
-      <p className="text-sm font-bold" >{label}</p>
-      <p className="" >{value}</p>
+      <p className="text-sm font-bold dark:text-white" >{label}</p>
+      <p className="dark:text-gray-100 " >{value}</p>
     </div>
   )
 }
