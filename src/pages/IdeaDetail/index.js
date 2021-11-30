@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { selectLoading, selectCurrentIdea, getSingleIdeaAsync } from "../../slices/ideaSlice"
+import { selectCurrentIdea, getSingleIdeaAsync } from "../../slices/ideaSlice"
 import ContentContainer from '../../components/utilComponents/ContentContainer'
 import NewsContainer from '../../components/utilComponents/NewsContainer'
 import IdeaDetailTabs from '../../components/IdeaDetailTabs'
@@ -11,7 +11,7 @@ import IdeaDetailTabs from '../../components/IdeaDetailTabs'
 function IdeaDetail() {
 
   const { ideaId } = useParams()
-  const isLoading = useSelector(selectLoading)
+  // const isLoading = useSelector(selectLoading)
   const idea = useSelector(selectCurrentIdea)
   const dispatch = useDispatch()
 
@@ -35,9 +35,9 @@ function IdeaDetail() {
 
         </ContentContainer>
       )}
-      <NewsContainer className="mr-2 bg-white rounded-r min-h-screen" >
+      <NewsContainer className="mr-2 rounded-r min-h-screen" >
         {/* <div className="h-48 p-4 rounded shadow-lg bg-white dark:bg-gray-800"></div> */}
-        csdcnskjdn
+
       </NewsContainer>
     </div>
   )

@@ -28,8 +28,7 @@ function ImplementationDetail() {
 
       </ContentContainer>
 
-      <NewsContainer className="mr-2 bg-white rounded-r min-h-screen">
-        hngncgnsn
+      <NewsContainer className="mr-2 rounded-r min-h-screen">
       </NewsContainer>
 
     </div>
