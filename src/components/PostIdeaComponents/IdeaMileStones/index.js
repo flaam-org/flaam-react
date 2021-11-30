@@ -89,7 +89,7 @@ function IdeaMilestones({ milestones }) {
         <div className="flex px-2 my-2" >
           <input
           ref={inputRef}
-          className="flex-1 border-b border-black/50 focus:outline-none focus:border-green-600 p-2"
+          className="flex-1 border-b border-black/50 dark:bg-gray-700 rounded-sm focus:outline-none focus:border-green-600 p-2"
           placeholder="Enter Milestone"
           onKeyDown={(e) => {
             if(e.key === 'Enter') {

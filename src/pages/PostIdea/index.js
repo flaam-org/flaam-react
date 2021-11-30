@@ -42,7 +42,7 @@ function PostIdea() {
 
   return (
         <div className="flex divide-x divide-gray-50/40  overflow-hidden pt-2 px-1" >
-          <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white pt-5 pb-32 px-3 h-full">
+          <ContentContainer className="keep-scrolling overflow-auto flex-col space-y-3 bg-white dark:bg-gray-800 dark:text-white pt-5 pb-32 mx-2 h-full">
 
             <h1 className="font-bold uppercase text-2xl" >
               Create Post
@@ -67,6 +67,7 @@ function PostIdea() {
               onReset={(values) => {
                 console.warn("Form reset complete.")
                 milestones.setArr([])
+                setTags([])
               }}
               validateOnChange
 
