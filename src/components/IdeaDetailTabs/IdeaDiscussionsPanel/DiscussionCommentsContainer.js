@@ -51,7 +51,6 @@ function DiscussionCommentsContainer({ discussionId, onBack }) {
           return (
             <div key={comment.id} ref={setRef}>
               <DiscussionCommentCard comment={comment} />
-              vfdvfgv
             </div>
           )
         }
