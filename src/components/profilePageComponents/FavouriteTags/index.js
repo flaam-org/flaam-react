@@ -30,7 +30,8 @@ function FavouriteTags({ activeTags, setActiveTags }) {
       <div>
         <div className="flex justify-between px-3">
           <h2>Favourite Tags</h2>
-          <Button variant="outline-primary" type="button" className="text-sm" onClick={() => setIsCreateModalOpen(true)} > Create new </Button>
+          {isEditMode && <Button variant="outline-primary" type="button" className="text-sm" onClick={() => setIsCreateModalOpen(true)} > Create new </Button>}
+
         </div>
         <div className="flex flex-wrap">
 
