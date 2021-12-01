@@ -69,7 +69,7 @@ function ImplementationCard({ implementation, handleBookmarkClick }) {
 
       {/* idea actions(share and bookmark) */}
       <div className="col-start-8 col-end-9 flex gap-2 text-center justify-around " >
-        <button
+        {/* <button
           className="block flex-1 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed "
           disabled={currentUserId === owner}
           onClick={() => handleBookmarkClick()}
@@ -77,7 +77,7 @@ function ImplementationCard({ implementation, handleBookmarkClick }) {
           <BookmarkIcon className={joinClassNames(
             "w-5 h-5",
             bookmarked && currentUserId !== owner ? "text-yellow-300 fill-current" : "")} />
-        </button>
+        </button> */}
         <button className="flex-1 cursor-pointer" onClick={() => setIsShareModalOpen(true)} >
           <ShareIcon className="w-5 h-5" />
         </button>
