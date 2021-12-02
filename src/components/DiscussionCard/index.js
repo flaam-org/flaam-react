@@ -1,5 +1,19 @@
 import React from 'react'
 import { ArrowUpIcon, ArrowDownIcon, ShareIcon, ChevronRightIcon } from "@heroicons/react/outline"
+import { format, isToday, isYesterday } from 'date-fns'
+
+
+function formatCreatedAt(date) {
+
+  const d = new Date(date)
+
+  if (isToday(d)) return `Created Today`
+
+  if (isYesterday(d)) return `Created Yesterday`
+
+  return `${format(d, 'do MMMM, yyyy ')}`
+
+}
 
 function DiscussionCard({ discussion, onRightArrowClick }) {
 
@@ -19,7 +33,7 @@ function DiscussionCard({ discussion, onRightArrowClick }) {
 
       <div className=" col-start-1 col-end-11 pl-2 mr-2 overflow-hidden" >
         <p className="text-xs text-green-600/50 font-bold" >
-          {owner_username} started this discussion on {created_at}
+          {owner_username} started this discussion on {formatCreatedAt(created_at)}
         </p>
       </div>
 
