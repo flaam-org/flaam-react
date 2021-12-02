@@ -30,6 +30,21 @@ const discussionSlice = createSlice({
         addNewDiscussion: (state, action) => {
             state.value = [action.payload, ...state.value]
         },
+
+        setDiscussionVote: (state, action) => {
+            const { discussionId, vote, upvote_diff, downvote_diff } = action.payload;
+
+            state.value = state.value.map(discussion => {
+                if (discussion.id === discussionId) {
+                    discussion.vote = vote;
+                    discussion.upvote_count += upvote_diff;
+                    discussion.downvote_count += downvote_diff;
+                }
+                return discussion;
+            });
+
+        },
+
         logoutResetIdeaDiscussions: (state, action) => {
             state.loading = false;
             state.totalCount = 0;
@@ -38,7 +53,7 @@ const discussionSlice = createSlice({
     }
 })
 
-export const { setLoading, setIdeaDiscussions, addToIdeaDiscussions, addNewDiscussion, setTotalCount, logoutResetIdeaDiscussions } = discussionSlice.actions;
+export const { setLoading, setIdeaDiscussions, addToIdeaDiscussions, addNewDiscussion, setTotalCount, logoutResetIdeaDiscussions, setDiscussionVote } = discussionSlice.actions;
 
 
 export const getIdeaDiscussions = (ideaId) => async (dispatch, getState) => {
@@ -146,6 +161,31 @@ export const postDiscussionAsync = (data) => async (dispatch, getState) => {
         }))
     }
 }
+
+export const setDiscussionVoteAsync = (discussionId, vote, upDiff, downDiff) => async (dispatch) => {
+
+    try {
+        await dispatch(manageLoginAsync())
+        const res = await fetchWrapper.post(`${endpoints.VOTE_SINGLE_DISCUSSION(discussionId)}?value=${vote}`, {}, true)
+
+        if (res.ok) {
+            dispatch(setDiscussionVote({ discussionId, vote, upvote_diff: upDiff, downvote_diff: downDiff }))
+        }
+
+        return { status: res.status }
+
+    }
+    catch (err) {
+        console.log(err);
+        dispatch(enqueueNotification({
+            msg: "Failed to vote",
+            type: "error",
+            duration: 3000
+        }))
+    }
+}
+
+
 
 
 export const selectIdeaDiscussions = (state) => state.ideaDiscussions.value;

@@ -1,32 +1,49 @@
 import React from 'react'
 import { ArrowUpIcon, ArrowDownIcon, ShareIcon, ChevronRightIcon } from "@heroicons/react/outline"
-import { format, isToday, isYesterday } from 'date-fns'
+import { voteStates } from '../../utils/constants'
+import { formatCreatedAt, joinClassNames } from '../../utils/functions'
+import { useDispatch } from 'react-redux'
+import { setDiscussionVoteAsync } from "../../slices/ideaDiscussionsSlice"
 
-
-function formatCreatedAt(date) {
-
-  const d = new Date(date)
-
-  if (isToday(d)) return `Created Today`
-
-  if (isYesterday(d)) return `Created Yesterday`
-
-  return `${format(d, 'do MMMM, yyyy ')}`
-
-}
 
 function DiscussionCard({ discussion, onRightArrowClick }) {
 
   const {
-    // id,
+    id,
     title,
     body,
     vote,
-    // upvote_count,
-    // downvote_count,
+    upvote_count,
+    downvote_count,
     created_at,
     owner_username,
   } = discussion
+
+  const dispatch = useDispatch()
+
+  function handleUpVoteClick() {
+    switch (vote) {
+      case voteStates.UP: dispatch(setDiscussionVoteAsync(id, voteStates.NEUTRAL, -1, 0));
+        break;
+      case voteStates.NEUTRAL: dispatch(setDiscussionVoteAsync(id, voteStates.UP, 1, 0));
+        break;
+      case voteStates.DOWN: dispatch(setDiscussionVoteAsync(id, voteStates.UP, 1, -1));
+        break;
+      default: break;
+    }
+  }
+
+  function handleDownVoteClick() {
+    switch (vote) {
+      case voteStates.UP: dispatch(setDiscussionVoteAsync(id, voteStates.DOWN, -1, 1));
+        break;
+      case voteStates.NEUTRAL: dispatch(setDiscussionVoteAsync(id, voteStates.DOWN, 0, 1));
+        break;
+      case voteStates.DOWN: dispatch(setDiscussionVoteAsync(id, voteStates.NEUTRAL, 0, -1));
+        break;
+      default: break;
+    }
+  }
 
   return (
     <div className="p-2 pt-1 rounded-lg grid grid-cols-12 gap-1 drop-shadow-xl shadow-md border border-green-500 " >
@@ -48,9 +65,16 @@ function DiscussionCard({ discussion, onRightArrowClick }) {
 
 
       <div className="col-start-1 col-end-2 flex flex-col gap-1 justify-center items-center text-center" >
-        <ArrowUpIcon className="w-6 h-6" />
-        <p>{vote}</p>
-        <ArrowDownIcon className="w-6 h-6" />
+        <ArrowUpIcon
+          className={joinClassNames("w-6 h-6", vote === voteStates.UP ? "text-blue-600" : "text-gray-500")}
+          onClick={() => handleUpVoteClick()}
+
+        />
+        <p>{Number(upvote_count) - Number(downvote_count)}</p>
+        <ArrowDownIcon
+          className={joinClassNames("w-6 h-6", vote === voteStates.DOWN ? "text-blue-600" : "text-gray-500")}
+          onClick={() => handleDownVoteClick()}
+        />
       </div>
 
       <div className="col-start-2 col-end-12 flex flex-col gap-2" >
@@ -63,7 +87,7 @@ function DiscussionCard({ discussion, onRightArrowClick }) {
       </div>
 
       <div className="col-start-12 col-end-13 flex items-center justify-center " >
-        <div onClick={onRightArrowClick}  className="flex items-center justify-center w-12 h-12 rounded-full hover:bg-green-200/30 cursor-pointer transition-colors duration-100ease-in-out" >
+        <div onClick={onRightArrowClick} className="flex items-center justify-center w-12 h-12 rounded-full hover:bg-green-200/30 cursor-pointer transition-colors duration-100ease-in-out" >
           <ChevronRightIcon className="w-8 h-8 text-gray-800" />
         </div>
       </div>

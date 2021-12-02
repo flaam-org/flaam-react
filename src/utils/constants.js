@@ -12,3 +12,9 @@ export const timeInMilliseconds = {
   MINUTE: 60 * 1000,
   DAY: 24 * 60 * 60 * 1000
 }
+
+export const voteStates ={
+  UP: 1,
+  NEUTRAL: 0,
+  DOWN: -1
+}
