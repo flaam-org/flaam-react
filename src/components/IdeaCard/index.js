@@ -2,25 +2,13 @@ import React, { useState } from 'react'
 import Tag from '../utilComponents/Tag'
 import { BookmarkIcon, ShareIcon, PencilIcon } from "@heroicons/react/outline"
 import { EyeIcon } from "@heroicons/react/solid"
-import { format, isToday, isYesterday } from 'date-fns'
 import { joinClassNames } from '../../utils/functions'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../slices/userSlice'
 import { Link, useHistory } from 'react-router-dom'
 import { routes } from '../../utils/routeStrings'
 import Modal from '../utilComponents/Modal'
-
-function formatCreatedAt(date) {
-
-  const d = new Date(date)
-
-  if (isToday(d)) return `Created Today`
-
-  if (isYesterday(d)) return `Created Yesterday`
-
-  return `Created on ${format(d, 'do MMMM, yyyy ')}`
-
-}
+import {formatCreatedAt} from '../../utils/functions'
 
 function IdeaCard({ idea, handleBookmarkClick }) {
 
@@ -60,7 +48,7 @@ function IdeaCard({ idea, handleBookmarkClick }) {
           {owner_username}
         </p>
         <p className="text-sm text-gray-600 dark:text-gray-400 flex divide-x " >
-          <span className="pr-2">{formatCreatedAt(created_at)}</span>
+          <span className="pr-2">{`Created on ${formatCreatedAt(created_at)}`}</span>
           <span className="pl-2 flex items-center justify-between space-x-1" >
             <span>{view_count}</span>
             <EyeIcon className="w-3 h-3" />

@@ -1,3 +1,18 @@
+import { format, isToday, isYesterday } from 'date-fns'
+
+export function formatCreatedAt(date) {
+
+  const d = new Date(date)
+
+  if (isToday(d)) return `Created Today`
+
+  if (isYesterday(d)) return `Created Yesterday`
+
+  return `${format(d, 'do MMMM, yyyy ')}`
+
+}
+
+
 export function joinClassNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
