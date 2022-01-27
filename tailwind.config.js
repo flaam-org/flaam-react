@@ -4,6 +4,7 @@ module.exports = {
     "./public/index.html"
   ],
   safelist: [],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
